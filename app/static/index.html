@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Central Líder - Gestão de Pedidos e Entregas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Identidade Lider — bege claro, madeira e cobre (tema claro) */
+    --bg: #f7f3ec;
+    --bg-elevated: #f0ebe2;
+    --bg-card: #ffffff;
+    --bg-card-hover: #faf7f2;
+    --border: #e0d6c8;
+    --border-light: #cfc3b0;
+    --text: #2c241c;
+    --text-secondary: #6b5e4e;
+    --text-muted: #9a8b78;
+    --primary: #bb6237;
+    --primary-hover: #a3522c;
+    --primary-light: rgba(187, 98, 55, 0.12);
+    --success: #3d8b4f;
+    --success-light: rgba(61, 139, 79, 0.12);
+    --warning: #c4921a;
+    --warning-light: rgba(196, 146, 26, 0.14);
+    --danger: #c04538;
+    --danger-light: rgba(192, 69, 56, 0.12);
+    --purple: #8b6b4a;
+    --purple-light: rgba(139, 107, 74, 0.14);
+    --cyan: #4a7d6a;
+    --cyan-light: rgba(74, 125, 106, 0.12);
+    --wood: #a67c52;
+    --radius-sm: 6px;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --shadow: 0 2px 12px -2px rgba(80, 60, 40, 0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); height:100vh; overflow:hidden; font-size:14px; }
+  
+  .app { display:flex; height:100vh; }
+  /* Menu e header — textura amadeirada mais perceptível */
+  .sidebar {
+    width:270px;
+    background-color: #e8dfd2;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 4px,
+        rgba(120, 90, 55, 0.055) 4px,
+        rgba(120, 90, 55, 0.055) 5px,
+        transparent 5px,
+        transparent 11px,
+        rgba(100, 75, 45, 0.04) 11px,
+        rgba(100, 75, 45, 0.04) 12px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(139, 107, 74, 0.035) 18px,
+        rgba(139, 107, 74, 0.035) 20px
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 250, 240, 0.25) 0%,
+        transparent 40%,
+        rgba(120, 90, 55, 0.06) 100%
+      ),
+      linear-gradient(180deg, #ebe3d6 0%, #e2d8c8 50%, #dcd2c0 100%);
+    border-right:1px solid #c9bba8;
+    display:flex;
+    flex-direction:column;
+    z-index:10;
+  }
+  .logo { display:flex; align-items:center; gap:12px; padding:20px 24px; border-bottom:1px solid #c9bba8; height:68px; }
+  .logo-icon { width:38px; height:38px; background:linear-gradient(145deg, #d4784a 0%, #bb6237 45%, #8b4a28 100%); border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; color:#fff; box-shadow:0 2px 12px rgba(187,98,55,0.45); letter-spacing:-0.5px; }
+  .logo-text { font-weight:700; font-size:17px; letter-spacing:-0.3px; color:#2c241c; }
+  .logo-text span { color:var(--primary); }
+  
+  .nav { flex:1; padding:16px 12px; overflow-y:auto; }
+  .nav-section-title { font-size:11px; font-weight:700; color:#8a7b6c; text-transform:uppercase; letter-spacing:0.8px; padding:8px 12px 6px; }
+  .nav-item { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:8px; color:#5c4f40; font-size:13.5px; font-weight:500; cursor:pointer; transition:all .15s ease; margin-bottom:4px; }
+  .nav-item:hover { background:rgba(187,98,55,0.1); color:#2c241c; }
+  .nav-item.active { background:rgba(187,98,55,0.16); color:var(--primary); font-weight:600; }
+  .badge { border-radius:999px; font-size:11px; font-weight:700; padding:2px 8px; line-height:1.4; }
+  .badge.zero { display:none; }
+  .badge-warning { background:var(--warning); color:#111; }
+  .badge-primary { background:var(--primary); color:#fff; }
+  
+  .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .header {
+    height:68px;
+    background-color: #e8dfd2;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 4px,
+        rgba(120, 90, 55, 0.05) 4px,
+        rgba(120, 90, 55, 0.05) 5px,
+        transparent 5px,
+        transparent 11px,
+        rgba(100, 75, 45, 0.035) 11px,
+        rgba(100, 75, 45, 0.035) 12px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 18px,
+        rgba(139, 107, 74, 0.03) 18px,
+        rgba(139, 107, 74, 0.03) 20px
+      ),
+      linear-gradient(180deg, #ebe3d6 0%, #e4dacc 100%);
+    border-bottom:1px solid #c9bba8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 32px;
+  }
+  .page-title { font-size:19px; font-weight:700; letter-spacing:-0.4px; display:flex; align-items:center; gap:10px; color:#2c241c; }
+  .content { flex:1; overflow-y:auto; padding:28px 32px; }
+
+  /* Buttons */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:9px 16px; border-radius:8px; font-size:13.5px; font-weight:600; cursor:pointer; border:none; transition:all .15s ease; font-family:inherit; }
+  .btn:disabled { opacity:.5; cursor:not-allowed; }
+  .btn-primary { background:var(--primary); color:#fff; }
+  .btn-primary:hover:not(:disabled) { background:var(--primary-hover); transform:translateY(-1px); }
+  .btn-success { background:var(--success); color:#fff; }
+  .btn-success:hover:not(:disabled) { background:#059669; }
+  .btn-ghost { background:transparent; color:var(--text-secondary); border:1px solid var(--border); }
+  .btn-ghost:hover:not(:disabled) { background:rgba(187,98,55,0.08); color:var(--text); border-color:var(--border-light); }
+  .btn-danger-ghost { background:transparent; color:var(--danger); border:1px solid rgba(239,68,68,0.3); }
+  .btn-danger-ghost:hover:not(:disabled) { background:var(--danger-light); border-color:var(--danger); }
+  .resultado-box { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:10px; padding:10px 12px; border:1px dashed var(--border); border-radius:8px; background:var(--bg); }
+  .resultado-box label { font-size:13px; font-weight:600; color:var(--text-secondary); white-space:nowrap; }
+  .resultado-box select { width:auto; min-width:230px; }
+  .resultado-box input[type=date] { width:auto; }
+  .resultado-box small { color:var(--text-muted); font-size:12px; }
+  .btn-sm { padding:6px 12px; font-size:12.5px; border-radius:6px; }
+
+  /* Cards & Containers */
+  .card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:20px; transition:border-color .15s ease; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
+  .card-hover:hover { border-color:var(--border-light); }
+  
+  /* Pipeline Funnel */
+  .pipeline-container { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
+  .pipeline-step { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; position:relative; cursor:pointer; transition:all .2s ease; }
+  .pipeline-step:hover { transform:translateY(-2px); border-color:var(--primary); box-shadow:0 4px 16px rgba(0,0,0,0.3); }
+  .pipeline-step.active { border-color:var(--primary); background:rgba(187,98,55,0.08); }
+  .pipeline-step-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .pipeline-step-num { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
+  .pipeline-step-icon { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .pipeline-step-val { font-size:26px; font-weight:800; color:var(--text); line-height:1; margin-bottom:4px; }
+  .pipeline-step-label { font-size:12.5px; color:var(--text-secondary); font-weight:500; }
+
+  /* KPI Grid */
+  .kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:24px; }
+  .kpi-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; cursor:pointer; transition:all .15s ease; }
+  .kpi-card:hover { border-color:var(--border-light); transform:translateY(-2px); }
+  .kpi-label { font-size:12.5px; color:var(--text-secondary); margin-bottom:8px; font-weight:500; display:flex; align-items:center; justify-content:space-between; }
+  .kpi-value { font-size:28px; font-weight:800; letter-spacing:-0.5px; }
+  .kpi-sub { font-size:11.5px; color:var(--text-muted); margin-top:6px; }
+
+  /* Tags */
+  .tag { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:600; background:var(--primary-light); color:var(--primary); }
+  .tag.PENDENTE_DESTINO { background:var(--warning-light); color:var(--warning); }
+  .tag.SEM_TELEFONE { background:var(--danger-light); color:var(--danger); }
+  .tag.RESOLVIDO { background:var(--success-light); color:var(--success); }
+  .tag.INDIVIDUAL { background:var(--purple-light); color:var(--wood); }
+  .tag.PENDENTE_REVISAO { background:var(--warning-light); color:var(--warning); }
+  .tag.AGUARDANDO { background:var(--primary-light); color:var(--primary); }
+  .tag.DATA_ENVIADA { background:var(--cyan-light); color:var(--cyan); }
+  .tag.CONCLUIDO { background:var(--success-light); color:var(--success); }
+  .tag.ESCALADO, .tag.TRANSFERENCIA_MANUAL { background:var(--danger-light); color:var(--danger); }
+  .tag.AGUARDANDO_DECISAO_RESPONSAVEL { background:var(--cyan-light); color:var(--cyan); }
+  .tag.TRANSFERIDO { background:var(--purple-light); color:var(--wood); }
+  .tag.BLOQUEADO,.tag.CANCELADO,.tag.PENDENCIA_BOLETO,.tag.PEDIDO_CANCELADO { background:rgba(239,68,68,0.12); color:#f87171; }
+  .tag.PEDIDO_ENTREGUE { background:var(--success-light); color:var(--success); }
+  .tag.SEM_RETORNO_CLIENTE,.tag.EM_PROCESSAMENTO { background:var(--bg-elevated); color:var(--text-secondary); }
+  .tag.tag-planejados { background:rgba(139,107,74,0.2); color:var(--wood); }
+  .tag.tag-soltos { background:rgba(187,98,55,0.15); color:#d4784a; }
+
+  /* Tables */
+  table { width:100%; border-collapse:collapse; text-align:left; }
+  th, td { padding:13px 16px; border-bottom:1px solid var(--border); font-size:13.5px; vertical-align:middle; }
+  th { color:var(--text-muted); font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; background:rgba(187,98,55,0.06); }
+  tbody tr { transition:background .15s ease; }
+  tbody tr:hover { background:rgba(187,98,55,0.04); }
+  .vazio { text-align:center; color:var(--text-muted); padding:36px; font-size:14px; }
+
+  /* Forms & Inputs */
+  label { display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--text-secondary); font-weight:600; }
+  input, select, textarea { padding:10px 14px; border-radius:8px; background:var(--bg); border:1px solid var(--border); color:var(--text); font-size:13.5px; font-family:inherit; transition:border-color .15s ease; width:100%; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--primary); }
+  input.alerta-atencao { border-color:var(--warning); background:rgba(245,158,11,0.04); }
+
+  /* Pendências Styling */
+  .pend-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; margin-bottom:18px; transition:border-color .2s; }
+  .pend-card:hover { border-color:var(--border-light); }
+  .pend-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+  .pend-titulo-bloco { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .pend-id { font-size:17px; font-weight:700; color:var(--text); }
+  .pend-cliente { font-size:15px; font-weight:600; color:var(--text); }
+  
+  .info-sections-grid { display:grid; grid-template-columns:1.2fr 1.2fr; gap:16px; margin-bottom:18px; }
+  .info-box { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .info-box-title { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .info-row { display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px; line-height:1.5; }
+  .info-row:last-child { margin-bottom:0; }
+  .info-k { color:var(--text-secondary); font-weight:500; }
+  .info-v { color:var(--text); font-weight:600; text-align:right; }
+
+  .pend-form-grid { display:grid; grid-template-columns:1.5fr 1.5fr 1fr 1.5fr 1.5fr; gap:12px; margin-bottom:18px; background:var(--bg-elevated); padding:16px; border-radius:10px; border:1px solid var(--border); }
+  .acoes { display:flex; gap:10px; align-items:center; }
+  .msg { margin-top:10px; font-size:13px; font-weight:500; }
+  .ok { color:var(--success); }
+  .err { color:var(--danger); }
+
+  /* Review Cards */
+  .card-rev { transition:all .2s ease; border-left:4px solid transparent; }
+  .card-rev.selecionado { border-color:var(--primary); background:rgba(187,98,55,0.06); border-left-color:var(--primary); }
+  .msgbox { white-space:pre-wrap; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:16px; font-size:13.5px; margin:14px 0; line-height:1.6; color:var(--text); font-family:inherit; }
+
+  /* Feed Tabs */
+  .tab-group { display:flex; gap:6px; border-bottom:1px solid var(--border); margin-bottom:18px; overflow-x:auto; }
+  .tab-item { padding:10px 16px; font-size:13px; font-weight:600; color:var(--text-secondary); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s ease; white-space:nowrap; }
+  .tab-item:hover { color:var(--text); }
+  .tab-item.active { color:var(--primary); border-bottom-color:var(--primary); }
+
+  .hidden { display:none !important; }
+  .resp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
+
+  /* Disparo do fluxo: barra de progresso + logs */
+  .fx-head { display:flex; justify-content:space-between; gap:12px; font-size:13.5px; font-weight:600; margin-bottom:8px; }
+  .fx-pct { color:var(--primary); font-variant-numeric:tabular-nums; }
+  .fx-track { height:12px; background:var(--bg-elevated); border:1px solid var(--border); border-radius:99px; overflow:hidden; }
+  .fx-fill { height:100%; width:0; background:linear-gradient(90deg,var(--primary),#d4784a); border-radius:99px; transition:width .6s ease; position:relative; overflow:hidden; }
+  .fx-fill.run::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent); animation:fxshine 1.4s linear infinite; }
+  .fx-fill.ok { background:var(--success); }
+  .fx-fill.err { background:var(--danger); }
+  @keyframes fxshine { from { transform:translateX(-100%); } to { transform:translateX(100%); } }
+  @keyframes fxspin { to { transform:rotate(360deg); } }
+  .fx-log { margin-top:16px; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:12px 14px; max-height:240px; overflow-y:auto; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; line-height:1.9; }
+  .fx-linha { display:flex; gap:10px; align-items:baseline; color:var(--text-secondary); }
+  .fx-linha .fx-hora { color:var(--text-muted); flex-shrink:0; }
+  .fx-linha .fx-ico { width:14px; flex-shrink:0; text-align:center; }
+  .fx-linha.atual { color:var(--text); }
+  .fx-linha.ok { color:var(--success); }
+  .fx-linha.erro { color:var(--danger); font-weight:600; }
+  .fx-spin { display:inline-block; width:10px; height:10px; border:2px solid var(--primary); border-right-color:transparent; border-radius:50%; animation:fxspin .8s linear infinite; }
+  .fx-erro { margin-top:14px; padding:12px 14px; background:var(--danger-light); border:1px solid var(--danger); border-radius:10px; color:var(--danger); font-size:13px; line-height:1.55; word-break:break-word; }
+  .fx-erro strong { display:block; margin-bottom:2px; }
+
+  /* Chat IA x consultor */
+  .tag.AGUARDANDO_CONSULTOR { background:var(--cyan-light); color:var(--cyan); }
+  .tag.AGUARDANDO_CHAMADO_LIVRE { background:var(--warning-light); color:var(--warning); }
+  .tag.PENDENTE_RESPOSTA_TARDIA { background:var(--purple-light); color:var(--wood); }
+  .chat-box { display:flex; flex-direction:column; gap:8px; background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:12px; max-height:320px; overflow-y:auto; margin:12px 0; }
+  .msg { max-width:82%; padding:8px 12px; border-radius:10px; font-size:13px; line-height:1.5; white-space:pre-wrap; word-break:break-word; }
+  .msg small { display:block; font-size:10.5px; opacity:.7; margin-bottom:2px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
+  .msg.cliente { align-self:flex-start; background:var(--bg-card-hover); border:1px solid var(--border-light); }
+  .msg.ia { align-self:flex-start; background:var(--purple-light); border:1px solid rgba(139,107,74,.4); }
+  .msg.consultor { align-self:flex-end; background:var(--primary-light); border:1px solid rgba(187,98,55,.4); }
+  /* v18 — recomeçar pedido */
+  #modal-recomeco { position:fixed; inset:0; background:rgba(15,23,42,.55); display:flex; align-items:center; justify-content:center; z-index:9999; }
+  #modal-recomeco.hidden { display:none; }
+  #modal-recomeco .caixa { background:var(--card, #fff); color:inherit; border-radius:12px; padding:22px; width:min(520px, 94vw); box-shadow:0 20px 50px rgba(0,0,0,.35); }
+  #modal-recomeco label { display:block; font-size:13px; font-weight:600; margin:12px 0 4px; }
+  #modal-recomeco input[type=text], #modal-recomeco textarea { width:100%; box-sizing:border-box; font-family:inherit; font-size:14px; padding:8px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">L</div>
+      <div class="logo-text">Central <span>Líder</span></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-section-title">Principal</div>
+      <div class="nav-item active" onclick="mostrarTela('dashboard', this)">
+        <span>📊 Dashboard Geral</span>
+      </div>
+      <div class="nav-item" onclick="mostrarTela('pendencias', this)">
+        <span>⚠️ Pendências</span>
+        <span id="badge-pend" class="badge badge-warning zero">0</span>
+      </div>
+      <div class="nav-item" onclick="mostrarTela('revisao', this)">
+        <span>📋 Revisão de Envio</span>
+        <span id="badge-rev" class="badge badge-primary zero">0</span>
+      </div>
+      <div class="nav-item" onclick="mostrarTela('tardias', this)">
+        <span>⏰ Respostas tardias</span>
+        <span id="badge-tardia" class="badge badge-warning zero">0</span>
+      </div>
+      <div class="nav-item" onclick="mostrarTela('consultas', this)">
+        <span>💬 Consultas da IA</span>
+        <span id="badge-cons" class="badge badge-warning zero">0</span>
+      </div>
+      <div class="nav-item" onclick="mostrarTela('responsaveis', this)">
+        <span>👥 Por Responsável</span>
+      </div>
+      
+      <div class="nav-section-title" style="margin-top:14px;">Automação</div>
+      <div class="nav-item" onclick="mostrarTela('disparar', this)">
+        <span>🚀 Disparar Fluxo</span>
+      </div>
+      <div class="nav-item" onclick="mostrarTela('treinar', this)">
+        <span>🧠 Treinar IA</span>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <h1 class="page-title" id="titulo">Dashboard Geral</h1>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <span id="ultima-atualizacao" style="font-size:12px;color:var(--text-muted);">Atualizado agora</span>
+        <button class="btn btn-ghost" onclick="carregar()">🔄 Atualizar</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- TELA 1: DASHBOARD -->
+      <div id="tela-dashboard">
+        <!-- Funil do Fluxo de Pedidos -->
+        <div style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+          <h3 style="font-size:14px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;">
+            Funil Operacional do Fluxo
+          </h3>
+          <span style="font-size:12px;color:var(--text-muted);">Etapas desde a leitura do pedido até a confirmação</span>
+        </div>
+
+        <div class="pipeline-container">
+          <div class="pipeline-step" onclick="mostrarTela('pendencias', document.querySelectorAll('.nav-item')[1])">
+            <div class="pipeline-step-header">
+              <span class="pipeline-step-num">Etapa 1</span>
+              <div class="pipeline-step-icon" style="background:var(--warning-light);color:var(--warning);">⚠️</div>
+            </div>
+            <div class="pipeline-step-val" id="pipe-pend">0</div>
+            <div class="pipeline-step-label">Preparação / Pendências</div>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;" id="pipe-pend-detalhe">Destino / Telefone</div>
+          </div>
+
+          <div class="pipeline-step" onclick="mostrarTela('revisao', document.querySelectorAll('.nav-item')[2])">
+            <div class="pipeline-step-header">
+              <span class="pipeline-step-num">Etapa 2</span>
+              <div class="pipeline-step-icon" style="background:var(--primary-light);color:var(--primary);">📋</div>
+            </div>
+            <div class="pipeline-step-val" id="pipe-rev">0</div>
+            <div class="pipeline-step-label">Aguardando Envio</div>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;" id="pipe-rev-detalhe">Revisão / chamado ocupado</div>
+          </div>
+
+          <div class="pipeline-step" onclick="filtrarCardDash('WHATSAPP')">
+            <div class="pipeline-step-header">
+              <span class="pipeline-step-num">Etapa 3</span>
+              <div class="pipeline-step-icon" style="background:var(--cyan-light);color:var(--cyan);">💬</div>
+            </div>
+            <div class="pipeline-step-val" id="pipe-aguardando">0</div>
+            <div class="pipeline-step-label">Aguardando Cliente</div>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;" id="pipe-aguardando-detalhe">Template enviado, sem resposta final</div>
+          </div>
+
+          <div class="pipeline-step" onclick="filtrarCardDash('CONCLUIDOS')">
+            <div class="pipeline-step-header">
+              <span class="pipeline-step-num">Etapa 4</span>
+              <div class="pipeline-step-icon" style="background:var(--success-light);color:var(--success);">✅</div>
+            </div>
+            <div class="pipeline-step-val" id="pipe-finalizados">0</div>
+            <div class="pipeline-step-label">Respostas Concluídas</div>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;" id="pipe-final-detalhe">Cliente confirmou / resolvido</div>
+          </div>
+        </div>
+
+        <!-- Conciliação: os números do painel somam o total de pedidos -->
+        <div id="conciliacao" style="margin:-4px 0 18px;padding:10px 14px;border:1px dashed var(--border);border-radius:8px;background:var(--bg);font-size:12.5px;line-height:1.7;color:var(--text-secondary);">Carregando...</div>
+
+        <!-- KPI Grid: resultados e exceções (o funil acima mostra onde os pedidos estão) -->
+        <div class="kpi-grid">
+          <div class="kpi-card" onclick="filtrarCardDash('FORA')" title="Pedidos que não receberam o template: 2 dias sem retorno, já entregue, cancelado, boleto, bloqueado, envio recusado, tratar individual ou sem retorno por chamado ocupado">
+            <div class="kpi-label">Saíram antes do envio</div>
+            <div class="kpi-value" id="kpi-fora" style="color:var(--text);">0</div>
+            <div class="kpi-sub" id="kpi-fora-sub">Nenhum pedido fora do envio</div>
+          </div>
+
+          <div class="kpi-card" onclick="filtrarCardDash('ENVIADOS')" title="Pedidos finalizados pela IA (cliente aceitou ou não a data, ou dúvida resolvida com o consultor pelo chat) ÷ pedidos que receberam o template. Transferidos para tratamento manual não contam.">
+            <div class="kpi-label">Taxa de confirmação</div>
+            <div class="kpi-value" id="kpi-taxa" style="color:var(--success);">—</div>
+            <div class="kpi-sub" id="kpi-taxa-sub">Nenhum template enviado</div>
+          </div>
+
+          <div class="kpi-card" onclick="filtrarCardDash('SEM_RETORNO')" title="Chamados encerrados pelo agendamento sem resposta do cliente">
+            <div class="kpi-label">Sem retorno do cliente</div>
+            <div class="kpi-value" id="kpi-semret" style="color:var(--text-secondary);">0</div>
+            <div class="kpi-sub" id="kpi-semret-sub">Chamado encerrado sem resposta</div>
+          </div>
+
+          <div class="kpi-card" onclick="filtrarCardDash('HUMANO')" title="Depois do envio do template: escalados, transferidos e consultas abertas ao consultor">
+            <div class="kpi-label">Precisam de humano</div>
+            <div class="kpi-value" id="kpi-humano" style="color:var(--danger);">0</div>
+            <div class="kpi-sub" id="kpi-humano-sub">Nenhum caso com atendente</div>
+          </div>
+
+          <div class="kpi-card" style="cursor:default;" title="Mediana do tempo entre o envio do template e a última resposta registrada">
+            <div class="kpi-label">Tempo de resposta</div>
+            <div class="kpi-value" id="kpi-tempo" style="color:var(--cyan);">—</div>
+            <div class="kpi-sub" id="kpi-tempo-sub">Mediana do envio à resposta</div>
+          </div>
+        </div>
+
+        <!-- Painel duplo: Distribuição de Pedidos e Respostas da IA -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+          <!-- Coluna 1: Composição dos Pedidos -->
+          <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+              <span>Composição da Operação</span>
+              <span id="total-geral-pedidos" class="tag" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);">0 registros</span>
+            </h3>
+            
+            <div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">
+                <span style="color:var(--text-secondary);">Móveis Soltos</span>
+                <span id="qtd-soltos" style="font-weight:700;">0</span>
+              </div>
+              <div style="background:var(--border);height:8px;border-radius:999px;overflow:hidden;">
+                <div id="bar-soltos" style="background:#bb6237;height:100%;width:0%;"></div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;">
+                <span style="color:var(--text-secondary);">Móveis Planejados</span>
+                <span id="qtd-planejados" style="font-weight:700;">0</span>
+              </div>
+              <div style="background:var(--border);height:8px;border-radius:999px;overflow:hidden;">
+                <div id="bar-planejados" style="background:#8b6b4a;height:100%;width:0%;"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+              <div style="flex:1;background:var(--bg);padding:10px 12px;border-radius:8px;border:1px solid var(--border);">
+                <div style="font-size:11px;color:var(--text-muted);font-weight:600;">RESOLVIDOS (MANUAL)</div>
+                <div id="qtd-resolvidos" style="font-size:18px;font-weight:700;color:var(--success);margin-top:4px;">0</div>
+              </div>
+              <div style="flex:1;background:var(--bg);padding:10px 12px;border-radius:8px;border:1px solid var(--border);">
+                <div style="font-size:11px;color:var(--text-muted);font-weight:600;">TRATAR INDIVIDUAL</div>
+                <div id="qtd-individual" style="font-size:18px;font-weight:700;color:var(--wood);margin-top:4px;">0</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna 2: Análise de Respostas da IA -->
+          <div class="card" style="margin-bottom:0;">
+            <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+              <span>Classificação IA de Respostas</span>
+              <span id="total-respostas-ia" class="tag" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);">0 respostas</span>
+            </h3>
+
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border);">
+                <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--success);">●</span> Confirmou a data (ACEITA)</span>
+                <b id="ia-aceita" style="color:var(--success);">0</b>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border);">
+                <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--cyan);">●</span> Aceitou e pediu adiantamento</span>
+                <b id="ia-adiantar" style="color:var(--cyan);">0</b>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border);">
+                <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--warning);">●</span> Pediu adiamento da entrega</span>
+                <b id="ia-adiar" style="color:var(--warning);">0</b>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border);">
+                <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--danger);">●</span> Não aceitou / Reclamou</span>
+                <b id="ia-recusa" style="color:var(--danger);">0</b>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:6px 0;">
+                <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--purple);">●</span> Outras mensagens / Dúvidas</span>
+                <b id="ia-outro" style="color:var(--purple);">0</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela Integrada de Pedidos -->
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
+            <div class="tab-group" id="tabs-dashboard" style="flex-wrap:wrap;row-gap:4px;">
+              <div class="tab-item active" onclick="filtrarTabDash('TODOS', this)">Todos (<span id="t-todos">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('PENDENCIAS', this)">⚠️ Preparação (<span id="t-pend">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('REVISAO', this)">📋 Aguardando envio (<span id="t-rev">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('WHATSAPP', this)">💬 Aguardando cliente (<span id="t-whats">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('CONCLUIDOS', this)">✅ Concluídos (<span id="t-conc">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('SEM_RETORNO', this)">🔕 Sem retorno (<span id="t-semret">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('ESCALADOS', this)">🚨 Com humano (<span id="t-esc">0</span>)</div>
+              <div class="tab-item" onclick="filtrarTabDash('FORA', this)">🚪 Saíram antes (<span id="t-fora">0</span>)</div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:center;">
+              <input type="text" id="busca-dashboard" placeholder="🔍 Buscar pedido, cliente, tel..." onkeyup="renderTabelaDashboard()" style="width:240px;padding:8px 12px;font-size:13px;" />
+              <select id="filtro-resp-dash" onchange="renderTabelaDashboard()" style="width:190px;padding:8px 12px;font-size:13px;">
+                <option value="">Todos os responsáveis</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pedido</th>
+                  <th>Cliente</th>
+                  <th>Telefone</th>
+                  <th>Tipo</th>
+                  <th>Responsável</th>
+                  <th>Etapa / Status</th>
+                  <th>Atualizado em</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-pedidos">
+                <tr><td colspan="8" class="vazio">Carregando dados...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TELA 2: PENDÊNCIAS -->
+      <div id="tela-pendencias" class="hidden">
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding:16px 22px;">
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <label style="margin:0;font-size:13px;color:var(--text);">Filtrar responsável:
+              <select id="filtro-responsavel" onchange="renderPendencias()" style="min-width:240px;margin-top:4px;">
+                <option value="">Todos os responsáveis</option>
+              </select>
+            </label>
+            <label style="margin:0;font-size:13px;color:var(--text);">Tipo de pendência:
+              <select id="filtro-tipo-pend" onchange="renderPendencias()" style="min-width:200px;margin-top:4px;">
+                <option value="">Todas as pendências</option>
+                <option value="TELEFONE">Sem telefone</option>
+                <option value="DESTINO">Destino não identificado</option>
+              </select>
+            </label>
+          </div>
+          <span id="contador-pendencias" class="tag PENDENTE_DESTINO" style="font-size:13px;padding:6px 14px;">
+            0 pendência(s) encontrada(s)
+          </span>
+        </div>
+        
+        <div id="lista-pendencias"></div>
+      </div>
+
+      <!-- TELA 3: REVISÃO DE ENVIO (Com envio em lote) -->
+      <div id="tela-revisao" class="hidden">
+        <!-- Barra de Ações em Lote e Filtros -->
+        <div class="card" style="display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 20px;">
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <select id="filtro-resp-rev" onchange="renderRevisoes()" style="min-width:220px;">
+              <option value="">Todos os responsáveis</option>
+            </select>
+            
+            <label style="display:inline-flex;flex-direction:row;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;font-weight:600;user-select:none;background:var(--bg);padding:8px 14px;border-radius:8px;border:1px solid var(--border);">
+              <input type="checkbox" id="check-selecionar-todos" onchange="toggleSelecionarTodos(this.checked)" style="cursor:pointer;width:16px;height:16px;accent-color:var(--primary);" />
+              <span>Selecionar todos (<span id="contagem-visiveis">0</span>)</span>
+            </label>
+            
+            <span id="badge-selecionados" class="tag" style="background:var(--primary-light);color:var(--primary);padding:6px 12px;font-size:13px;">
+              0 selecionados
+            </span>
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <button id="btn-enviar-lote" class="btn btn-primary" onclick="enviarLoteSelecionados(this)" disabled style="opacity:0.5;">
+              🚀 Enviar selecionados em lote (<span id="btn-count-lote">0</span>)
+            </button>
+
+            <button id="btn-cancelar-lote" class="btn btn-ghost" onclick="cancelarLoteSelecionados(this)" disabled style="opacity:0.5;color:var(--danger);border-color:rgba(239,68,68,0.3);">
+              Não enviar selecionados
+            </button>
+
+            <button id="btn-enviar-todos" class="btn btn-ghost" onclick="enviarTodos(this)">
+              Enviar todos os listados
+            </button>
+          </div>
+        </div>
+
+        <!-- Barra de Progresso do Envio em Lote -->
+        <div id="progresso-lote-box" class="card hidden" style="border-color:var(--primary);background:rgba(187,98,55,0.08);padding:16px 20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-weight:600;font-size:14px;color:var(--primary);" id="progresso-lote-texto">Enviando pedidos em lote...</span>
+            <span style="font-size:13px;color:var(--text-secondary);" id="progresso-lote-contagem">0 / 0</span>
+          </div>
+          <div style="background:var(--border);border-radius:999px;height:8px;overflow:hidden;">
+            <div id="progresso-lote-barra" style="background:var(--primary);height:100%;width:0%;transition:width 0.3s ease;"></div>
+          </div>
+        </div>
+
+        <div id="lista-revisoes"></div>
+      </div>
+
+      <!-- TELA: RESPOSTAS TARDIAS (cliente respondeu depois do encerramento sem retorno) -->
+      <div id="tela-tardias" class="hidden">
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding:16px 22px;">
+          <label style="margin:0;font-size:13px;color:var(--text);">Filtrar responsável:
+            <select id="filtro-resp-tard" onchange="renderTardias(true)" style="min-width:240px;margin-top:4px;">
+              <option value="">Todos os responsáveis</option>
+            </select>
+          </label>
+          <span id="contador-tardias" class="tag PENDENTE_RESPOSTA_TARDIA" style="font-size:13px;padding:6px 14px;">0 resposta(s) aguardando decisão</span>
+        </div>
+        <div class="card" style="font-size:13px;color:var(--text-secondary);line-height:1.6;padding:14px 22px;">
+          Clientes que responderam <b>depois</b> que o chamado foi encerrado sem retorno, ou com o servidor desligado.
+          Aparecem aqui pela <b>varredura da manhã</b> (ao ligar o n8n e às 07:30, consulta as conversas no DigiSac) ou quando o pedido volta na planilha.
+          Leia a resposta e escolha: <b>✅ registrar confirmado</b> (planilha SIM / CONFIRMADO e observação na intranet, nada é enviado ao cliente) ou <b>🚫 não enviar</b> (trate por fora).
+          Em <i>Outras opções</i> continua possível mandar o template de novo.
+        </div>
+        <div id="lista-tardias"></div>
+      </div>
+
+      <!-- TELA: CONSULTAS DA IA (chat IA x consultor) -->
+      <div id="tela-consultas" class="hidden">
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding:16px 22px;">
+          <label style="margin:0;font-size:13px;color:var(--text);">Filtrar responsável:
+            <select id="filtro-resp-cons" onchange="renderConsultas(true)" style="min-width:240px;margin-top:4px;">
+              <option value="">Todos os responsáveis</option>
+            </select>
+          </label>
+          <span id="contador-consultas" class="tag AGUARDANDO_CONSULTOR" style="font-size:13px;padding:6px 14px;">0 consulta(s) aguardando</span>
+        </div>
+        <div id="lista-consultas"></div>
+      </div>
+
+      <!-- TELA 4: RESPONSÁVEIS -->
+      <div id="tela-responsaveis" class="hidden">
+        <div class="resp-grid" id="lista-responsaveis"></div>
+      </div>
+
+      <!-- TELA 5: DISPARAR FLUXO -->
+      <div id="tela-disparar" class="hidden">
+        <div class="card" style="text-align:center;padding:48px 32px;max-width:700px;margin:30px auto;">
+          <div style="font-size:42px;margin-bottom:16px;">🚀</div>
+          <h2 style="margin-bottom:12px;font-size:22px;">Disparar Fluxo Principal</h2>
+          <p style="color:var(--text-secondary);margin-bottom:28px;line-height:1.6;">
+            Executa a leitura dos pedidos da planilha e sincronização na intranet. Pedidos que ficarem sem rota ou sem telefone identificado cairão na tela de <strong>Pendências</strong> para preenchimento manual, permitindo a continuidade do fluxo sem travar a esteira.
+          </p>
+          <button id="btn-disparar" class="btn btn-primary" style="font-size:15px;padding:14px 32px;" onclick="dispararFluxo(this)">
+            ▶ Executar Fluxo Agora
+          </button>
+          <div id="painel-disparo" class="hidden" style="margin-top:28px;text-align:left;">
+            <div class="fx-head"><span id="fx-etapa">Aguardando...</span><span id="fx-pct" class="fx-pct">0%</span></div>
+            <div class="fx-track"><div id="fx-fill" class="fx-fill"></div></div>
+            <div id="fx-erro" class="fx-erro hidden"></div>
+            <div id="fx-log" class="fx-log"></div>
+          </div>
+          <div id="resultado-disparo" style="margin-top:24px;font-size:14px;"></div>
+        </div>
+      </div>
+
+      <!-- TELA 6: TREINAR IA -->
+      <div id="tela-treinar" class="hidden">
+        <div class="card" style="padding:32px;">
+          <h3 style="margin-bottom:12px;font-size:18px;">🧠 Treinar Entendimento da IA</h3>
+          <p style="color:var(--text-secondary);line-height:1.6;">
+            Módulo para calibração contínua dos prompts e análise das classificações de respostas de clientes (Aceites, Antecipações, Adiamentos e Casos Especiais).
+          </p>
+          <div style="margin-top:20px;padding:16px;background:var(--bg);border-radius:8px;border:1px solid var(--border);color:var(--text-muted);">
+            Configurações integradas ao Gemini 3.5 Flash-Lite com Structured Output Parser.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modal-recomeco" class="hidden" onclick="if (event.target === this) fecharRecomeco()">
+  <div class="caixa">
+    <b style="font-size:17px;">🔄 Recomeçar atendimento</b>
+    <div id="rc-info" style="margin-top:8px;font-size:13px;color:var(--text-secondary);line-height:1.6;"></div>
+    <label for="rc-tel">Novo número de WhatsApp <span style="font-weight:400;color:var(--text-muted);">(deixe em branco para recomeçar com o mesmo número)</span></label>
+    <input type="text" id="rc-tel" placeholder="(31) 99999-9999" oninput="atualizarAvisoRecomeco()" />
+    <label for="rc-nome">Nome de quem vai receber <span style="font-weight:400;color:var(--text-muted);">(opcional: troca o "Olá, …!" da mensagem)</span></label>
+    <input type="text" id="rc-nome" placeholder="Ex.: Anete" maxlength="60" oninput="atualizarAvisoRecomeco()" />
+    <label for="rc-motivo">Motivo <span style="color:var(--danger);">*</span></label>
+    <textarea id="rc-motivo" rows="2" placeholder="Ex.: cliente pediu para tratar a entrega com a esposa"></textarea>
+    <div id="rc-aviso-box" class="hidden" style="margin-top:10px;">
+      <label style="font-weight:400;display:flex;gap:8px;align-items:center;margin:0;"><input type="checkbox" id="rc-aviso-ok" onchange="atualizarAvisoRecomeco()" /> <span><b>Avisar o contato atual</b> pelo WhatsApp (sai assim que você clicar em Recomeçar)</span></label>
+      <textarea id="rc-aviso" rows="3" style="margin-top:6px;" oninput="avisoEditado = true"></textarea>
+    </div>
+    <div id="rc-conc" class="hidden" style="margin-top:10px;font-size:13px;"><label style="font-weight:400;display:flex;gap:8px;align-items:flex-start;"><input type="checkbox" id="rc-conc-ok" style="margin-top:3px;" /> <span>Este pedido já está <b>CONCLUÍDO</b>. Entendo que o que já foi gravado na intranet e na planilha <b>não</b> será desfeito.</span></label></div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">O pedido volta para a <b>Revisão de Envio</b> com o contato novo. A IA esquece a conversa anterior. Nada é enviado até você clicar em Enviar na Revisão.</div>
+    <div class="acoes" style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;align-items:center;">
+      <div class="msg" id="rc-msg" style="margin-right:auto;font-size:13px;"></div>
+      <button class="btn btn-ghost btn-sm" onclick="fecharRecomeco()">Fechar</button>
+      <button class="btn btn-primary btn-sm" id="rc-btn" onclick="enviarRecomeco()">Recomeçar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const BASE = window.location.origin;
+  const UFS = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+  const TITULOS = {
+    dashboard: '📊 Dashboard Geral',
+    pendencias: '⚠️ Pendências de Pedidos',
+    revisao: '📋 Revisão de Envio de Mensagens',
+    tardias: '⏰ Respostas Tardias',
+    responsaveis: '👥 Visão por Responsável',
+    disparar: '🚀 Disparar Fluxo',
+    treinar: '🧠 Treinar IA',
+    consultas: '💬 Consultas da IA'
+  };
+
+  let linhas = [];      // Pedidos em pendência e resoluções
+  let revisoes = [];    // Pedidos na etapa de revisão
+  let todosPedidos = [];// Todos os registros combinados
+  let tabDashAtiva = 'TODOS';
+  let pedidosSelecionadosRevisao = new Set();
+  let confirmarTodos = false;
+
+  const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const parse = r => { try { return typeof r.dadosPedido === 'string' ? JSON.parse(r.dadosPedido) : (r.dadosPedido || {}); } catch (e) { return {}; } };
+  // v12: pedidos que foram juntos numa mensagem única
+  const pedidosDoGrupo = r => { const g = parse(r).pedidosGrupo; return Array.isArray(g) && g.length > 1 ? g.map(m => String(m.pedidoLider)) : []; };
+  const tagGrupo = r => {
+    if (r.agrupadoEm) return `<br><small style="color:var(--text-muted);" title="Foi na mesma mensagem do pedido 11-${esc(r.agrupadoEm)}">🔗 junto com 11-${esc(r.agrupadoEm)}</small>`;
+    const g = pedidosDoGrupo(r).filter(p => p !== String(r.pedidoLider));
+    return g.length ? `<br><small style="color:var(--text-muted);" title="Mensagem única para os pedidos do mesmo cliente">🔗 msg. única com ${g.map(p => '11-' + esc(p)).join(', ')}</small>` : '';
+  };
+  const fmtData = iso => { const d = new Date(iso); return isNaN(d) ? '-' : d.toLocaleString('pt-BR'); };
+
+  function celularValido(tel) {
+    let d = String(tel ?? '').replace(/\D/g, '');
+    if (d.startsWith('55') && d.length >= 12) d = d.slice(2);
+    d = d.replace(/^0+/, '');
+    if (d.length === 10 && /^[1-9][1-9][6-9]/.test(d)) d = d.slice(0, 2) + '9' + d.slice(2);
+    return /^[1-9][1-9]9\d{8}$/.test(d);
+  }
+
+  function formatarTelefoneExibicao(tel) {
+    if (!tel) return '';
+    let d = String(tel).replace(/\D/g, '');
+    if (d.startsWith('55') && d.length >= 12) d = d.slice(2);
+    d = d.replace(/^0+/, '');
+    if (d.length === 11) return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+    if (d.length === 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+    return tel;
+  }
+
+  function formatarDocumento(doc) {
+    if (!doc) return '-';
+    const d = String(doc).replace(/\D/g, '');
+    if (d.length === 11) return d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    if (d.length === 14) return d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    return doc;
+  }
+
+  function mostrarTela(nome, el) {
+    document.querySelectorAll('[id^="tela-"]').forEach(x => x.classList.add('hidden'));
+    const t = document.getElementById('tela-' + nome);
+    if (t) t.classList.remove('hidden');
+    document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+    if (el) el.classList.add('active');
+    document.getElementById('titulo').textContent = TITULOS[nome] || 'Central Líder';
+  }
+
+  const TIPO_REV = ['PENDENTE_REVISAO', 'PENDENTE_RESPOSTA_TARDIA', 'BLOQUEADO', 'ENVIADO', 'CANCELADO', 'PENDENCIA_BOLETO', 'AGUARDANDO', 'DATA_ENVIADA', 'AGUARDANDO_DECISAO_RESPONSAVEL', 'CONCLUIDO', 'ESCALADO', 'TRANSFERIDO', 'TRANSFERENCIA_MANUAL', 'AGUARDANDO_CHAMADO_LIVRE'];
+  // ===== Contabilização do Dashboard (v11) =====
+  // Cada pedido cai em UM grupo só, e os grupos somam o total de pedidos do dia.
+  // "Template enviado" = pedido que chegou ao WhatsApp (aguardando cliente, com humano, concluído ou sem retorno).
+  const GRP_PREP = ['EM_PROCESSAMENTO', 'PENDENTE_DESTINO', 'RESOLVIDO'];
+  const GRP_ESPERA_ENVIO = ['PENDENTE_REVISAO', 'PENDENTE_RESPOSTA_TARDIA', 'AGUARDANDO_CHAMADO_LIVRE'];
+  const GRP_CLIENTE = ['AGUARDANDO', 'DATA_ENVIADA', 'AGUARDANDO_DECISAO_RESPONSAVEL'];
+  const GRP_HUMANO = ['AGUARDANDO_CONSULTOR', 'ESCALADO', 'TRANSFERIDO', 'TRANSFERENCIA_MANUAL'];
+  const GRP_FORA = ['OUTLET', 'PEDIDO_ENTREGUE', 'PEDIDO_CANCELADO', 'PENDENCIA_BOLETO', 'BLOQUEADO', 'CANCELADO', 'INDIVIDUAL'];
+  const GRUPOS_ENVIADOS = ['CLIENTE', 'HUMANO', 'CONCLUIDO', 'SEM_RETORNO'];
+  // Respostas que contam como "confirmou" (aceitou a data, pediu para adiantar mas manteve, ou adiou para uma nova data)
+  const CAT_CONFIRMOU = ['ACEITA', 'ACEITA_PEDE_ADIANTAR', 'PEDE_ADIAR', 'DUVIDA_ADIAMENTO'];
+  const semAcento = v => String(v ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '');
+  // Pedido que ficou 2 dias sem retorno e foi para o consultor ANTES de receber o template de novo
+  // (nós "Marcar ESCALADO (AGUARDANDO_ENTREGA)" e "Marcar já encaminhado (AGUARDANDO_ENTREGA)": resumoIA começa com "Sem confirmação")
+  const ehReincidente = r => r && r.status === 'ESCALADO' && /^\s*sem confirmacao/i.test(semAcento(r.resumoIA));
+  // v23: encerrado como sem retorno sem ter recebido o template (chamado ficou ocupado o dia todo)
+  const ehSemRetornoOcupado = r => r && r.status === 'SEM_RETORNO_CLIENTE' && /chamado ocupado o dia todo/i.test(String(r.resumoIA || ''));
+  function grupoPedido(r) {
+    const s = r.status;
+    if (ehReincidente(r) || ehSemRetornoOcupado(r) || GRP_FORA.includes(s)) return 'FORA';
+    if (GRP_PREP.includes(s)) return 'PREPARACAO';
+    if (GRP_ESPERA_ENVIO.includes(s)) return 'ESPERA_ENVIO';
+    if (GRP_CLIENTE.includes(s)) return 'CLIENTE';
+    if (GRP_HUMANO.includes(s)) return 'HUMANO';
+    if (s === 'CONCLUIDO') return 'CONCLUIDO';
+    if (s === 'SEM_RETORNO_CLIENTE') return 'SEM_RETORNO';
+    return 'OUTRO';
+  }
+  const foiEnviado = r => GRUPOS_ENVIADOS.includes(grupoPedido(r));
+  function desfechoConcluido(r) {
+    const c = String(r.categoria || '').toUpperCase();
+    if (CAT_CONFIRMOU.includes(c)) return 'CONFIRMOU';
+    if (c === 'NAO_ACEITA') return 'NAO_ACEITOU';
+    return 'OUTRO';
+  }
+  function contarDashboard(lista) {
+    const g = { FORA: [], PREPARACAO: [], ESPERA_ENVIO: [], CLIENTE: [], HUMANO: [], CONCLUIDO: [], SEM_RETORNO: [], OUTRO: [] };
+    lista.forEach(r => g[grupoPedido(r)].push(r));
+    const enviados = lista.filter(foiEnviado);
+    const conc = { CONFIRMOU: 0, NAO_ACEITOU: 0, OUTRO: 0 };
+    g.CONCLUIDO.forEach(r => conc[desfechoConcluido(r)]++);
+    return { total: lista.length, g, enviados, conc };
+  }
+  const ST_LABEL_EXTRA = {
+    PEDIDO_ENTREGUE: '📦 Já entregue', PEDIDO_CANCELADO: '❌ Pedido cancelado', PENDENCIA_BOLETO: '💳 Pendência de boleto',
+    BLOQUEADO: '⛔ Bloqueado', CANCELADO: '🚫 Envio recusado', SEM_RETORNO_CLIENTE: '🔕 Sem retorno',
+    EM_PROCESSAMENTO: '⏳ Em processamento', AGUARDANDO_CONSULTOR: '💬 Com o consultor', PENDENTE_RESPOSTA_TARDIA: '⏰ Resposta tardia',
+    INDIVIDUAL: '👤 Tratar individual', RESOLVIDO: '✔️ Pendência resolvida', AGRUPADO: '🔗 Agrupado (principal não encontrado)', OUTLET: '🏬 Outlet (confirmado sem contato)'
+  };
+  function fmtDuracao(min) {
+    if (min < 60) return `${Math.max(1, Math.round(min))} min`;
+    if (min < 1440) return `${(min / 60).toFixed(1).replace('.', ',').replace(',0', '')} h`;
+    return `${(min / 1440).toFixed(1).replace('.', ',').replace(',0', '')} d`;
+  }
+
+  async function carregar() {
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-pendencias');
+      const data = await res.json();
+      const bruto = (Array.isArray(data) ? data : [data]).filter(r => r && r.pedidoLider);
+      bruto.sort((a, b) => String(a.updatedAt || a.criadoEm || a.createdAt || '').localeCompare(String(b.updatedAt || b.criadoEm || b.createdAt || '')));
+      
+      const mapaD = new Map(), mapaR = new Map(), mapaTodos = new Map();
+      bruto.forEach(r => {
+        const id = String(r.pedidoLider);
+        mapaTodos.set(id, r);
+      });
+      // v12: pedido AGRUPADO foi junto na mensagem única de outro pedido do mesmo cliente.
+      // Ele acompanha o status do pedido principal (conta no painel), mas não aparece nas telas de ação.
+      mapaTodos.forEach((r, id) => {
+        if (r.status !== 'AGRUPADO') return;
+        const principal = mapaTodos.get(String(parse(r).agrupadoEm || ''));
+        if (!principal || principal.status === 'AGRUPADO') return;
+        mapaTodos.set(id, { ...r, status: principal.status, categoria: principal.categoria, resumoIA: principal.resumoIA,
+          respondidoEm: principal.respondidoEm, enviadoEm: principal.enviadoEm, statusProprio: 'AGRUPADO', agrupadoEm: String(principal.pedidoLider) });
+      });
+      mapaTodos.forEach((r, id) => {
+        if (r.agrupadoEm) return;
+        if (TIPO_REV.includes(r.status)) mapaR.set(id, r);
+        else mapaD.set(id, r);
+      });
+
+      linhas = [...mapaD.values()].reverse();
+      revisoes = [...mapaR.values()].reverse();
+      todosPedidos = [...mapaTodos.values()].reverse();
+
+      const agora = new Date();
+      document.getElementById('ultima-atualizacao').textContent = `Atualizado às ${agora.toLocaleTimeString('pt-BR')}`;
+    } catch (e) {
+      linhas = []; revisoes = []; todosPedidos = [];
+      document.getElementById('tabela-pedidos').innerHTML = '<tr><td colspan="8" class="vazio err">Erro ao carregar dados. Tente atualizar.</td></tr>';
+      return;
+    }
+
+    renderDashboardGeral();
+    renderPendencias();
+    renderRevisoes();
+    renderTardias();
+    renderResponsaveis();
+    renderConsultas();
+  }
+
+  /* ==========================================================
+     DASHBOARD GERAL MELHORADO
+     ========================================================== */
+  function renderDashboardGeral() {
+    const pendentes = linhas.filter(r => r.status === 'PENDENTE_DESTINO');
+    const resolvidos = linhas.filter(r => r.status === 'RESOLVIDO');
+    const individuais = todosPedidos.filter(r => r.status === 'INDIVIDUAL');
+    const emRevisao = revisoes.filter(r => r.status === 'PENDENTE_REVISAO');
+
+    const K = contarDashboard(todosPedidos);
+    const contar = st => todosPedidos.filter(r => r.status === st).length;
+    const contarEm = (lst, st) => lst.filter(r => r.status === st).length;
+    const juntarPartes = partes => partes.filter(([n]) => n > 0).map(([n, t]) => `${n} ${t}`).join(' · ');
+
+    // Etapa 1: preparação (lendo pedido / pendências de dados)
+    let semTelCount = 0, semDestCount = 0;
+    pendentes.forEach(r => {
+      const d = parse(r);
+      if (!celularValido(d.phone || d.telefone || d.telefone2)) semTelCount++;
+      if (!d.rota || !d.rota.origemIdentificada) semDestCount++;
+    });
+    document.getElementById('pipe-pend').textContent = K.g.PREPARACAO.length;
+    document.getElementById('pipe-pend-detalhe').textContent = juntarPartes([
+      [semDestCount, 'sem destino'], [semTelCount, 'sem tel'],
+      [contarEm(K.g.PREPARACAO, 'EM_PROCESSAMENTO'), 'processando'], [contarEm(K.g.PREPARACAO, 'RESOLVIDO'), 'resolvido(s)']
+    ]) || 'Nenhuma pendência de dados';
+
+    // Etapa 2: prontos, mas o template ainda não saiu
+    document.getElementById('pipe-rev').textContent = K.g.ESPERA_ENVIO.length;
+    document.getElementById('pipe-rev-detalhe').textContent = juntarPartes([
+      [contarEm(K.g.ESPERA_ENVIO, 'PENDENTE_REVISAO'), 'na revisão'],
+      [contarEm(K.g.ESPERA_ENVIO, 'PENDENTE_RESPOSTA_TARDIA'), 'resposta tardia'],
+      [contarEm(K.g.ESPERA_ENVIO, 'AGUARDANDO_CHAMADO_LIVRE'), 'chamado ocupado']
+    ]) || 'Nada aguardando envio';
+
+    // Etapa 3: template enviado, esperando o cliente
+    document.getElementById('pipe-aguardando').textContent = K.g.CLIENTE.length;
+    document.getElementById('pipe-aguardando-detalhe').textContent = juntarPartes([
+      [contarEm(K.g.CLIENTE, 'AGUARDANDO'), 'sem aceitar o template'],
+      [contarEm(K.g.CLIENTE, 'DATA_ENVIADA'), 'com a data'],
+      [contarEm(K.g.CLIENTE, 'AGUARDANDO_DECISAO_RESPONSAVEL'), 'decidindo']
+    ]) || 'Ninguém aguardando resposta';
+
+    // Etapa 4: concluídos, separando quem confirmou de quem não aceitou
+    document.getElementById('pipe-finalizados').textContent = K.g.CONCLUIDO.length;
+    document.getElementById('pipe-final-detalhe').textContent = juntarPartes([
+      [K.conc.CONFIRMOU, 'confirmaram'], [K.conc.NAO_ACEITOU, 'não aceitaram'], [K.conc.OUTRO, 'resolvido(s) pelo consultor']
+    ]) || 'Nenhuma resposta concluída';
+
+    // Conciliação: os números somam o total
+    const enviadosN = K.enviados.length;
+    const eqTopo = juntarPartes([
+      [K.g.FORA.length, 'saíram antes do envio'],
+      [K.g.PREPARACAO.length, 'em preparação'],
+      [K.g.ESPERA_ENVIO.length, 'aguardando envio'],
+      [enviadosN, 'com template enviado'],
+      [K.g.OUTRO.length, 'com status desconhecido']
+    ]);
+    const eqEnv = juntarPartes([
+      [K.g.CONCLUIDO.length, 'concluídos'], [K.g.SEM_RETORNO.length, 'sem retorno'],
+      [K.g.CLIENTE.length, 'aguardando cliente'], [K.g.HUMANO.length, 'com humano']
+    ]);
+    const conc = document.getElementById('conciliacao');
+    if (conc) {
+      conc.innerHTML = K.total
+        ? `<b>${K.total} pedidos</b> = ${eqTopo}` + (enviadosN ? `<br><b>${enviadosN} templates enviados</b> = ${eqEnv}` : '') +
+          (K.g.OUTRO.length ? `<br><span style="color:var(--danger);">⚠️ Status não reconhecido: ${esc([...new Set(K.g.OUTRO.map(r => r.status))].join(', '))}</span>` : '')
+        : 'Nenhum pedido no fluxo hoje.';
+    }
+
+    // KPI: saíram antes do envio (nunca receberam o template)
+    const reinc = K.g.FORA.filter(ehReincidente).length;
+    document.getElementById('kpi-fora').textContent = K.g.FORA.length;
+    document.getElementById('kpi-fora-sub').textContent = juntarPartes([
+      [reinc, 'sem retorno há 2 dias (consultor)'],
+      [contar('PEDIDO_ENTREGUE'), 'já entregue'],
+      [contar('PEDIDO_CANCELADO'), 'cancelado'],
+      [contar('PENDENCIA_BOLETO'), 'boleto'],
+      [contar('BLOQUEADO'), 'bloqueado'],
+      [contar('CANCELADO'), 'envio recusado'],
+      [contar('INDIVIDUAL'), 'tratar individual'],
+      [K.g.FORA.filter(ehSemRetornoOcupado).length, 'sem retorno (chamado ocupado)']
+    ]) || 'Nenhum pedido fora do envio';
+
+    // KPI: taxa de confirmação = pedidos finalizados pela IA ÷ templates enviados
+    // Finalizado = status CONCLUIDO: o cliente aceitou ou não a data, ou a dúvida foi resolvida com o consultor pelo chat da IA.
+    // Não entram: transferidos para tratamento manual (ESCALADO, TRANSFERIDO, TRANSFERENCIA_MANUAL), sem retorno e quem ainda aguarda.
+    const finalizadosIA = K.g.CONCLUIDO.length;
+    document.getElementById('kpi-taxa').textContent = enviadosN ? `${Math.round((finalizadosIA / enviadosN) * 100)}%` : '—';
+    document.getElementById('kpi-taxa-sub').textContent = enviadosN
+      ? `${finalizadosIA} finalizados pela IA de ${enviadosN} templates enviados`
+      : 'Nenhum template enviado';
+
+    // KPI: sem retorno
+    document.getElementById('kpi-semret').textContent = K.g.SEM_RETORNO.length;
+    document.getElementById('kpi-semret-sub').textContent = enviadosN
+      ? `${Math.round((K.g.SEM_RETORNO.length / enviadosN) * 100)}% dos enviados · chamado encerrado`
+      : 'Chamado encerrado sem resposta';
+
+    // KPI: precisam de humano (depois do envio)
+    document.getElementById('kpi-humano').textContent = K.g.HUMANO.length;
+    document.getElementById('kpi-humano-sub').textContent = juntarPartes([
+      [contarEm(K.g.HUMANO, 'ESCALADO'), 'escalado'],
+      [contarEm(K.g.HUMANO, 'TRANSFERIDO'), 'transferido'],
+      [contarEm(K.g.HUMANO, 'TRANSFERENCIA_MANUAL'), 'transf. manual'],
+      [contarEm(K.g.HUMANO, 'AGUARDANDO_CONSULTOR'), 'com consultor']
+    ]) || 'Nenhum caso com atendente';
+
+    // KPI: tempo de resposta (só quem recebeu o template e respondeu)
+    const tempos = K.enviados
+      .filter(r => r.status !== 'SEM_RETORNO_CLIENTE' && r.status !== 'AGUARDANDO' && r.enviadoEm && r.respondidoEm)
+      .map(r => (new Date(r.respondidoEm) - new Date(r.enviadoEm)) / 60000)
+      .filter(m => isFinite(m) && m >= 0)
+      .sort((a, b) => a - b);
+    if (tempos.length) {
+      const meio = Math.floor(tempos.length / 2);
+      const mediana = tempos.length % 2 ? tempos[meio] : (tempos[meio - 1] + tempos[meio]) / 2;
+      document.getElementById('kpi-tempo').textContent = fmtDuracao(mediana);
+      document.getElementById('kpi-tempo-sub').textContent = `Mediana de ${tempos.length} resposta${tempos.length > 1 ? 's' : ''}`;
+    } else {
+      document.getElementById('kpi-tempo').textContent = '—';
+      document.getElementById('kpi-tempo-sub').textContent = 'Sem respostas registradas';
+    }
+
+    // Badges Sidebar
+    const bPend = document.getElementById('badge-pend');
+    bPend.textContent = pendentes.length;
+    bPend.classList.toggle('zero', pendentes.length === 0);
+    const bRev = document.getElementById('badge-rev');
+    bRev.textContent = emRevisao.length;
+    bRev.classList.toggle('zero', emRevisao.length === 0);
+
+    // Tipos de móveis (todos os pedidos do dia)
+    let qtdSoltos = 0, qtdPlanejados = 0;
+    todosPedidos.forEach(r => { if (parse(r).tipoMovel === 'Planejados') qtdPlanejados++; else qtdSoltos++; });
+    const totalMovel = (qtdSoltos + qtdPlanejados) || 1;
+    document.getElementById('total-geral-pedidos').textContent = `${todosPedidos.length} pedidos no fluxo`;
+    document.getElementById('qtd-soltos').textContent = `${qtdSoltos} (${Math.round((qtdSoltos/totalMovel)*100)}%)`;
+    document.getElementById('bar-soltos').style.width = `${Math.round((qtdSoltos/totalMovel)*100)}%`;
+    document.getElementById('qtd-planejados').textContent = `${qtdPlanejados} (${Math.round((qtdPlanejados/totalMovel)*100)}%)`;
+    document.getElementById('bar-planejados').style.width = `${Math.round((qtdPlanejados/totalMovel)*100)}%`;
+    document.getElementById('qtd-resolvidos').textContent = resolvidos.length;
+    document.getElementById('qtd-individual').textContent = individuais.length;
+
+    // Classificação da IA (só pedidos que receberam o template; última classificação de cada pedido)
+    let cAceita = 0, cAdiantar = 0, cAdiar = 0, cRecusa = 0, cOutro = 0;
+    K.enviados.forEach(r => {
+      const c = String(r.categoria || '').toUpperCase();
+      if (!c) return;
+      if (c === 'ACEITA') cAceita++;
+      else if (c === 'ACEITA_PEDE_ADIANTAR') cAdiantar++;
+      else if (c === 'PEDE_ADIAR') cAdiar++;
+      else if (c === 'NAO_ACEITA') cRecusa++;
+      else cOutro++;
+    });
+    const totIA = cAceita + cAdiantar + cAdiar + cRecusa + cOutro;
+    document.getElementById('total-respostas-ia').textContent = `${totIA} de ${enviadosN} classificadas`;
+    document.getElementById('ia-aceita').textContent = cAceita;
+    document.getElementById('ia-adiantar').textContent = cAdiantar;
+    document.getElementById('ia-adiar').textContent = cAdiar;
+    document.getElementById('ia-recusa').textContent = cRecusa;
+    document.getElementById('ia-outro').textContent = cOutro;
+
+    // Abas: mesmas contagens do funil
+    document.getElementById('t-todos').textContent = K.total;
+    document.getElementById('t-pend').textContent = K.g.PREPARACAO.length;
+    document.getElementById('t-rev').textContent = K.g.ESPERA_ENVIO.length;
+    document.getElementById('t-whats').textContent = K.g.CLIENTE.length;
+    document.getElementById('t-conc').textContent = K.g.CONCLUIDO.length;
+    document.getElementById('t-esc').textContent = K.g.HUMANO.length;
+    document.getElementById('t-semret').textContent = K.g.SEM_RETORNO.length;
+    document.getElementById('t-fora').textContent = K.g.FORA.length;
+
+    const selDash = document.getElementById('filtro-resp-dash');
+    const valAtual = selDash.value;
+    const nomesResp = [...new Set(todosPedidos.map(r => r.responsavel || 'SEM RESPONSÁVEL'))].sort();
+    selDash.innerHTML = '<option value="">Todos os responsáveis</option>' + nomesResp.map(n => `<option ${n === valAtual ? 'selected' : ''}>${esc(n)}</option>`).join('');
+
+    renderTabelaDashboard();
+  }
+
+  function filtrarTabDash(tab, el) {
+    tabDashAtiva = tab;
+    document.querySelectorAll('#tabs-dashboard .tab-item').forEach(x => x.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderTabelaDashboard();
+  }
+
+  function filtrarCardDash(filtro) {
+    filtrarTabDash(filtro, null);
+    document.getElementById('tabs-dashboard').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function renderTabelaDashboard() {
+    const busca = (document.getElementById('busca-dashboard')?.value || '').toLowerCase().trim();
+    const filtroResp = document.getElementById('filtro-resp-dash')?.value || '';
+
+    let lista = todosPedidos.filter(r => {
+      if (filtroResp && (r.responsavel || 'SEM RESPONSÁVEL') !== filtroResp) return false;
+      const grp = grupoPedido(r);
+      const MAPA_TAB = { PENDENCIAS: 'PREPARACAO', REVISAO: 'ESPERA_ENVIO', WHATSAPP: 'CLIENTE', CONCLUIDOS: 'CONCLUIDO',
+                         ESCALADOS: 'HUMANO', HUMANO: 'HUMANO', FORA: 'FORA', SEM_RETORNO: 'SEM_RETORNO' };
+      if (tabDashAtiva === 'ENVIADOS') return foiEnviado(r);
+      if (MAPA_TAB[tabDashAtiva] && grp !== MAPA_TAB[tabDashAtiva]) return false;
+      return true;
+    });
+
+    if (busca) {
+      lista = lista.filter(r => {
+        const d = parse(r);
+        const texto = `${r.pedidoLider} ${r.cliente} ${r.responsavel} ${d.phone || ''} ${d.telefone || ''} ${d.cidadeEntrega || ''}`.toLowerCase();
+        return texto.includes(busca);
+      });
+    }
+
+    const tbody = document.getElementById('tabela-pedidos');
+    if (!lista.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="vazio">Nenhum pedido encontrado para os filtros selecionados.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = lista.map(r => {
+      const d = parse(r);
+      const id = esc(r.pedidoLider);
+      const tel = d.phone || d.telefone || d.telefone2 || '';
+      const telFmt = tel ? formatarTelefoneExibicao(tel) : '<span style="color:var(--danger);font-size:12px;">⚠️ Não informado</span>';
+      const tipo = d.tipoMovel === 'Planejados' ? '<span class="tag tag-planejados">Planejados</span>' : '<span class="tag tag-soltos">Móveis Soltos</span>';
+      
+      let statusTag = `<span class="tag ${esc(r.status)}">${esc(r.status)}</span>`;
+      let acaoBtn = '-';
+
+      if (r.status === 'PENDENTE_DESTINO') {
+        const semTel = !celularValido(d.phone || d.telefone || d.telefone2);
+        statusTag = semTel
+          ? '<span class="tag SEM_TELEFONE">⚠️ Sem Telefone</span>'
+          : '<span class="tag PENDENTE_DESTINO">📍 Sem Destino</span>';
+        acaoBtn = `<button class="btn btn-primary btn-sm" onclick="irParaPendencia('${id}')">Resolver</button>`;
+      } else if (r.status === 'PENDENTE_REVISAO') {
+        statusTag = '<span class="tag PENDENTE_REVISAO">📋 Aguarda Envio</span>';
+        acaoBtn = `<button class="btn btn-primary btn-sm" onclick="irParaRevisao('${id}')">Revisar</button>`;
+      } else if (r.status === 'PENDENTE_RESPOSTA_TARDIA') {
+        statusTag = '<span class="tag PENDENTE_RESPOSTA_TARDIA">⏰ Resposta tardia</span>';
+        acaoBtn = `<button class="btn btn-primary btn-sm" onclick="irParaTardia('${id}')">Ver resposta</button>`;
+      } else if (r.status === 'AGUARDANDO') {
+        statusTag = '<span class="tag AGUARDANDO">💬 Template Enviado</span>';
+      } else if (r.status === 'DATA_ENVIADA') {
+        statusTag = '<span class="tag DATA_ENVIADA">📅 Data Enviada</span>';
+      } else if (r.status === 'CONCLUIDO') {
+        const dsf = desfechoConcluido(r);
+        statusTag = dsf === 'CONFIRMOU' ? '<span class="tag CONCLUIDO">✅ Confirmado</span>'
+          : dsf === 'NAO_ACEITOU' ? '<span class="tag ESCALADO">✋ Não aceitou a data</span>'
+          : '<span class="tag CONCLUIDO">✅ Resolvido</span>';
+      } else if (r.status === 'AGUARDANDO_DECISAO_RESPONSAVEL') {
+        statusTag = '<span class="tag DATA_ENVIADA">🤝 Aguardando decisão do cliente</span>';
+      } else if (ehReincidente(r)) {
+        statusTag = `<span class="tag ESCALADO" title="${esc(r.resumoIA || '')}">🔁 2 dias sem retorno → consultor</span>`;
+      } else if (r.status === 'ESCALADO') {
+        statusTag = '<span class="tag ESCALADO">🚨 Escalado</span>';
+      } else if (r.status === 'TRANSFERIDO') {
+        statusTag = '<span class="tag CONCLUIDO">👤 Com o responsável</span>';
+      } else if (r.status === 'TRANSFERENCIA_MANUAL') {
+        statusTag = '<span class="tag ESCALADO">⚠️ Transferir manualmente</span>';
+      } else if (r.status === 'AGUARDANDO_CHAMADO_LIVRE') {
+        const ce = d.chamadoEspera || {};
+        const quem = ce.chamadoAtendente ? ' com ' + ce.chamadoAtendente : (ce.chamadoSituacao === 'FILA_SEM_ATENDENTE' ? ' na fila' : '');
+        statusTag = `<span class="tag AGUARDANDO_CHAMADO_LIVRE" title="${esc(ce.chamadoMotivo || '')}">⏳ Chamado ocupado${esc(quem)}</span>`;
+      } else if (ST_LABEL_EXTRA[r.status]) {
+        statusTag = `<span class="tag ${esc(r.status)}">${ST_LABEL_EXTRA[r.status]}</span>`;
+      }
+
+      if (r.agrupadoEm) acaoBtn = '-';
+      else if (podeRecomecar(r)) acaoBtn = (acaoBtn === '-' ? '' : acaoBtn + ' ') + `<button class="btn btn-ghost btn-sm" title="Recomeçar o atendimento (mesmo número ou outro número)" onclick="abrirRecomeco('${id}')">🔄 Recomeçar</button>`;
+      return `<tr>
+        <td><b>11-${id}</b>${tagGrupo(r)}</td>
+        <td>${esc(r.cliente || '-')}</td>
+        <td>${telFmt}</td>
+        <td>${tipo}</td>
+        <td>${esc(r.responsavel || '-')}</td>
+        <td>${statusTag}</td>
+        <td style="font-size:12px;color:var(--text-secondary);">${fmtData(r.criadoEm || r.enviadoEm || r.createdAt)}</td>
+        <td>${acaoBtn}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  /* ==========================================================
+     v18 — RECOMEÇAR PEDIDO (mesmo número ou outro número)
+     ========================================================== */
+  const ST_RECOMECO = ['PENDENTE_REVISAO', 'PENDENTE_RESPOSTA_TARDIA', 'AGUARDANDO_CHAMADO_LIVRE', 'AGUARDANDO', 'DATA_ENVIADA',
+    'AGUARDANDO_DECISAO_RESPONSAVEL', 'AGUARDANDO_CONSULTOR', 'ESCALADO', 'TRANSFERIDO', 'TRANSFERENCIA_MANUAL',
+    'SEM_RETORNO_CLIENTE', 'CANCELADO', 'CONCLUIDO'];
+  const podeRecomecar = r => r && !r.agrupadoEm && !r.statusProprio && ST_RECOMECO.includes(r.status) && !parse(r).outlet && !!String(parse(r).mensagem || '').trim();
+  let recomecoAtual = null;
+  let avisoEditado = false;
+  // v20 — status em que o cliente já conversou: dá para avisar o contato atual da troca
+  const ST_CONVERSOU = ['AGUARDANDO', 'DATA_ENVIADA', 'AGUARDANDO_DECISAO_RESPONSAVEL', 'AGUARDANDO_CONSULTOR', 'ESCALADO', 'TRANSFERIDO', 'TRANSFERENCIA_MANUAL', 'SEM_RETORNO_CLIENTE', 'CONCLUIDO'];
+  function primeiroNomeCliente(r) {
+    const d = parse(r);
+    const m = String(d.mensagem || '').match(/^\s*Ol[áa],\s*([^!\n,]{2,30})!/i);
+    if (m) return m[1].trim();
+    const n = String(r.cliente || d.clienteLider || '').trim().split(/\s+/)[0] || '';
+    return n ? n.charAt(0).toUpperCase() + n.slice(1).toLowerCase() : '';
+  }
+  function textoAvisoPadrao() {
+    const r = recomecoAtual && recomecoAtual.r; if (!r) return '';
+    const nome = document.getElementById('rc-nome').value.trim();
+    const tel = document.getElementById('rc-tel').value.trim();
+    const cli = primeiroNomeCliente(r);
+    return `Combinado${cli ? ', ' + cli : ''}! A partir de agora vamos tratar a entrega do pedido nº *${recomecoAtual.id}* com ${nome || 'o novo contato'}${celularValido(tel) ? ' pelo número ' + formatarTelefoneExibicao(tel) : ''}. Obrigado!`;
+  }
+  function atualizarAvisoRecomeco() {
+    if (!recomecoAtual) return;
+    const tel = document.getElementById('rc-tel').value.trim();
+    const pode = ST_CONVERSOU.includes(recomecoAtual.status) && !!tel;
+    document.getElementById('rc-aviso-box').classList.toggle('hidden', !pode);
+    const ta = document.getElementById('rc-aviso');
+    if (!avisoEditado) ta.value = textoAvisoPadrao();
+    ta.disabled = !document.getElementById('rc-aviso-ok').checked;
+  }
+  function abrirRecomeco(id, opcoes) {
+    const r = todosPedidos.find(x => String(x.pedidoLider) === String(id)) || revisoes.find(x => String(x.pedidoLider) === String(id));
+    if (!r) return;
+    const d = parse(r);
+    recomecoAtual = { id: String(id), status: r.status, r, origem: (opcoes && opcoes.origem) || '' };
+    avisoEditado = false;
+    document.getElementById('rc-aviso-ok').checked = recomecoAtual.origem === 'consulta';
+    document.getElementById('rc-info').innerHTML = `Pedido <b>11-${esc(id)}</b> · ${esc(r.cliente || d.clienteLider || '')}<br>Número atual: <b>${esc(formatarTelefoneExibicao(r.phone || d.phone) || 'sem número')}</b> · status ${esc(r.status)}`;
+    document.getElementById('rc-tel').value = '';
+    document.getElementById('rc-nome').value = '';
+    document.getElementById('rc-motivo').value = '';
+    document.getElementById('rc-conc-ok').checked = false;
+    document.getElementById('rc-conc').classList.toggle('hidden', r.status !== 'CONCLUIDO');
+    document.getElementById('rc-msg').innerHTML = '';
+    document.getElementById('rc-btn').disabled = false;
+    atualizarAvisoRecomeco();
+    document.getElementById('modal-recomeco').classList.remove('hidden');
+    setTimeout(() => document.getElementById('rc-tel').focus(), 50);
+  }
+  function fecharRecomeco() { document.getElementById('modal-recomeco').classList.add('hidden'); recomecoAtual = null; }
+  async function enviarRecomeco() {
+    if (!recomecoAtual) return;
+    const msg = document.getElementById('rc-msg');
+    const btn = document.getElementById('rc-btn');
+    const tel = document.getElementById('rc-tel').value.trim();
+    const motivo = document.getElementById('rc-motivo').value.trim();
+    if (tel && !celularValido(tel)) { msg.innerHTML = '<span class="err">Número inválido: use DDD + celular.</span>'; return; }
+    if (motivo.length < 5) { msg.innerHTML = '<span class="err">Escreva o motivo.</span>'; return; }
+    if (recomecoAtual.status === 'CONCLUIDO' && !document.getElementById('rc-conc-ok').checked) { msg.innerHTML = '<span class="err">Marque a confirmação do pedido concluído.</span>'; return; }
+    const avisar = !document.getElementById('rc-aviso-box').classList.contains('hidden') && document.getElementById('rc-aviso-ok').checked;
+    const aviso = avisar ? document.getElementById('rc-aviso').value.trim() : '';
+    if (avisar && !aviso) { msg.innerHTML = '<span class="err">Escreva o aviso ao contato atual ou desmarque a opção.</span>'; return; }
+    btn.disabled = true;
+    msg.innerHTML = tel ? '⏳ Procurando o número no Digisac…' : '⏳ Recomeçando…';
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-recomecar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pedidoLider: recomecoAtual.id, novoTelefone: tel, nomeContato: document.getElementById('rc-nome').value.trim(),
+          motivo, confirmarConcluido: document.getElementById('rc-conc-ok').checked, avisoContatoAntigo: aviso })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const r = await res.json();
+      if (r && r.ok) {
+        msg.innerHTML = `<span class="ok">✅ ${esc(r.mensagem)}</span>` + (r.aviso ? `<br><span class="err">⚠️ ${esc(r.aviso)}</span>` : '');
+        setTimeout(() => { fecharRecomeco(); carregar(); }, r.aviso ? 6000 : 3500);
+      } else {
+        msg.innerHTML = `<span class="err">❌ ${esc((r && r.erro) || 'Não foi possível recomeçar.')}</span>`;
+        btn.disabled = false;
+      }
+    } catch (e) {
+      msg.innerHTML = '<span class="err">❌ Erro de conexão. Nada foi confirmado: atualize o painel e confira o pedido.</span>';
+      btn.disabled = false;
+    }
+  }
+
+  function irParaPendencia(id) {
+    mostrarTela('pendencias', document.querySelectorAll('.nav-item')[1]);
+    setTimeout(() => {
+      const el = document.getElementById('pend-' + id);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 150);
+  }
+
+  function irParaRevisao(id) {
+    mostrarTela('revisao', document.querySelectorAll('.nav-item')[2]);
+    setTimeout(() => {
+      const el = document.getElementById('rev-' + id);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 150);
+  }
+
+  /* ==========================================================
+     TELA DE PENDÊNCIAS MELHORADA
+     ========================================================== */
+  function cardPendencia(r) {
+    const d = parse(r);
+    const id = esc(r.pedidoLider);
+    const ufLido = String(d.ufEntrega || '').toUpperCase();
+    
+    // Identificação de problemas
+    const telAtual = d.phone || d.telefone || d.telefone2 || '';
+    const celOk = celularValido(telAtual);
+    const semTelefone = !celOk;
+    const semOrigem = d.rota && d.rota.origemIdentificada === false;
+
+    // Badges de motivo
+    let badgesMotivo = '';
+    if (semTelefone && semOrigem) {
+      badgesMotivo = '<span class="tag SEM_TELEFONE">⚠️ Destino e Telefone não localizados</span>';
+    } else if (semTelefone) {
+      badgesMotivo = '<span class="tag SEM_TELEFONE">📱 Telefone não localizado</span>';
+    } else if (semOrigem) {
+      badgesMotivo = '<span class="tag PENDENTE_DESTINO">📍 Destino não identificado</span>';
+    } else {
+      badgesMotivo = '<span class="tag PENDENTE_DESTINO">Aguardando conferência</span>';
+    }
+
+    // Telefone formatado
+    const telefoneExibicao = (telAtual && celOk)
+      ? `<span style="color:var(--success);font-weight:700;">📱 ${formatarTelefoneExibicao(telAtual)}</span>`
+      : telAtual
+      ? `<span style="color:var(--danger);font-weight:700;background:var(--danger-light);padding:3px 8px;border-radius:6px;">☎️ ${formatarTelefoneExibicao(telAtual)} · fixo/inválido, não recebe WhatsApp</span>`
+      : `<span style="color:var(--danger);font-weight:700;background:var(--danger-light);padding:3px 8px;border-radius:6px;">❌ Não encontrado na intranet</span>`;
+
+    // Motivo legível
+    let motivoTexto = 'Verificação de dados de entrega e contato.';
+    if (d.rota && d.rota.motivoPendencia) {
+      const m = d.rota.motivoPendencia;
+      if (m === 'TELEFONE_FIXO_OU_INVALIDO') motivoTexto = 'O telefone da intranet é fixo ou inválido. Informe um celular com WhatsApp.';
+      else if (m === 'TELEFONE_NAO_LOCALIZADO') motivoTexto = 'O telefone do cliente não foi localizado na intranet para envio do WhatsApp.';
+      else if (m === 'ORIGEM_E_TELEFONE_NAO_IDENTIFICADOS') motivoTexto = 'Não foi possível identificar a rota nem o telefone do cliente.';
+      else if (m === 'REFERENCIA_MG_NAO_INFORMADA') motivoTexto = 'Entrega em MG sem referência da loja/praça de origem.';
+      else if (m === 'UF_SEM_DEPOSITO_CONFIGURADO') motivoTexto = 'UF de destino sem depósito regional cadastrado no fluxo.';
+      else motivoTexto = m;
+    }
+
+    return `
+    <div class="pend-card" id="pend-${id}">
+      <div class="pend-card-header">
+        <div class="pend-titulo-bloco">
+          <span class="pend-id">Pedido 11-${id}</span>
+          <span class="pend-cliente">· ${esc(r.cliente || d.clienteLider || 'Cliente')}</span>
+          ${badgesMotivo}
+          <span class="tag ${d.tipoMovel === 'Planejados' ? 'tag-planejados' : 'tag-soltos'}">${esc(d.tipoMovel || 'Móveis Soltos')}</span>
+        </div>
+        <span class="tag" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);">${esc(r.responsavel || 'SEM RESPONSÁVEL')}</span>
+      </div>
+
+      <!-- Dados informativos do cliente e pedido -->
+      <div class="info-sections-grid">
+        <div class="info-box">
+          <div class="info-box-title">👤 Informações do Cliente</div>
+          <div class="info-row">
+            <span class="info-k">Nome:</span>
+            <span class="info-v">${esc(r.cliente || d.clienteLider || '-')}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">CPF / CNPJ:</span>
+            <span class="info-v">${formatarDocumento(d.cpf)}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">Telefone no Sistema:</span>
+            <span class="info-v">${telefoneExibicao}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">Endereço Lido:</span>
+            <span class="info-v" style="max-width:280px;text-align:right;">${esc(d.enderecoEntrega || '-')} ${esc(d.bairroEntrega ? '· ' + d.bairroEntrega : '')}</span>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">🚚 Dados de Rota & Origem</div>
+          <div class="info-row">
+            <span class="info-k">Destino Lido:</span>
+            <span class="info-v">${esc(d.cidadeEntrega || '-')}/${esc(d.ufEntrega || '-')}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">Referência Loja:</span>
+            <span class="info-v">${esc(d.referencia || '-')}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">Data Entrega:</span>
+            <span class="info-v">${esc(d.entregaLider || '-')}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">Motivo da Pendência:</span>
+            <span class="info-v" style="color:var(--warning);max-width:280px;text-align:right;">${esc(motivoTexto)}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulário de Preenchimento Manual -->
+      <div class="pend-form-grid">
+        <label>
+          📱 Telefone WhatsApp (Manual)
+          <input id="tel-${id}" placeholder="(XX) 9XXXX-XXXX" value="${esc(celOk ? telAtual : '')}" class="${semTelefone ? 'alerta-atencao' : ''}">
+        </label>
+        
+        <label>
+          🏙️ Cidade de Destino
+          <input id="cid-${id}" value="${esc(d.cidadeEntrega || '')}">
+        </label>
+        
+        <label>
+          UF
+          <select id="uf-${id}">
+            ${UFS.map(u => `<option ${u === ufLido ? 'selected' : ''}>${u}</option>`).join('')}
+          </select>
+        </label>
+        
+        <label>
+          🏬 Referência de Origem
+          <input id="ref-${id}" value="${esc(d.referencia || '')}" placeholder="Ex: SION, PONTEIO...">
+        </label>
+        
+        <label>
+          📝 Observação (Opcional)
+          <input id="obs-${id}" placeholder="Nota de ajuste...">
+        </label>
+      </div>
+
+      <div class="acoes">
+        <button class="btn btn-primary" onclick="enviar('${id}','informar',this)">
+          ✓ Confirmar dados e liberar pedido
+        </button>
+        <button class="btn btn-ghost" onclick="enviar('${id}','individual',this)">
+          Tratar individualmente
+        </button>
+      </div>
+      <div class="msg" id="msg-${id}"></div>
+    </div>`;
+  }
+
+  function renderPendencias() {
+    const ativo = document.activeElement;
+    if (ativo && ativo.closest && ativo.closest('#lista-pendencias')) return;
+
+    const filtro = document.getElementById('filtro-responsavel')?.value || '';
+    const filtroTipo = document.getElementById('filtro-tipo-pend')?.value || '';
+
+    let lista = linhas.filter(r => r.status === 'PENDENTE_DESTINO');
+    if (filtro) lista = lista.filter(r => (r.responsavel || 'SEM RESPONSÁVEL') === filtro);
+    
+    if (filtroTipo === 'TELEFONE') {
+      lista = lista.filter(r => {
+        const d = parse(r);
+        return !celularValido(d.phone || d.telefone || d.telefone2);
+      });
+    } else if (filtroTipo === 'DESTINO') {
+      lista = lista.filter(r => {
+        const d = parse(r);
+        return !d.rota || !d.rota.origemIdentificada;
+      });
+    }
+
+    const sel = document.getElementById('filtro-responsavel');
+    if (sel) {
+      const atual = sel.value;
+      const pend = linhas.filter(r => r.status === 'PENDENTE_DESTINO');
+      const nomes = [...new Set(pend.map(r => r.responsavel || 'SEM RESPONSÁVEL'))].sort();
+      sel.innerHTML = '<option value="">Todos os responsáveis</option>' + nomes.map(n => `<option ${n === atual ? 'selected' : ''}>${esc(n)}</option>`).join('');
+    }
+
+    document.getElementById('contador-pendencias').textContent = `${lista.length} pendência(s) encontrada(s)`;
+
+    document.getElementById('lista-pendencias').innerHTML = lista.length
+      ? lista.map(cardPendencia).join('')
+      : '<div class="card vazio">Nenhuma pendência aguardando preenchimento manual no momento. Tudo liberado! 🎉</div>';
+  }
+
+  async function enviar(id, acao, btn) {
+    const val = k => (document.getElementById(k + '-' + id)?.value || '').trim();
+    const cidade = val('cid'), uf = document.getElementById('uf-' + id)?.value, referencia = val('ref'), observacao = val('obs'), telefone = val('tel');
+    const msg = document.getElementById('msg-' + id);
+
+    if (acao === 'informar') {
+      if (!cidade) { msg.innerHTML = '<span class="err">⚠️ Informe a cidade de destino.</span>'; return; }
+      if (uf === 'MG' && !referencia) { msg.innerHTML = '<span class="err">⚠️ Para entregas em MG, informe a referência de origem/loja.</span>'; return; }
+      if (!['MG','SP','RJ','ES','BA','DF'].includes(uf) && !referencia) { msg.innerHTML = '<span class="err">⚠️ UF ' + uf + ' não tem depósito regional. Informe a referência de origem (ex.: CARMO DO CAJURU).</span>'; return; }
+      if (!telefone) { msg.innerHTML = '<span class="err">⚠️ Informe o telefone WhatsApp do cliente para permitir o envio da mensagem.</span>'; return; }
+      if (!celularValido(telefone)) { msg.innerHTML = '<span class="err">⚠️ Telefone fixo ou inválido. Informe um celular com DDD (ex.: (33) 9XXXX-XXXX).</span>'; return; }
+    }
+
+    const botoes = document.querySelectorAll('#pend-' + id + ' button');
+    botoes.forEach(b => b.disabled = true);
+    msg.innerHTML = '<span style="color:var(--warning)">⏳ Salvando dados e retomando fluxo...</span>';
+
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-resolver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pedidoLider: id, acao, cidade, uf, referencia, observacao, telefone })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      msg.innerHTML = '<span class="ok">✅ Dados confirmados com sucesso! O pedido avançou para o cálculo de rota e revisão de mensagem.</span>';
+      setTimeout(() => { carregar(); }, 2500);
+    } catch (e) {
+      msg.innerHTML = '<span class="err">❌ Erro ao enviar dados. Verifique a conexão e tente novamente.</span>';
+      botoes.forEach(b => b.disabled = false);
+    }
+  }
+
+  /* ==========================================================
+     TELA DE REVISÃO DE ENVIO (COM SELEÇÃO E ENVIO EM LOTE)
+     ========================================================== */
+  function cardRevisao(r) {
+    const d = parse(r);
+    const id = esc(r.pedidoLider);
+    const isSelected = pedidosSelecionadosRevisao.has(id);
+    const telefoneFmt = d.phone ? formatarTelefoneExibicao(d.phone) : 'Sem telefone';
+
+    return `
+    <div class="card card-rev ${isSelected ? 'selecionado' : ''}" id="rev-${id}">
+      <div class="pend-head">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="checkbox" class="check-rev-item" data-id="${id}" ${isSelected ? 'checked' : ''} onchange="toggleSelectRevisao('${id}', this.checked)" style="width:18px;height:18px;cursor:pointer;accent-color:var(--primary);" />
+          <div>
+            <b style="font-size:16px;">${pedidosDoGrupo(r).length ? 'Pedidos ' + pedidosDoGrupo(r).map(p => '11-' + esc(p)).join(' + ') : 'Pedido 11-' + id}</b>
+            <span style="color:var(--text-secondary);margin-left:8px;">· ${esc(r.cliente || d.clienteLider || 'Cliente')}</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="tag ${d.tipoMovel === 'Planejados' ? 'tag-planejados' : 'tag-soltos'}">${esc(d.tipoMovel || 'Móveis Soltos')}</span>
+          <span class="tag">${esc(r.responsavel || 'SEM RESPONSÁVEL')}</span>
+        </div>
+      </div>
+      
+      <div class="info" style="margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-secondary);">
+        <span>📱 <b>WhatsApp:</b> ${esc(telefoneFmt)}</span>
+        <span>Status Contato: <b>${esc(d.statusBusca || 'Pronto')}</b></span>
+        <span>Tipo: <b>${esc(d.tipoMensagem || 'ÚNICA')}</b></span>
+        ${d.anexoUrl ? '<span style="color:var(--primary);">📎 Com vídeo</span>' : ''}
+      </div>
+      ${Array.isArray(d.recomecos) && d.recomecos.length ? (() => { const u = d.recomecos[d.recomecos.length - 1]; return `<div class="info" style="margin-top:8px;font-size:13px;color:var(--primary);">🔄 <b>Recomeçado</b> em ${esc(fmtData(u.em))}${u.modo === 'NOVO_NUMERO' ? ` · novo número ${esc(formatarTelefoneExibicao(u.phoneNovo))}${u.nomeContato ? ' (' + esc(u.nomeContato) + ')' : ''} · contato ${u.statusContato === 'CRIADO' ? 'criado' : 'encontrado'} no Digisac` : ' · mesmo número'} · motivo: ${esc(u.motivo)}</div>`; })() : ''}
+      ${pedidosDoGrupo(r).length ? `<div class="info" style="margin-top:8px;font-size:13px;color:var(--primary);">🔗 <b>Mensagem única</b>: este cliente tem ${pedidosDoGrupo(r).length} pedidos prontos. Vai 1 template e 1 mensagem com todos; a resposta do cliente vale para todos os pedidos.</div>` : ''}
+
+      ${edicoesRev[r.pedidoLider] !== undefined
+        ? `<textarea id="rev-txt-${id}" rows="${Math.min(30, Math.max(8, String(edicoesRev[r.pedidoLider]).split('\n').length + 1))}" style="width:100%;margin:14px 0 4px;font-family:inherit;font-size:13.5px;line-height:1.6;" oninput="edicoesRev['${id}'] = this.value">${esc(edicoesRev[r.pedidoLider])}</textarea>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">✏️ Editando a mensagem. ${pedidosDoGrupo(r).length ? 'Mensagem única: para conferir adiamentos a IA usa as datas registradas de cada pedido.' : 'Mantenha a data de entrega no texto: a IA usa a 1ª data da mensagem para conferir pedidos de adiamento.'} <a href="#" onclick="cancelarEdicaoRev('${id}');return false;">Desfazer edição</a></div>`
+        : `<div class="msgbox">${esc(d.mensagem || '')}</div>`}
+      
+      <div class="acoes" style="justify-content:space-between;align-items:center;">
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="decidirUm('${id}','enviar')">
+            🚀 Enviar agora
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="decidirUm('${id}','cancelar')">
+            Não enviar
+          </button>
+          ${edicoesRev[r.pedidoLider] === undefined ? `<button class="btn btn-ghost btn-sm" onclick="editarRev('${id}')">✏️ Editar mensagem</button>` : ''}
+          <button class="btn btn-ghost btn-sm" title="Enviar para outro número de WhatsApp" onclick="abrirRecomeco('${id}')">📱 Trocar número</button>
+        </div>
+        <div class="msg" id="rmsg-${id}"></div>
+      </div>
+    </div>`;
+  }
+
+  const edicoesRev = {};   // v9: mensagens editadas na Revisão (pedidoLider -> texto)
+  function editarRev(id) {
+    const r = revisoes.find(x => String(x.pedidoLider) === String(id));
+    edicoesRev[id] = parse(r || {}).mensagem || '';
+    renderRevisoes(true);
+    setTimeout(() => { const t = document.getElementById('rev-txt-' + id); if (t) t.focus(); }, 50);
+  }
+  function cancelarEdicaoRev(id) { delete edicoesRev[id]; renderRevisoes(true); }
+
+  function renderRevisoes(forcar) {
+    const ativo = document.activeElement;
+    if (!forcar && ativo && ativo.tagName === 'TEXTAREA' && ativo.closest && ativo.closest('#lista-revisoes')) return;
+    const abertas = revisoes.filter(r => r.status === 'PENDENTE_REVISAO');
+    const limite = Date.now() - 2 * 24 * 3600 * 1000;
+    const bloq = revisoes.filter(r => r.status === 'BLOQUEADO' && new Date(r.criadoEm || r.createdAt).getTime() > limite);
+
+    const sel = document.getElementById('filtro-resp-rev');
+    const atual = sel.value;
+    const nomes = [...new Set(abertas.map(r => r.responsavel || 'SEM RESPONSÁVEL'))].sort();
+    sel.innerHTML = '<option value="">Todos os responsáveis</option>' + nomes.map(n => `<option ${n === atual ? 'selected' : ''}>${esc(n)}</option>`).join('');
+    const filtro = sel.value;
+
+    const lista = abertas.filter(r => !filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro);
+    
+    // Atualiza contagens de seleção
+    document.getElementById('contagem-visiveis').textContent = lista.length;
+    atualizarBarraAcoesLote(lista);
+
+    document.getElementById('btn-enviar-todos').textContent = `Enviar todos os listados (${lista.length})`;
+
+    document.getElementById('lista-revisoes').innerHTML =
+      (lista.length ? lista.map(cardRevisao).join('') : '<div class="card vazio">Nenhuma mensagem aguardando revisão de envio. Tudo pronto! 🎉</div>') +
+      (bloq.length
+        ? `<div class="card" style="border-color:rgba(239,68,68,0.3);"><b style="color:var(--danger);">⚠️ Pedidos bloqueados / Não enviados (${bloq.length})</b><div class="info" style="margin-top:10px;line-height:1.8;">${bloq.map(r => `11-${esc(r.pedidoLider)} · ${esc(r.cliente)} · <span class="tag" style="background:var(--danger-light);color:var(--danger);">${esc(parse(r).motivoRevisao || '-')}</span>`).join('<br>')}</div></div>`
+        : '');
+  }
+
+  function toggleSelectRevisao(id, isChecked) {
+    if (isChecked) {
+      pedidosSelecionadosRevisao.add(id);
+    } else {
+      pedidosSelecionadosRevisao.delete(id);
+    }
+    const card = document.getElementById('rev-' + id);
+    if (card) card.classList.toggle('selecionado', isChecked);
+    
+    const filtro = document.getElementById('filtro-resp-rev').value;
+    const lista = revisoes.filter(r => r.status === 'PENDENTE_REVISAO' && (!filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro));
+    atualizarBarraAcoesLote(lista);
+  }
+
+  function toggleSelecionarTodos(marcarTodos) {
+    const filtro = document.getElementById('filtro-resp-rev').value;
+    const lista = revisoes.filter(r => r.status === 'PENDENTE_REVISAO' && (!filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro));
+    
+    lista.forEach(r => {
+      const id = String(r.pedidoLider);
+      if (marcarTodos) {
+        pedidosSelecionadosRevisao.add(id);
+      } else {
+        pedidosSelecionadosRevisao.delete(id);
+      }
+      const c = document.getElementById('rev-' + id);
+      if (c) c.classList.toggle('selecionado', marcarTodos);
+      const chk = c?.querySelector('.check-rev-item');
+      if (chk) chk.checked = marcarTodos;
+    });
+
+    atualizarBarraAcoesLote(lista);
+  }
+
+  function atualizarBarraAcoesLote(listaVisivel) {
+    const qtd = pedidosSelecionadosRevisao.size;
+    document.getElementById('badge-selecionados').textContent = `${qtd} selecionado(s)`;
+    document.getElementById('btn-count-lote').textContent = qtd;
+
+    const btnEnviar = document.getElementById('btn-enviar-lote');
+    const btnCancelar = document.getElementById('btn-cancelar-lote');
+    
+    const habilitar = qtd > 0;
+    btnEnviar.disabled = !habilitar;
+    btnEnviar.style.opacity = habilitar ? '1' : '0.5';
+    btnCancelar.disabled = !habilitar;
+    btnCancelar.style.opacity = habilitar ? '1' : '0.5';
+
+    const chkMaster = document.getElementById('check-selecionar-todos');
+    if (chkMaster && listaVisivel.length > 0) {
+      const todosMarcados = listaVisivel.every(r => pedidosSelecionadosRevisao.has(String(r.pedidoLider)));
+      chkMaster.checked = todosMarcados;
+    }
+  }
+
+  async function enviarLoteSelecionados(btn) {
+    const ids = Array.from(pedidosSelecionadosRevisao);
+    if (!ids.length) return;
+
+    if (!confirm(`Confirma o envio em lote de ${ids.length} mensagem(ns) selecionada(s) via DigiSac?`)) {
+      return;
+    }
+
+    btn.disabled = true;
+    const box = document.getElementById('progresso-lote-box');
+    const txt = document.getElementById('progresso-lote-texto');
+    const cnt = document.getElementById('progresso-lote-contagem');
+    const bar = document.getElementById('progresso-lote-barra');
+    box.classList.remove('hidden');
+
+    let concluidos = 0;
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      txt.textContent = `Enviando pedido 11-${id} (${i + 1} de ${ids.length})...`;
+      cnt.textContent = `${i + 1} / ${ids.length}`;
+      bar.style.width = `${Math.round(((i + 1) / ids.length) * 100)}%`;
+
+      const ok = await decidir(id, 'enviar');
+      if (ok) {
+        pedidosSelecionadosRevisao.delete(id);
+        concluidos++;
+      }
+      await new Promise(r => setTimeout(r, 650));
+    }
+
+    txt.textContent = `Envio em lote finalizado! ${concluidos} de ${ids.length} pedidos enviados.`;
+    setTimeout(() => {
+      box.classList.add('hidden');
+      btn.disabled = false;
+      carregar();
+    }, 2500);
+  }
+
+  async function cancelarLoteSelecionados(btn) {
+    const ids = Array.from(pedidosSelecionadosRevisao);
+    if (!ids.length) return;
+
+    if (!confirm(`Deseja marcar ${ids.length} pedido(s) selecionado(s) como NÃO ENVIAR?`)) {
+      return;
+    }
+
+    btn.disabled = true;
+    for (const id of ids) {
+      await decidir(id, 'cancelar');
+      pedidosSelecionadosRevisao.delete(id);
+      await new Promise(r => setTimeout(r, 200));
+    }
+    btn.disabled = false;
+    carregar();
+  }
+
+  async function decidir(id, decisao) {
+    const msg = document.getElementById('rmsg-' + id);
+    const botoes = document.querySelectorAll('#rev-' + id + ' button');
+    botoes.forEach(b => b.disabled = true);
+    const editada = (decisao === 'enviar' && edicoesRev[id] !== undefined) ? String(edicoesRev[id]).trim() : null;
+    if (editada === '') {
+      if (msg) msg.innerHTML = '<span class="err">A mensagem editada está vazia. Escreva o texto ou desfaça a edição.</span>';
+      botoes.forEach(b => b.disabled = false);
+      return false;
+    }
+    if (msg) msg.innerHTML = '<span style="color:var(--warning)">⏳ Enviando...</span>';
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-revisao', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pedidoLider: id, decisao, mensagemEditada: editada ?? '' })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      delete edicoesRev[id];
+      if (msg) msg.innerHTML = '<span class="ok">✅ ' + (decisao === 'enviar' ? 'Enviado ao DigiSac' + (editada ? ' (mensagem editada)' : '') : 'Marcado como não enviar') + '</span>';
+      return true;
+    } catch (e) {
+      if (msg) msg.innerHTML = '<span class="err">❌ Erro ao enviar.</span>';
+      botoes.forEach(b => b.disabled = false);
+      return false;
+    }
+  }
+
+  async function decidirUm(id, decisao) {
+    await decidir(id, decisao);
+    pedidosSelecionadosRevisao.delete(id);
+    setTimeout(carregar, 3000);
+  }
+
+  async function enviarTodos(btn) {
+    const filtro = document.getElementById('filtro-resp-rev').value;
+    const lista = revisoes.filter(r => r.status === 'PENDENTE_REVISAO' && (!filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro));
+    if (!lista.length) return;
+
+    if (!confirmarTodos) {
+      confirmarTodos = true;
+      btn.textContent = `⚠️ Clique de novo para confirmar o envio de ${lista.length} mensagens`;
+      setTimeout(() => { confirmarTodos = false; renderRevisoes(); }, 6000);
+      return;
+    }
+
+    confirmarTodos = false;
+    btn.disabled = true;
+    for (const r of lista) {
+      await decidir(String(r.pedidoLider), 'enviar');
+      await new Promise(x => setTimeout(x, 700));
+    }
+    btn.disabled = false;
+    setTimeout(carregar, 3000);
+  }
+
+
+  /* ==========================================================
+     CONSULTAS DA IA (chat IA x consultor)
+     ========================================================== */
+  const rascunhosCons = {};
+  const chatDe = r => { try { const c = JSON.parse(r.chatConsultor || '[]'); return Array.isArray(c) ? c : []; } catch (e) { return []; } };
+  const ROTULO_MSG = { cliente: 'Cliente', ia: 'IA', consultor: 'Você (consultor)' };
+
+  function cardConsulta(r) {
+    const id = esc(r.id);
+    const msgs = chatDe(r).map(m => `<div class="msg ${esc(m.role)}"><small>${esc(ROTULO_MSG[m.role] || m.role)} · ${fmtData(m.ts)}</small>${esc(m.texto)}</div>`).join('')
+      || '<div class="vazio">Sem mensagens registradas. Se este pedido acabou de chegar, atualize a lista; se continuar vazio, o chat não foi gravado e o responsável foi avisado por e-mail.</div>';
+    return `<div class="card" id="cons-${id}">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div style="font-weight:700;font-size:15px;color:var(--text);">${pedidosDoGrupo(r).length ? 'Pedidos ' + pedidosDoGrupo(r).map(esc).join(' + ') + ' (mensagem única)' : 'Pedido ' + esc(r.pedidoLider)} · ${esc(r.cliente || '')}</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="font-size:12px;color:var(--text-secondary);">Responsável: ${esc(r.responsavel || 'SEM RESPONSÁVEL')}</span>
+          <span class="tag AGUARDANDO_CONSULTOR">Aguardando você</span>
+        </div>
+      </div>
+      <div class="chat-box" id="chat-${id}">${msgs}</div>
+      <textarea id="cons-txt-${id}" rows="3" placeholder="Escreva o que a IA deve responder ao cliente (ou, se for um caso sério, o motivo da transferência)..."
+        oninput="rascunhosCons['${id}'] = this.value">${esc(rascunhosCons[r.id] || '')}</textarea>
+      ${caixaResultado(id)}
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;">
+        <button class="btn btn-primary" onclick="agirConsulta('${id}', 'RESPONDER')">📨 Enviar orientação ao cliente</button>
+        <button class="btn btn-ghost" onclick="agirConsulta('${id}', 'REGISTRAR')" title="Registra o resultado na planilha e na intranet sem enviar mensagem ao cliente">📝 Só registrar resultado</button>
+        <button class="btn btn-danger-ghost" onclick="agirConsulta('${id}', 'TRANSFERIR')">🔀 Solicitar transferência</button>
+        <button class="btn btn-ghost" title="O cliente pediu para falar com outra pessoa / outro número: recomeça o pedido com o novo contato e avisa o contato atual" onclick="abrirRecomeco('${esc(r.pedidoLider)}', { origem: 'consulta' })">🔄 Recomeçar com outro contato</button>
+        <span id="cmsg-${id}" style="font-size:13px;"></span>
+      </div>
+    </div>`;
+  }
+
+  // ---------- Resultado do contato (preenche planilha, intranet e encerra) ----------
+  const rascunhoRes = {}, rascunhoData = {};
+  function caixaResultado(id) {
+    const v = rascunhoRes[id] || '';
+    const opt = (val, txt) => `<option value="${val}" ${v === val ? 'selected' : ''}>${txt}</option>`;
+    return `<div class="resultado-box">
+      <label for="cons-res-${id}">Resultado do contato:</label>
+      <select id="cons-res-${id}" onchange="rascunhoRes['${id}'] = this.value; document.getElementById('cons-dt-wrap-${id}').style.display = this.value === 'ADIADO' ? 'inline-flex' : 'none';">
+        ${opt('', 'Ainda não definido')}
+        ${opt('CONFIRMADO', '✅ Cliente confirmou a data')}
+        ${opt('NAO_CONCORDA', '❌ Cliente não concorda com a data')}
+        ${opt('ADIADO', '📅 Cliente adiou a entrega')}
+      </select>
+      <span id="cons-dt-wrap-${id}" style="display:${v === 'ADIADO' ? 'inline-flex' : 'none'};gap:6px;align-items:center;">
+        <label for="cons-dt-${id}">Nova data:</label>
+        <input type="date" id="cons-dt-${id}" value="${esc(rascunhoData[id] || '')}" onchange="rascunhoData['${id}'] = this.value">
+      </span>
+      <small>Com resultado, o fluxo preenche a planilha, registra na intranet e encerra o chamado.</small>
+    </div>`;
+  }
+
+  function cardSemResultado(r) {
+    const id = esc(r.id);
+    const ultimoConsultor = chatDe(r).filter(m => m.role === 'consultor').pop();
+    return `<div class="card" id="cons-${id}">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div style="font-weight:700;font-size:15px;color:var(--text);">${pedidosDoGrupo(r).length ? 'Pedidos ' + pedidosDoGrupo(r).map(esc).join(' + ') + ' (mensagem única)' : 'Pedido ' + esc(r.pedidoLider)} · ${esc(r.cliente || '')}</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span style="font-size:12px;color:var(--text-secondary);">Responsável: ${esc(r.responsavel || 'SEM RESPONSÁVEL')}</span>
+          <span class="tag CONCLUIDO">Respondido · sem resultado</span>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-top:8px;">Última orientação: ${esc(ultimoConsultor ? ultimoConsultor.texto : '-')} ${ultimoConsultor ? '(' + fmtData(ultimoConsultor.ts) + ')' : ''}</div>
+      ${caixaResultado(id)}
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;">
+        <button class="btn btn-primary" onclick="agirConsulta('${id}', 'REGISTRAR')">📝 Registrar resultado</button>
+        <span id="cmsg-${id}" style="font-size:13px;"></span>
+      </div>
+    </div>`;
+  }
+
+  function renderConsultas(forcar) {
+    const ativo = document.activeElement;
+    if (!forcar && ativo && ativo.closest && ativo.closest('#lista-consultas')) return;
+
+    const abertas = todosPedidos.filter(r => !r.agrupadoEm && r.status === 'AGUARDANDO_CONSULTOR');
+    const sel = document.getElementById('filtro-resp-cons');
+    const atual = sel.value;
+    const nomes = [...new Set(abertas.map(r => r.responsavel || 'SEM RESPONSÁVEL'))].sort();
+    sel.innerHTML = '<option value="">Todos os responsáveis</option>' + nomes.map(n => `<option ${n === atual ? 'selected' : ''}>${esc(n)}</option>`).join('');
+    const filtro = sel.value;
+    const lista = abertas.filter(r => !filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro);
+
+    document.getElementById('contador-consultas').textContent = `${lista.length} consulta(s) aguardando`;
+    const badge = document.getElementById('badge-cons');
+    badge.textContent = abertas.length;
+    badge.classList.toggle('zero', abertas.length === 0);
+
+    // Respondidos pelo consultor nos últimos 3 dias e ainda sem resultado registrado
+    const limiteSemRes = Date.now() - 3 * 86400000;
+    const semResultado = todosPedidos.filter(r => !r.agrupadoEm && r.status === 'CONCLUIDO'
+      && chatDe(r).some(m => m.role === 'consultor')
+      && !chatDe(r).some(m => m.tipo === 'resultado')
+      && new Date(r.respondidoEm || 0).getTime() > limiteSemRes
+      && (!filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro));
+
+    document.getElementById('lista-consultas').innerHTML = (lista.length
+      ? lista.map(cardConsulta).join('')
+      : '<div class="card vazio">Nenhuma consulta da IA aguardando resposta. 🎉</div>')
+      + (semResultado.length
+        ? `<div style="font-weight:700;margin:22px 0 10px;color:var(--text);">Respondidos sem resultado registrado (${semResultado.length})</div>` + semResultado.map(cardSemResultado).join('')
+        : '');
+    lista.forEach(r => { const b = document.getElementById('chat-' + r.id); if (b) b.scrollTop = b.scrollHeight; });
+  }
+
+  async function agirConsulta(id, acao) {
+    const txt = (document.getElementById('cons-txt-' + id)?.value || '').trim();
+    const msg = document.getElementById('cmsg-' + id);
+    const resultado = acao === 'TRANSFERIR' ? '' : (document.getElementById('cons-res-' + id)?.value || '');
+    const dataAdiamento = document.getElementById('cons-dt-' + id)?.value || '';
+    if (acao === 'RESPONDER' && !txt) { msg.innerHTML = '<span class="err">Escreva a orientação para o cliente.</span>'; return; }
+    if (acao === 'REGISTRAR' && !resultado) { msg.innerHTML = '<span class="err">Escolha o resultado do contato.</span>'; return; }
+    if (resultado === 'ADIADO' && !dataAdiamento) { msg.innerHTML = '<span class="err">Informe a nova data de entrega.</span>'; return; }
+    const botoes = document.querySelectorAll('#cons-' + id + ' button');
+    botoes.forEach(b => b.disabled = true);
+    msg.innerHTML = '<span style="color:var(--warning)">⏳ Enviando...</span>';
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-consultor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: isNaN(Number(id)) ? id : Number(id), acao, texto: txt, resultado, dataAdiamento })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const j = await res.json().catch(() => ({}));
+      if (j && j.ok === false) throw new Error(j.erro || 'Falha');
+      delete rascunhosCons[id]; delete rascunhoRes[id]; delete rascunhoData[id];
+      const partes = [];
+      if (acao === 'RESPONDER') partes.push('Orientação enviada ao cliente');
+      if (acao === 'TRANSFERIR') partes.push('Transferência solicitada');
+      if (j && j.resultado) partes.push('Resultado registrado (planilha: ' + (j.planilha || '-') + ', intranet: ' + (j.intranet || '-') + ')');
+      const avisos = (j && Array.isArray(j.avisos) && j.avisos.length) ? '<br><span class="err">⚠️ ' + esc(j.avisos.join(' · ')) + '</span>' : '';
+      msg.innerHTML = '<span class="ok">✅ ' + esc(partes.join(' · ')) + '</span>' + avisos;
+      setTimeout(() => carregar(), (j && j.avisos && j.avisos.length) ? 8000 : 1500);
+    } catch (e) {
+      msg.innerHTML = '<span class="err">❌ ' + esc(e.message || 'Erro ao enviar.') + '</span>';
+      botoes.forEach(b => b.disabled = false);
+    }
+  }
+
+
+  /* ==========================================================
+     TELA DE RESPOSTAS TARDIAS (v8)
+     Cliente respondeu depois que o chamado foi encerrado sem retorno.
+     O consultor lê a resposta e decide: seguir o fluxo normal, mandar
+     uma resposta diferente (o template sempre sai primeiro) ou não enviar.
+     ========================================================== */
+  const rascunhoTardia = {};
+  const ETAPA_TARDIA = {
+    SEM_RETORNO_TEMPLATE: 'não aceitou o template',
+    SEM_RETORNO_CONFIRMACAO: 'não respondeu a mensagem da data',
+    RESPONDEU_DEPOIS: 'ficou sem retorno',
+    SEM_RETORNO_CHAMADO_OCUPADO: 'chamado ocupado, template não enviado',
+    NAO_ENCERRADO: 'não foi encerrado: servidor desligado no fim do dia'
+  };
+
+  function falasTardia(lista) {
+    return (lista || []).map(m => `<div class="msg ${m.papel === 'CLIENTE' ? 'cliente' : 'ia'}"><small>${m.papel === 'CLIENTE' ? 'Cliente' : 'Líder'} · ${fmtData(m.ts)}${m.ts && m.papel === 'CLIENTE' && foraDoHorario(m.ts) ? ' 🌙' : ''}</small>${esc(m.texto)}</div>`).join('');
+  }
+
+  // v24: mensagem fora do horário comercial (antes das 08:00, depois das 18:00 ou fim de semana)
+  function foraDoHorario(ts) {
+    const d = new Date(ts); if (isNaN(d)) return false;
+    const h = d.getHours(), w = d.getDay();
+    return w === 0 || w === 6 || h < 8 || h >= 18;
+  }
+
+  function cardTardia(r) {
+    const d = parse(r);
+    const t = d.respostaTardia || {};
+    const id = esc(r.pedidoLider);
+    const telefoneFmt = d.phone ? formatarTelefoneExibicao(d.phone) : 'Sem telefone';
+    const contexto = (t.contexto || []).length
+      ? `<details style="margin-top:10px;"><summary style="cursor:pointer;font-size:12.5px;color:var(--text-secondary);">Ver a conversa antes do encerramento (${t.contexto.length})</summary><div class="chat-box">${falasTardia(t.contexto)}</div></details>`
+      : '';
+    return `
+    <div class="card" id="tard-${id}">
+      <div class="pend-head">
+        <div>
+          <b style="font-size:16px;">Pedido 11-${id}</b>
+          <span style="color:var(--text-secondary);margin-left:8px;">· ${esc(r.cliente || d.clienteLider || 'Cliente')}</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="tag ${d.tipoMovel === 'Planejados' ? 'tag-planejados' : 'tag-soltos'}">${esc(d.tipoMovel || 'Móveis Soltos')}</span>
+          <span class="tag">${esc(r.responsavel || 'SEM RESPONSÁVEL')}</span>
+          <span class="tag PENDENTE_RESPOSTA_TARDIA">⏰ Resposta tardia</span>
+        </div>
+      </div>
+      <div class="info" style="margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-secondary);">
+        <span>📱 <b>WhatsApp:</b> ${esc(telefoneFmt)}</span>
+        ${t.etapa === 'NAO_ENCERRADO'
+          ? `<span>📤 Enviado em <b>${esc(fmtData(t.enviadoEm))}</b> (${esc(ETAPA_TARDIA.NAO_ENCERRADO)})</span>`
+          : `<span>🔕 Encerrado sem retorno em <b>${esc(fmtData(t.encerradoEm))}</b>${ETAPA_TARDIA[t.etapa] ? ' (' + esc(ETAPA_TARDIA[t.etapa]) + ')' : ''}</span>`}
+        ${t.origem === 'VARREDURA' ? `<span title="Achada na conversa do DigiSac pela varredura">🔎 Varredura de ${esc(fmtData(t.detectadoEm))}</span>` : ''}
+      </div>
+      ${(['SEM_RETORNO_TEMPLATE', 'SEM_RETORNO_CHAMADO_OCUPADO'].includes(t.etapa) || ['AGUARDANDO', 'AGUARDANDO_CHAMADO_LIVRE'].includes(t.statusAnterior))
+        ? '<div style="margin-top:8px;font-size:12.5px;color:var(--warning);">⚠️ Este cliente não chegou a receber a mensagem com a data (só o template ou nada). Confira antes de registrar como confirmado.</div>' : ''}
+      ${contexto}
+      <div style="font-weight:600;font-size:13px;margin-top:12px;">O que o cliente mandou${t.etapa === 'NAO_ENCERRADO' ? '' : ' depois do encerramento'}:</div>
+      <div class="chat-box">${falasTardia(t.respostas) || '<div class="vazio">Mensagem não registrada.</div>'}</div>
+
+      <div style="font-size:12.5px;color:var(--text-secondary);">Mensagem com a data deste pedido:</div>
+      <div class="msgbox" style="margin-top:6px;">${esc(d.mensagem || r.mensagem || '')}</div>
+
+      <div class="acoes" style="justify-content:space-between;align-items:center;margin-top:10px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-sm" onclick="registrarTardia('${id}','${esc(r.id)}')" title="Planilha SIM / CONFIRMADO e observação na intranet. Nada é enviado ao cliente.">✅ Registrar confirmado</button>
+          <button class="btn btn-danger-ghost btn-sm" onclick="decidirTardia('${id}','NAO_ENVIAR')" title="Nada é enviado ao cliente; trate o caso por fora">🚫 Não enviar (tratar por fora)</button>
+        </div>
+        <span id="tmsg-${id}" style="font-size:13px;"></span>
+      </div>
+
+      <details style="margin-top:12px;"><summary style="cursor:pointer;font-size:12.5px;color:var(--text-secondary);">Outras opções: mandar o template de novo</summary>
+      <textarea id="tard-txt-${id}" rows="4" placeholder="Para responder diferente, escreva aqui a mensagem que vai ao cliente depois que ele aceitar o template..."
+        oninput="rascunhoTardia['${id}'] = this.value">${esc(rascunhoTardia[r.pedidoLider] || '')}</textarea>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">📌 Nas opções de envio, o template sai primeiro; a mensagem só vai depois que o cliente aceitar. Depois disso, as respostas do cliente seguem para a IA como no fluxo normal.${d.anexoUrl ? ' A resposta diferente vai só em texto, sem o vídeo.' : ''}</div>
+
+      <div class="acoes" style="justify-content:space-between;align-items:center;margin-top:10px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="decidirTardia('${id}','FLUXO_NORMAL')">📨 Template + mensagem padrão</button>
+          <button class="btn btn-ghost btn-sm" onclick="decidirTardia('${id}','RESPOSTA_DIFERENTE')">✍️ Template + resposta diferente</button>
+        </div>
+      </div>
+      </details>
+    </div>`;
+  }
+
+  function renderTardias(forcar) {
+    const abertas = revisoes.filter(r => r.status === 'PENDENTE_RESPOSTA_TARDIA');
+    const badge = document.getElementById('badge-tardia');
+    if (badge) { badge.textContent = abertas.length; badge.classList.toggle('zero', abertas.length === 0); }
+
+    const ativo = document.activeElement;
+    if (!forcar && ativo && ativo.closest && ativo.closest('#lista-tardias')) return;
+
+    const sel = document.getElementById('filtro-resp-tard');
+    const atual = sel.value;
+    const nomes = [...new Set(abertas.map(r => r.responsavel || 'SEM RESPONSÁVEL'))].sort();
+    sel.innerHTML = '<option value="">Todos os responsáveis</option>' + nomes.map(n => `<option ${n === atual ? 'selected' : ''}>${esc(n)}</option>`).join('');
+    const filtro = sel.value;
+    const lista = abertas.filter(r => !filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro);
+    document.getElementById('contador-tardias').textContent = `${lista.length} resposta(s) aguardando decisão`;
+
+    // Bloqueados (ex.: pendência de boleto) que também têm resposta tardia: só informativo, não podem ser enviados
+    const bloq = revisoes.filter(r => r.status === 'BLOQUEADO' && parse(r).respostaTardia
+      && (!filtro || (r.responsavel || 'SEM RESPONSÁVEL') === filtro));
+
+    document.getElementById('lista-tardias').innerHTML =
+      (lista.length ? lista.map(cardTardia).join('') : '<div class="card vazio">Nenhuma resposta tardia aguardando decisão. 🎉</div>') +
+      (bloq.length
+        ? `<div class="card" style="border-color:rgba(239,68,68,0.3);"><b style="color:var(--danger);">⛔ Bloqueados que também responderam depois do encerramento (${bloq.length})</b>
+           <div class="info" style="margin-top:6px;font-size:12.5px;">Não são enviados pelo fluxo (veja o motivo ao lado). Leia a resposta e trate por fora, se preciso.</div>
+           ${bloq.map(r => { const d = parse(r); return `<div style="margin-top:12px;"><b>11-${esc(r.pedidoLider)}</b> · ${esc(r.cliente || '')} · <span class="tag" style="background:var(--danger-light);color:var(--danger);">${esc(d.motivoRevisao || '-')}</span><div class="chat-box">${falasTardia((d.respostaTardia || {}).respostas)}</div></div>`; }).join('')}</div>`
+        : '');
+  }
+
+  function irParaTardia(id) {
+    mostrarTela('tardias', document.querySelectorAll('.nav-item')[3]);
+    setTimeout(() => {
+      const el = document.getElementById('tard-' + id);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 150);
+  }
+
+  // v24: ✅ Registrar confirmado — planilha SIM / CONFIRMADO, observação na intranet, pedido CONCLUIDO.
+  // Usa o webhook do consultor (acao REGISTRAR); nada é enviado ao cliente.
+  async function registrarTardia(pedido, rowId) {
+    const msg = document.getElementById('tmsg-' + pedido);
+    if (!rowId) { msg.innerHTML = '<span class="err">Linha do pedido sem id. Recarregue a tela.</span>'; return; }
+    if (!window.confirm('Registrar o pedido 11-' + pedido + ' como CONFIRMADO (planilha e intranet)? Nada será enviado ao cliente.')) return;
+    const botoes = document.querySelectorAll('#tard-' + pedido + ' button');
+    botoes.forEach(b => b.disabled = true);
+    msg.innerHTML = '<span style="color:var(--warning)">⏳ Registrando...</span>';
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-consultor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: isNaN(Number(rowId)) ? rowId : Number(rowId), acao: 'REGISTRAR', resultado: 'CONFIRMADO', texto: '', dataAdiamento: '' })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const j = await res.json().catch(() => ({}));
+      if (j && j.ok === false) throw new Error(j.erro || 'Falha');
+      const avisos = (j && Array.isArray(j.avisos) && j.avisos.length) ? '<br><span class="err">⚠️ ' + esc(j.avisos.join(' · ')) + '</span>' : '';
+      msg.innerHTML = '<span class="ok">✅ Registrado como confirmado (planilha: ' + esc(j.planilha || '-') + ', intranet: ' + esc(j.intranet || '-') + ')</span>' + avisos;
+      setTimeout(() => carregar(), avisos ? 8000 : 2500);
+    } catch (e) {
+      msg.innerHTML = '<span class="err">❌ ' + esc(e.message || 'Erro ao registrar.') + '</span>';
+      botoes.forEach(b => b.disabled = false);
+    }
+  }
+
+  async function decidirTardia(id, modo) {
+    const txt = (document.getElementById('tard-txt-' + id)?.value || '').trim();
+    const msg = document.getElementById('tmsg-' + id);
+    if (modo === 'RESPOSTA_DIFERENTE' && !txt) { msg.innerHTML = '<span class="err">Escreva a resposta que vai ao cliente.</span>'; return; }
+    if (modo === 'FLUXO_NORMAL' && txt) { msg.innerHTML = '<span class="err">Há um texto escrito. Apague-o para seguir o fluxo normal ou use "Enviar resposta diferente".</span>'; return; }
+    const botoes = document.querySelectorAll('#tard-' + id + ' button');
+    botoes.forEach(b => b.disabled = true);
+    msg.innerHTML = '<span style="color:var(--warning)">⏳ Enviando...</span>';
+    try {
+      const res = await fetch(BASE + '/webhook/central-lider-revisao', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pedidoLider: id,
+          origem: 'RESPOSTA_TARDIA',
+          decisao: modo === 'NAO_ENVIAR' ? 'cancelar' : 'enviar',
+          mensagemPersonalizada: modo === 'RESPOSTA_DIFERENTE' ? txt : ''
+        })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      delete rascunhoTardia[id];
+      const ok = {
+        FLUXO_NORMAL: 'Liberado: template primeiro, mensagem padrão após o aceite',
+        RESPOSTA_DIFERENTE: 'Liberado: template primeiro, sua resposta após o aceite',
+        NAO_ENVIAR: 'Marcado como não enviar'
+      }[modo];
+      msg.innerHTML = '<span class="ok">✅ ' + ok + '</span>';
+      setTimeout(() => carregar(), 3000);
+    } catch (e) {
+      msg.innerHTML = '<span class="err">❌ ' + esc(e.message || 'Erro ao enviar.') + '</span>';
+      botoes.forEach(b => b.disabled = false);
+    }
+  }
+
+  /* ==========================================================
+     TELA DE RESPONSÁVEIS
+     ========================================================== */
+  function renderResponsaveis() {
+    const grupos = {};
+    todosPedidos.forEach(r => { (grupos[r.responsavel || 'SEM RESPONSÁVEL'] ??= []).push(r); });
+    const nomes = Object.keys(grupos).sort();
+    
+    document.getElementById('lista-responsaveis').innerHTML = nomes.length
+      ? nomes.map(n => {
+          const l = grupos[n];
+          const c = s => l.filter(r => r.status === s).length;
+          const cg = gr => l.filter(r => grupoPedido(r) === gr).length;
+          return `<div class="card card-hover">
+            <div style="font-weight:700;font-size:16px;margin-bottom:12px;color:var(--text);">${esc(n)}</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+              <span class="tag PENDENTE_DESTINO">${cg('PREPARACAO')} em preparação</span>
+              <span class="tag PENDENTE_REVISAO">${cg('ESPERA_ENVIO')} aguardando envio</span>
+              <span class="tag AGUARDANDO">${cg('CLIENTE')} aguardando cliente</span>
+              <span class="tag RESOLVIDO">${cg('CONCLUIDO')} concluído(s)</span>
+              <span class="tag SEM_RETORNO_CLIENTE">${cg('SEM_RETORNO')} sem retorno</span>
+              <span class="tag TRANSFERIDO">${cg('HUMANO')} com atendente</span>
+              <span class="tag CANCELADO">${cg('FORA')} saíram antes</span>
+            </div>
+            <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+              ${l.slice(0, 8).map(r => `11-${esc(r.pedidoLider)} · ${esc(r.cliente || '-')} · <span class="tag ${esc(r.status)}">${esc(r.status)}</span>`).join('<br>')}
+              ${l.length > 8 ? `<span style="font-size:11.5px;color:var(--text-muted);">+ ${l.length - 8} outro(s) pedido(s)...</span>` : ''}
+            </div>
+          </div>`;
+        }).join('')
+      : '<div class="card vazio">Sem dados registrados ainda.</div>';
+  }
+
+  /* ==========================================================
+     DISPARO DO FLUXO
+     ========================================================== */
+  const FX_LABEL_BTN = '▶ Executar Fluxo Agora';
+  let fx = null, fxTimer = null;
+
+  const fxHora = t => new Date(t).toLocaleTimeString('pt-BR', { hour12: false });
+
+  function fxLog(msg, tipo) { fx.local.push({ t: Date.now(), msg, tipo: tipo || 'info' }); }
+
+  function fxRender(s) {
+    const pct = Math.max(0, Math.min(100, Math.round(s.pct || 0)));
+    const fill = document.getElementById('fx-fill');
+    fill.style.width = pct + '%';
+    fill.className = 'fx-fill ' + (s.status === 'erro' ? 'err' : s.status === 'concluido' ? 'ok' : 'run');
+    document.getElementById('fx-pct').textContent = pct + '%';
+    document.getElementById('fx-etapa').textContent =
+      s.status === 'erro' ? '❌ Falha na execução' : s.status === 'concluido' ? '✅ Fluxo concluído' : (s.etapa || 'Aguardando...') + '...';
+
+    const linhas = fx.local.concat(s.logs || []);
+    if (s.status === 'concluido') linhas.push({ t: s.atualizadoEm || Date.now(), msg: 'Fluxo concluído', tipo: 'ok' });
+    const box = document.getElementById('fx-log');
+    box.innerHTML = linhas.map((l, k) => {
+      const ultima = k === linhas.length - 1;
+      let cls = 'fx-linha', ico = '✓';
+      if (l.tipo === 'erro') { cls += ' erro'; ico = '✕'; }
+      else if (l.tipo === 'ok') { cls += ' ok'; ico = '✓'; }
+      else if (ultima && s.status === 'executando') { cls += ' atual'; ico = '<span class="fx-spin"></span>'; }
+      return `<div class="${cls}"><span class="fx-hora">${fxHora(l.t)}</span><span class="fx-ico">${ico}</span><span>${esc(l.msg)}</span></div>`;
+    }).join('');
+    box.scrollTop = box.scrollHeight;
+
+    const eb = document.getElementById('fx-erro');
+    if (s.erro) {
+      eb.innerHTML = `<strong>Erro na etapa: ${esc(s.erro.no || 'desconhecida')}</strong>${esc(s.erro.mensagem || 'Erro desconhecido')}`;
+      eb.classList.remove('hidden');
+    } else if (s.erroLocal) {
+      eb.innerHTML = `<strong>Não foi possível acompanhar/executar o fluxo</strong>${esc(s.erroLocal)}`;
+      eb.classList.remove('hidden');
+    } else {
+      eb.classList.add('hidden');
+    }
+  }
+
+  function fxEncerrar() {
+    if (fxTimer) clearInterval(fxTimer);
+    fxTimer = null;
+    if (fx) fx.finalizado = true;
+    const btn = document.getElementById('btn-disparar');
+    btn.disabled = false; btn.textContent = FX_LABEL_BTN;
+  }
+
+  function fxFalha(motivo) {
+    fxLog(motivo, 'erro');
+    fxRender({ status: 'erro', pct: fx.ultimoPct || 0, etapa: 'Falha', logs: [], erroLocal: motivo });
+    fxEncerrar();
+  }
+
+  async function fxPoll() {
+    if (!fx || fx.finalizado || fx.consultando) return;
+    fx.consultando = true;
+    try {
+      const r = await fetch(`${BASE}/webhook/status-fluxo-lider?disparoId=${encodeURIComponent(fx.id)}&_=${Date.now()}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const s = await r.json();
+      fx.falhas = 0;
+      if (!s.encontrado) {
+        if (Date.now() - fx.inicio > 60000) {
+          fxFalha('O n8n aceitou o disparo, mas nenhuma etapa foi registrada em 60s. Verifique se o workflow está publicado e se a Data Table FLUXO_STATUS foi configurada nos nós de status.');
+        } else {
+          fxRender({ status: 'executando', pct: 2, etapa: 'Aguardando o n8n iniciar', logs: [] });
+        }
+        return;
+      }
+      fx.ultimoPct = s.pct;
+      fxRender(s);
+      if (s.status === 'erro') { fxEncerrar(); }
+      else if (s.status === 'concluido') { fxEncerrar(); carregar(); }
+    } catch (e) {
+      fx.falhas = (fx.falhas || 0) + 1;
+      if (fx.falhas >= 5) fxFalha('Perdi a conexão com o acompanhamento do fluxo (' + (e.message || e) + '). O fluxo pode ter continuado rodando no n8n.');
+    } finally {
+      if (fx) fx.consultando = false;
+    }
+  }
+
+  async function dispararFluxo(btn) {
+    if (fxTimer) clearInterval(fxTimer);
+    fx = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8), inicio: Date.now(), local: [], falhas: 0, finalizado: false, ultimoPct: 0 };
+    document.getElementById('resultado-disparo').innerHTML = '';
+    document.getElementById('painel-disparo').classList.remove('hidden');
+    btn.disabled = true; btn.textContent = '⏳ Executando...';
+    fxLog('Enviando comando de execução ao n8n');
+    fxRender({ status: 'executando', pct: 2, etapa: 'Enviando comando', logs: [] });
+    try {
+      const res = await fetch(BASE + '/webhook/disparar-fluxo-lider', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ origem: 'Central - Líder', disparoId: fx.id })
+      });
+      if (!res.ok) {
+        let det = '';
+        try { det = (await res.text()).slice(0, 300); } catch (_) {}
+        fxFalha(`O n8n recusou o disparo (HTTP ${res.status}). ${det}`.trim());
+        return;
+      }
+      fxLog('Comando aceito. Aguardando o início do processamento');
+    } catch (e) {
+      fxFalha('Não foi possível conectar ao n8n: ' + (e.message || e));
+      return;
+    }
+    fxTimer = setInterval(fxPoll, 2000);
+    fxPoll();
+  }
+
+  // Inicialização
+  carregar();
+  setInterval(() => {
+    const a = document.activeElement;
+    if (!(a && a.closest && a.closest('#tela-pendencias'))) carregar();
+  }, 30000);
+</script>
+</body>
+</html>
