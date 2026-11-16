@@ -18,8 +18,5 @@ Pedidos em **AGUARDANDO**, template enviado entre 1 h e 72 h atrás, ainda não 
 ## Como usar
 Só roda com `AGENDADOR_ATIVO=true`. Para rodar na hora: `Invoke-RestMethod -Method Post http://127.0.0.1:6050/api/rodar/reenvio_template`.
 
-## Diferenças da v28
-Nenhuma.
-
 ## Ligações
 [[Revisão de envio]] · [[Encerramento sem retorno]]

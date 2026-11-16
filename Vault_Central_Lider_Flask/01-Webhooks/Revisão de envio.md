@@ -19,9 +19,6 @@ tags: [webhook, fluxo1]
    - **com outro atendente / na fila** → **AGUARDANDO_CHAMADO_LIVRE** (o agendamento [[Chamados ocupados]] tenta de novo).
 3. O painel espera a resposta (síncrono).
 
-## Diferenças da v28
-Nenhuma.
-
 ## Como testar
 Testado real em 13/11: envio normal e chamado ocupado → liberado 30 min depois.
 

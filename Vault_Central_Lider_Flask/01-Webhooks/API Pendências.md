@@ -15,8 +15,5 @@ Alimenta todas as telas do painel com os pedidos da AGUARDANDO_ENTREGA.
 ## O que o sistema faz
 Devolve todas as linhas com pedido e status, com `criadoEm` e a marca `statusConhecido`. Também serve para conferir o estado de um pedido sem abrir o banco (ex.: no navegador).
 
-## Diferenças da v28
-Nenhuma.
-
 ## Ligações
 [[Painel Central Líder]] · [[Glossário de status]]

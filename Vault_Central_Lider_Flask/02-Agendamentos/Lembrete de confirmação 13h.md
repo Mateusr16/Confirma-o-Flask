@@ -21,8 +21,5 @@ Cobrar, uma vez, quem aceitou o template, recebeu a mensagem de confirmação e 
 ## Como usar
 Só roda com `AGENDADOR_ATIVO=true`. Para rodar na hora: `Invoke-RestMethod -Method Post http://127.0.0.1:6050/api/rodar/lembrete_13h`.
 
-## Diferenças da v28
-Nenhuma.
-
 ## Ligações
 [[Resposta do cliente (DigiSac)]] · [[Encerramento sem retorno]]

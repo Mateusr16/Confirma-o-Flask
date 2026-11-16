@@ -24,11 +24,6 @@ Três ações no cartão:
 - **Transferir:** encontra o responsável entre os usuários do DigiSac; transfere e avisa o cliente → TRANSFERIDO. Sem responsável: e-mail de ação manual e aviso ao cliente → TRANSFERENCIA_MANUAL.
 - Validações iguais à v28 (consulta já tratada, data no passado, 1ª confirmação de planejados não pode ser adiada etc.).
 
-## Diferenças da v28
-Nenhuma. Comportamentos da v28 mantidos de propósito:
-- o aprendizado da base de conhecimento depois de "Responder" nunca grava nada (o nó procura a dúvida depois do envio que acabou de ser gravado);
-- se o responsável foi encontrado mas a transferência falhar no DigiSac, o status fica TRANSFERIDO.
-
 ## Como testar
 Testes de paridade (47 cenários) e ponta a ponta. Real: mandar uma pergunta que a IA não saiba ("o montador vem junto?") e responder pela tela.
 

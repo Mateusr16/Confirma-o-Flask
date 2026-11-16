@@ -22,8 +22,5 @@ No fim do dia, encerra quem não respondeu.
 ## Como usar
 Só roda com `AGENDADOR_ATIVO=true`. Para rodar na hora: `Invoke-RestMethod -Method Post http://127.0.0.1:6050/api/rodar/encerramento_pendencias`.
 
-## Diferenças da v28
-Usa a aba da planilha do `.env` (Página3).
-
 ## Ligações
 [[Varredura de respostas tardias]] · [[Chamados ocupados]] · [[Integrações]]

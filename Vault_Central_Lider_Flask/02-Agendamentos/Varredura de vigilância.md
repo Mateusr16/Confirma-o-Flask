@@ -21,8 +21,5 @@ Tudo é anotado no chat da consulta.
 ## Como usar
 Só roda com `AGENDADOR_ATIVO=true`. Para rodar na hora: `Invoke-RestMethod -Method Post http://127.0.0.1:6050/api/rodar/varredura_vigilancia`.
 
-## Diferenças da v28
-Nenhuma.
-
 ## Ligações
 [[Consultas da IA (consultor)]] · [[Resposta do cliente (DigiSac)]] · [[Logs e alertas]]

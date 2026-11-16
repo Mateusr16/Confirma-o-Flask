@@ -23,10 +23,6 @@ Recebe as mensagens do WhatsApp (webhook do DigiSac) e responde o cliente automa
    - **CONSULTOR_MSG**: anexa a mensagem ao chat da consulta;
    - **VIGILANCIA**: já confirmou e o chamado está aberto → IA classifica e responde pela base ou abre consulta.
 
-## Diferenças da v28
-- Só grava mensagens de contatos atendidos (a v28 gravava todas).
-- **Divergência da v28:** cliente que recusa falar com o responsável vai para CONCLUIDO (na v28 o nó dava erro e o status não mudava).
-
 ## Como testar
 `python simular_resposta.py` (MODO_TESTE) ou WhatsApp real. Testado real em 13/11 (Ok! → mensagem programada) e 16/11 (adiamento 27/02/2027 → 24/05/2027; pediu 22/05, sábado).
 

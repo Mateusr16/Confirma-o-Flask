@@ -18,8 +18,5 @@ Lê os eventos da tabela FLUXO_STATUS daquele `disparoId`. Marca **erro** se hou
 ## Status e tabelas
 Lê [[Banco SQLite|FLUXO_STATUS]].
 
-## Diferenças da v28
-Nenhuma.
-
 ## Ligações
 [[Disparo do fluxo]] · [[Painel Central Líder]]

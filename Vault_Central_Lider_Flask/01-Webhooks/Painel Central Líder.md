@@ -18,9 +18,6 @@ Abra http://127.0.0.1:6050/webhook/central-lider (no PC) ou pelo endereço do zr
 ## O que o sistema faz
 Devolve o HTML do painel da v28 sem mudanças (`app/static/index.html`). O painel chama os outros webhooks pelo mesmo endereço em que foi aberto.
 
-## Diferenças da v28
-Nenhuma.
-
 ## Como testar
 Abrir o endereço e ver os cartões carregarem (eles vêm da [[API Pendências]]).
 

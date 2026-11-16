@@ -30,10 +30,6 @@ Botão de disparo no painel. O webhook responde na hora (`Workflow was started`)
 ## Status e tabelas
 AGUARDANDO_ENTREGA, FLUXO_STATUS, HISTORICO_PEDIDOS, SEM_CONFIRMACAO_DIARIO.
 
-## Diferenças da v28
-- **Divergência da v28:** quantidade nos planejados lida igual aos móveis soltos ("1.0" = 1, não 10x).
-- Lê a aba definida em `PLANILHA_ABA` (hoje Página3); a v28 lia Página1.
-
 ## Como testar
 Disparo real com um pedido de teste na Página3 (ex.: 97680) e conferir o cartão na Revisão de envio.
 

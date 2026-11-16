@@ -17,8 +17,5 @@ Tela de pendências: o consultor informa destino (cidade/UF/referência/telefone
 - **Tratar individualmente:** tira do fluxo e manda e-mail.
 - Responde na hora; processa em segundo plano.
 
-## Diferenças da v28
-Nenhuma.
-
 ## Ligações
 [[Disparo do fluxo]] · [[Revisão de envio]]

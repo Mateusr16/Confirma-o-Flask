@@ -22,11 +22,5 @@ Botão Recomeçar no cartão. Campos: **motivo** (obrigatório, mínimo 5 letras
 4. Guarda o histórico do recomeço no pedido, troca a saudação ("Olá, Anete!"), limpa a conversa anterior → **PENDENTE_REVISAO**.
 5. Marca o recomeço na conversa (a IA não mistura com o histórico antigo), envia o aviso ao contato antigo e atualiza os pedidos da mensagem única.
 
-## Diferenças da v28
-Nenhuma.
-
-## Como testar
-Paridade (43 cenários) e ponta a ponta. Real: Recomeçar com número novo e conferir o cartão de volta na Revisão.
-
 ## Ligações
 [[Revisão de envio]] · [[Integrações]]

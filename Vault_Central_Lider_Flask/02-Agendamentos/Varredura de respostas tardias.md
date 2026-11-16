@@ -23,8 +23,5 @@ Se a consulta ao DigiSac falhar para um contato, ele fica para a próxima varred
 ## Como usar
 Só roda com `AGENDADOR_ATIVO=true`. Para rodar na hora: `Invoke-RestMethod -Method Post http://127.0.0.1:6050/api/rodar/varredura_tardia`. Também roda sozinha 60 s depois que o servidor sobe (agendador ligado).
 
-## Diferenças da v28
-Nenhuma (na v28 o gatilho "ao iniciar" era o início do n8n).
-
 ## Ligações
 [[Encerramento sem retorno]] · [[Revisão de envio]] · [[Consultas da IA (consultor)]]

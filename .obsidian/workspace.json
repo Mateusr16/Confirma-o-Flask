@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LEIAME.md",
+                "file": "Vault_Central_Lider_Flask/04-Diario/Diario de bordo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "LEIAME"
+              "title": "Diario de bordo"
+            }
+          },
+          {
+            "id": "2ee95dd10e86a8a6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Vault_Central_Lider_Flask/01-Webhooks/Revisão de envio.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Revisão de envio"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -41,7 +56,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false,
+                "autoReveal": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
@@ -188,12 +203,38 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "cdb333b9efd9b3ed",
+  "active": "058b5c5827c914a1",
   "lastOpenFiles": [
-    "arquivos/LIDER.mp4",
-    "LEIAME.md",
     "dados/central_lider.db-shm",
+    "app/static/confirmacao.svg",
+    "app/static/confirmacao.png",
     "dados/central_lider.db-wal",
+    "Vault_Central_Lider_Flask/01-Webhooks/Resposta do cliente (DigiSac).md",
+    "Vault_Central_Lider_Flask/01-Webhooks/Painel Central Líder.md",
+    "Vault_Central_Lider_Flask/01-Webhooks/Disparo do fluxo.md",
+    "Vault_Central_Lider_Flask/01-Webhooks/Consultas da IA (consultor).md",
+    "Vault_Central_Lider_Flask/01-Webhooks/API Pendências.md",
+    "Vault_Central_Lider_Flask/01-Webhooks/Resolver pendência.md",
+    "Vault_Central_Lider_Flask/01-Webhooks/Recomeçar pedido.md",
+    "Vault_Central_Lider_Flask/00-Mapa/Index.md",
+    "Vault_Central_Lider_Flask/00-Mapa/Glossário de status.md",
+    "Vault_Central_Lider_Flask/00-Mapa/_Convencoes.md",
+    "Vault_Central_Lider_Flask/04-Diario/Diario de bordo.md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Testes automáticos.md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Rodar o servidor.md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Modo teste.md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Logs e alertas.md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Integrações.md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Endereço público (zrok).md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Configuração (.env).md",
+    "Vault_Central_Lider_Flask/03-Infraestrutura/Banco SQLite.md",
+    "Vault_Central_Lider_Flask/02-Agendamentos/Varredura de vigilância.md",
+    "Vault_Central_Lider_Flask/02-Agendamentos/Varredura de respostas tardias.md",
+    "Vault_Central_Lider_Flask/02-Agendamentos/Reenvio do template.md",
+    "Vault_Central_Lider_Flask/02-Agendamentos/Lembrete de confirmação 13h.md",
+    "Vault_Central_Lider_Flask/02-Agendamentos/Encerramento sem retorno.md",
+    "Vault_Central_Lider_Flask/02-Agendamentos/Chamados ocupados.md",
+    "arquivos/LIDER.mp4",
     "app/fluxos/__pycache__/prompts.cpython-313.pyc",
     "app/fluxos/__pycache__/f2_logica.cpython-313.pyc",
     "app/integracoes/__pycache__/gemini.cpython-313.pyc",

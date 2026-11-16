@@ -18,8 +18,5 @@ Em horário comercial (seg-sex 08:00–17:30), confere de novo cada chamado no D
 ## Como usar
 Só roda com `AGENDADOR_ATIVO=true`. Para rodar na hora: `Invoke-RestMethod -Method Post http://127.0.0.1:6050/api/rodar/chamados_ocupados`. Use `?forcar=1` para ignorar o horário comercial.
 
-## Diferenças da v28
-Nenhuma. Testado real em 13/11.
-
 ## Ligações
 [[Revisão de envio]] · [[Encerramento sem retorno]]

@@ -17,7 +17,7 @@ from . import f1_extracao as X
 from . import f1_mensagens as M
 
 log = logging.getLogger("central")
-EMAIL_EXPEDICAO = "mateus.oliveira@lider.design"
+EMAIL_EXPEDICAO = "expedicaobh@lider.design"
 EMAIL_ALERTA = "mateus.oliveira@lider.design"
 
 MAPA_STATUS = {
