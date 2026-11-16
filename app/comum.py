@@ -300,3 +300,84 @@ def unicos(seq):
             vistos.add(k)
             saida.append(x)
     return saida
+
+
+# ---------------------------------------------------------------- semântica do JavaScript (nós Code)
+def js_truthy(v) -> bool:
+    """Verdadeiro/falso como no JS: '', 0, NaN, null, false são falsos; [] e {} são verdadeiros."""
+    if v is None or v is False:
+        return False
+    if isinstance(v, bool):
+        return True
+    if isinstance(v, (int, float)):
+        return v == v and v != 0
+    if isinstance(v, str):
+        return v != ""
+    return True
+
+
+def js_or(*vals):
+    """a || b || c"""
+    for v in vals[:-1]:
+        if js_truthy(v):
+            return v
+    return vals[-1] if vals else None
+
+
+def nn(*vals):
+    """a ?? b ?? c (None faz papel de null/undefined)"""
+    for v in vals[:-1]:
+        if v is not None:
+            return v
+    return vals[-1] if vals else None
+
+
+def js_str(v) -> str:
+    """String(v) / interpolação ${v}"""
+    if v is None:
+        return "null"
+    if v is True:
+        return "true"
+    if v is False:
+        return "false"
+    if isinstance(v, float) and v.is_integer():
+        return str(int(v))
+    return str(v)
+
+
+def js_round(x: float) -> int:
+    """Math.round"""
+    import math
+    return int(math.floor(x + 0.5))
+
+
+def js_date_ms(v):
+    """new Date(v).getTime(): None (null) -> 0; inválido -> None (NaN)."""
+    if v is None:
+        return 0
+    if isinstance(v, bool):
+        return int(v)
+    if isinstance(v, (int, float)):
+        return int(v)
+    s = str(v).strip()
+    if not s:
+        return None
+    try:
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=TZ)
+    return int(dt.timestamp() * 1000)
+
+
+def iso_utc_de_ms(ms: int) -> str:
+    """new Date(ms).toISOString()"""
+    from datetime import timezone
+    d = datetime.fromtimestamp(ms / 1000, timezone.utc)
+    return d.strftime("%Y-%m-%dT%H:%M:%S.") + f"{int(ms) % 1000:03d}Z"
+
+
+def iso_local_mais(horas: float = 0) -> str:
+    """$now.plus({hours}).toISO()"""
+    return (agora() + timedelta(hours=horas)).isoformat(timespec="milliseconds")

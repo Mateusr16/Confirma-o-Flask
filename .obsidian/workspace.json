@@ -190,6 +190,8 @@
   },
   "active": "cdb333b9efd9b3ed",
   "lastOpenFiles": [
+    "arquivos/LIDER.mp4",
+    "LEIAME.md",
     "dados/central_lider.db-shm",
     "dados/central_lider.db-wal",
     "app/fluxos/__pycache__/prompts.cpython-313.pyc",
@@ -197,9 +199,7 @@
     "app/integracoes/__pycache__/gemini.cpython-313.pyc",
     "app/fluxos/__pycache__/f2_resposta.cpython-313.pyc",
     "simular_resposta.py",
-    "arquivos/LIDER.mp4",
     "arquivos",
-    "tests/paridade/test_f2_paridade.py",
-    "app/fluxos/f2_logica.py"
+    "tests/paridade/test_f2_paridade.py"
   ]
 }

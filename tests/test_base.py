@@ -11,15 +11,21 @@ def test_rotas_e_saude():
     r = c.get("/api/saude").get_json()
     assert r["modo_teste"] is True
     assert "central-lider" in r["gatilhos_migrados"]
-    assert "central-lider-consultor" in r["gatilhos_pendentes"]
+    assert r["gatilhos_pendentes"] == []          # os 9 webhooks da v28 estão migrados
 
 
-def test_nao_migrado_responde_501_e_registra():
+def test_consultor_invalido_responde_erro_e_registra():
     c = create_app().test_client()
     r = c.post("/webhook/central-lider-consultor", json={"pedido": "97680"})
-    assert r.status_code == 501
+    assert r.status_code == 200 and r.get_json() == {"ok": False, "erro": "Consulta não encontrada."}
     ex = db.consultar("SELECT * FROM execucoes WHERE gatilho='central-lider-consultor'")
-    assert ex and ex[-1]["status"] == "nao_migrado"
+    assert ex and ex[-1]["status"] == "ok"
+
+
+def test_todos_os_agendamentos_migrados():
+    from app.agendador import AGENDA
+    from app.fluxos import JOBS
+    assert set(AGENDA) <= set(JOBS) and "ao_iniciar" in JOBS
 
 
 def test_digisac_responde_na_hora():

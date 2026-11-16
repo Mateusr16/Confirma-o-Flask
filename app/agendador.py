@@ -53,7 +53,8 @@ def iniciar():
     sched.start()
     for job in sched.get_jobs():
         log.info("Agendado %-28s próxima: %s", job.id, job.next_run_time)
-    # Equivale ao gatilho "ao iniciar o n8n"
+    # Equivale ao gatilho "Varredura tardia - n8n iniciou" (espera 60 s e roda em segundo plano)
     if "ao_iniciar" in JOBS:
-        _executar("ao_iniciar")
+        import threading
+        threading.Thread(target=_executar, args=("ao_iniciar",), name="ao-iniciar", daemon=True).start()
     return sched

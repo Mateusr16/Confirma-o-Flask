@@ -26,4 +26,5 @@ def agendamento(nome: str):
 
 
 # Os módulos de cada etapa se registram ao serem importados.
-from . import status, painel, f1_disparo, f1_resolver, f1_revisao, ag_chamados_ocupados, f2_resposta  # noqa: E402,F401
+from . import (status, painel, f1_disparo, f1_resolver, f1_revisao, ag_chamados_ocupados, f2_resposta,  # noqa: E402,F401
+               consultor, recomecar, ag_rotinas)

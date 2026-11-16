@@ -1,0 +1,133 @@
+2026-11-13 10:43:40,585 INFO [MainThread] Migrações aplicadas: ['001_base.sql']
+2026-11-13 10:43:40,617 INFO [MainThread] [MODO_TESTE] digisac/enviar_template não enviado
+2026-11-13 13:23:39,327 INFO [MainThread] Migrações aplicadas: ['001_base.sql', '002_tabelas_negocio.sql']
+2026-11-13 13:23:39,346 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 13:23:39,347 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 13:54:49,916 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 13:54:49,916 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 13:58:40,113 INFO [disparo] [MODO_TESTE] planilha/atualizar não enviado
+2026-11-13 13:58:40,117 INFO [disparo] [MODO_TESTE] email/enviar não enviado
+2026-11-13 14:03:47,222 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:03:47,223 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:10:22,147 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:10:22,271 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:12:21,317 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:12:21,454 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:12:21,789 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:12:21,791 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:18:03,560 WARNING [MainThread] 4 thread(s) still running
+2026-11-13 14:19:11,763 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:19:11,766 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:19:12,125 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:19:12,130 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:31:09,752 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:31:09,759 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:31:10,682 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:31:10,796 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:31:30,688 WARNING [MainThread] 1 thread(s) still running
+2026-11-13 14:31:38,136 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:31:38,137 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:31:38,305 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:31:38,309 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:32:48,211 ERROR [waitress-0] Falha ao registrar a execução com erro
+Traceback (most recent call last):
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\rotas\webhooks.py", line 59, in _rodar
+    db.registrar_execucao(path, "ok", resumo, inicio)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 89, in registrar_execucao
+    return executar(
+        "INSERT INTO execucoes (gatilho, status, inicio, fim, detalhe, erro) VALUES (?,?,?,?,?,?)",
+        (gatilho, status, inicio or agora_iso(), agora_iso(),
+         json.dumps(detalhe or {}, ensure_ascii=False, default=str), erro),
+    )
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 59, in executar
+    with transacao() as con:
+         ~~~~~~~~~^^
+  File "C:\Users\Mateus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 39, in transacao
+    con.execute("BEGIN IMMEDIATE")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\rotas\webhooks.py", line 63, in _rodar
+    db.registrar_execucao(path, "erro", resumo, inicio, erro=repr(exc))
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 89, in registrar_execucao
+    return executar(
+        "INSERT INTO execucoes (gatilho, status, inicio, fim, detalhe, erro) VALUES (?,?,?,?,?,?)",
+        (gatilho, status, inicio or agora_iso(), agora_iso(),
+         json.dumps(detalhe or {}, ensure_ascii=False, default=str), erro),
+    )
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 59, in executar
+    with transacao() as con:
+         ~~~~~~~~~^^
+  File "C:\Users\Mateus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 39, in transacao
+    con.execute("BEGIN IMMEDIATE")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+2026-11-13 14:32:48,228 ERROR [waitress-0] Erro em: webhook central-lider
+
+Contexto: {'query': {}, 'body': {}}
+
+Traceback (most recent call last):
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\rotas\webhooks.py", line 59, in _rodar
+    db.registrar_execucao(path, "ok", resumo, inicio)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 89, in registrar_execucao
+    return executar(
+        "INSERT INTO execucoes (gatilho, status, inicio, fim, detalhe, erro) VALUES (?,?,?,?,?,?)",
+        (gatilho, status, inicio or agora_iso(), agora_iso(),
+         json.dumps(detalhe or {}, ensure_ascii=False, default=str), erro),
+    )
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 59, in executar
+    with transacao() as con:
+         ~~~~~~~~~^^
+  File "C:\Users\Mateus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "C:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 39, in transacao
+    con.execute("BEGIN IMMEDIATE")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+2026-11-13 14:33:14,864 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:33:14,864 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:33:15,059 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:33:15,136 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:34:14,147 WARNING [MainThread] 1 thread(s) still running
+2026-11-13 14:34:35,889 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:34:35,890 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:34:36,091 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:34:36,094 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:40:47,791 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:40:47,800 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:40:48,315 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:40:48,449 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:49:34,456 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:49:34,460 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:49:35,001 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:49:35,130 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:55:15,300 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 14:55:15,302 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 14:55:16,714 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 14:55:16,727 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 14:55:33,080 INFO [waitress-0] [MODO_TESTE] digisac/enviar_template não enviado
+2026-11-13 14:55:33,086 INFO [waitress-0] [MODO_TESTE] digisac/transferir_chamado não enviado
+2026-11-13 14:55:33,091 INFO [waitress-0] Chamados ocupados: {'verificados': 1, 'enviados': 1}
+2026-11-13 15:15:48,373 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=True | AGENDADOR=False
+2026-11-13 15:15:48,373 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 15:15:48,918 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 15:15:48,930 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 15:28:07,159 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=False | AGENDADOR=False
+2026-11-13 15:28:07,166 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-13 15:28:07,569 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-13 15:28:07,579 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-13 15:30:16,675 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo TEMPLATE (pedido 97680)
+2026-11-13 15:33:38,974 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo IA (pedido 97680)
+2026-11-13 15:40:35,352 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo IA (pedido 97680)
+2026-11-13 15:42:20,397 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo VIGILANCIA (pedido 97680)
