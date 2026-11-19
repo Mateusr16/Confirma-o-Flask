@@ -5,6 +5,7 @@ os pedidos que chegaram a ela e devolve os que seguem por cada saída.
 """
 import logging
 import threading
+import time
 import traceback
 
 from .. import comum as C
@@ -35,6 +36,7 @@ MAPA_STATUS = {
 }
 
 _lock_disparo = threading.Lock()
+PROGRESSO_A_CADA_S = 20   # etapas longas (pedido a pedido) avisam a tela no máximo a cada 20 s
 
 
 class Disparo:
@@ -46,6 +48,7 @@ class Disparo:
         self.html_boletos: list[str] = []
         self._emails_html: str | None = None
         self.tardia_por_pedido: dict[str, dict] = {}
+        self._ultimo_progresso = 0.0
 
     # ------------------------------------------------------------ progresso (FLUXO_STATUS)
     def status(self, nome_no: str, itens: list | None = None):
@@ -57,11 +60,29 @@ class Disparo:
         if nome_no == "Status: Coletando dados da planilha" and self.evento_inicial_gravado:
             return
         msg, pct = MAPA_STATUS.get(nome_no, (nome_no.replace("Status: ", ""), 0))
+        self._gravar_evento(msg, pct, nome_no)
+        self._ultimo_progresso = time.monotonic()
+
+    def _gravar_evento(self, msg: str, pct, nome_no: str, tipo: str = "info"):
         try:
-            T.insert("FLUXO_STATUS", {"disparoId": self.disparo_id, "ts": C.agora_ms(), "tipo": "info",
+            T.insert("FLUXO_STATUS", {"disparoId": self.disparo_id, "ts": C.agora_ms(), "tipo": tipo,
                                       "msg": msg, "pct": str(pct), "no": nome_no})
         except Exception:  # noqa: BLE001  (onError=continueRegularOutput)
             log.exception("Falha ao gravar evento de status")
+
+    def progresso(self, nome_no: str, feitos: int, total: int, pct_ate: int):
+        """Etapa longa: grava 'Etapa (feitos/total)' no máximo a cada PROGRESSO_A_CADA_S.
+        Mostra na tela que o fluxo segue vivo. O % avança entre o da etapa e pct_ate."""
+        if not total or time.monotonic() - self._ultimo_progresso < PROGRESSO_A_CADA_S:
+            return
+        msg, pct = MAPA_STATUS.get(nome_no, (nome_no.replace("Status: ", ""), 0))
+        pct = int(pct + (pct_ate - pct) * feitos / total)
+        self._gravar_evento(f"{msg} ({feitos}/{total})", pct, nome_no)
+        self._ultimo_progresso = time.monotonic()
+
+    def concluir(self):
+        """Evento de fim real: a tela só mostra 100 % quando ele chega (ou por erro)."""
+        self._gravar_evento("Fluxo concluído", 100, "Fim do disparo", tipo="fim")
 
     def _emails(self) -> str:
         """Nó 'Lista de e-mails' (inf/emails.php)."""
@@ -95,7 +116,10 @@ class Disparo:
 
         self.status("Status: Consultando pedidos na intranet", pedidos)
         self.no = "Buscar Pedido"
-        htmls = [self.intranet.pedido_lojas(p.get("pedido") or "") for p in pedidos]
+        htmls = []
+        for i, p in enumerate(pedidos):
+            htmls.append(self.intranet.pedido_lojas(p.get("pedido") or ""))
+            self.progresso("Status: Consultando pedidos na intranet", i + 1, len(pedidos), 39)
         self.no = "Extrair Dados Pedido"
         if any(X.html_eh_tela_login(h) for h in htmls):
             raise RuntimeError("Sessão da intranet inválida: a consulta de pedidos retornou a tela de login. "
@@ -242,6 +266,7 @@ class Disparo:
             self.html_boletos.append(str(resp.get("data") or ""))
             self.no = "Tratar Conferência Boleto"
             tratados.append(X.tratar_conferencia_boleto(resp, p))
+            self.progresso("Status: Verificando boletos", len(tratados), len(conferir), 57)
 
         seguem, analisar = [], []
         for p in tratados:
@@ -541,6 +566,7 @@ def rodar_disparo(disparo_id=None, evento_inicial_gravado: bool = False):
     d = Disparo(disparo_id, evento_inicial_gravado)
     try:
         d.executar()
+        d.concluir()
     except Exception as exc:  # noqa: BLE001
         log.error("Disparo falhou no nó %s: %s\n%s", d.no, exc, traceback.format_exc())
         registrar_erro_disparo(d.no, exc)

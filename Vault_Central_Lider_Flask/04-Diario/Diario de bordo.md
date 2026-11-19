@@ -1,6 +1,6 @@
 ---
 projeto: Central Líder (Flask)
-atualizado: 2026-11-16
+atualizado: 2026-11-19
 tags: [diario]
 ---
 # Diário de bordo — Central Líder Flask
@@ -8,6 +8,25 @@ tags: [diario]
 Mais recente em cima. Cada entrada: **o que mudou · por quê · arquivos · recursos afetados · testes · pendências**.
 
 ---
+
+## 19/11/2026 — Transferência ao responsável só para usuário da Central de Relacionamento
+- **O que mudou:** a busca do responsável para transferir o chamado agora considera só usuários **ativos** do departamento **CENTRAL DE RELACIONAMENTO LIDER** (pelo id do departamento usado nas transferências ou pelo nome). A lista de usuários pede ao DigiSac os departamentos de cada um (`include[0]=departments`). Vale para o botão "Solicitar transferência" e para a transferência automática quando o cliente aceita falar com o responsável.
+- **Por quê:** pedido do Mateus depois do pedido 211255 (responsável PEDRO), que caiu em TRANSFERENCIA_MANUAL. Nome curto pode achar homônimo de outro departamento.
+- **Arquivos:** `app/fluxos/f2_logica.py` (filtro na busca), `app/fluxos/f1_revisao.py` (`listar_usuarios_central`), `app/fluxos/consultor.py`, `app/fluxos/f2_resposta.py`, `tests/test_novos_ponta_a_ponta.py`
+- **Recursos:** [[Consultas da IA (consultor)]] · [[Resposta do cliente (DigiSac)]]
+- **Testes:** pytest não rodado (máquina sem flask). A busca nova passou num teste isolado: homônimo de outro departamento ignorado, departamento achado pelo id ou pelo nome, arquivado ignorado, sem departamentos → ninguém. Novo `test_transferir_so_usuario_da_central`. Rodar `python -m pytest -q` no PC.
+- **Divergência da v28:** a v28 procurava o responsável entre todos os usuários do DigiSac.
+- **Pendências:** (1) pytest no PC; (2) confirmar num teste real que o DigiSac devolve os departamentos dos usuários. Se não devolver, o log mostra "DigiSac não devolveu os departamentos dos usuários" e toda transferência vira TRANSFERENCIA_MANUAL; (3) ainda pendente, a pedido do Mateus: só marcar TRANSFERIDO quando o DigiSac confirmar a transferência.
+
+## 19/11/2026 — Tela de disparo: 100 % só quando o fluxo termina de verdade
+- **O que mudou:** o disparo grava um evento de fim (tipo `fim`) ao terminar sem erro, e o [[Status do disparo]] só marca concluído com ele (ou erro). A conclusão por silêncio virou reserva de 30 min. A consulta dos pedidos na intranet e a conferência de boletos gravam o andamento "(n/total)" no máximo a cada 20 s.
+- **Por quê:** o Mateus viu a tela pular para 100 % na etapa de boletos com o processo ainda rodando (disparo de 19/11, 09:00). A conferência pedido a pedido passou de 7 min sem gravar evento, e a regra antiga dava o fluxo por concluído.
+- **Registro atrasado:** em 17/11 o `_timer` (`ag_rotinas.py`: reenvio do template e lembrete 13h) e o Timer envio Template (`f1_revisao.py`) passaram de 5–6 s para **1–2 s**, sem entrada no diário. Registrado aqui. O Sistema-Unificado foi igualado hoje.
+- **Arquivos:** `app/fluxos/painel.py`, `app/fluxos/f1_disparo.py`, `tests/test_f1_ponta_a_ponta.py`
+- **Recursos:** [[Status do disparo]] · [[Disparo do fluxo]] · [[Painel Central Líder]]
+- **Testes:** pytest não rodado: a máquina onde a mudança foi feita não tem flask nem acesso para instalar. A lógica nova passou num teste com dublês (executando após 10 min sem evento, progresso limitado a 20 s, fim real → 100 %, reserva de 30 min, erro prevalece). `test_f1_ponta_a_ponta.py` ganhou a checagem do evento de fim. Rodar `python -m pytest -q` no PC e anotar o total.
+- **Divergência da v28:** a v28 (regra v16) concluía por inatividade (60 s depois de 96 %, senão 7 min). Agora conclui pelo evento de fim; inatividade só depois de 30 min.
+- **Pendências:** (1) pytest no PC; (2) reiniciar o servidor só depois que o disparo em andamento terminar. O código novo só vale após reiniciar.
 
 ## 16/11/2026 — Vault do Obsidian e skill de documentação
 - **O que mudou:** criado este vault (`Vault_Central_Lider_Flask/`) com uma nota de manual por recurso (9 webhooks, 6 agendamentos, 8 de infraestrutura), glossário de status e este diário; criada a skill `documentar-central-lider-flask` para manter tudo atualizado.

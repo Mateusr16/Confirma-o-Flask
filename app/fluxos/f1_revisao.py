@@ -117,11 +117,15 @@ def avaliar_chamado(contact_id, respostas: list, nomes: dict) -> dict:
              chamadoId=str(de_outros[0].get("id") or ""))
 
 
-def listar_usuarios_todos() -> list:
-    """GET /users com paginação (até a última página)."""
+def listar_usuarios_todos(com_departamentos: bool = False) -> list:
+    """GET /users com paginação (até a última página).
+    com_departamentos=True pede ao DigiSac os departamentos de cada usuário (usado na transferência ao responsável)."""
     paginas, pagina = [], 1
     while pagina <= 50:
-        r = digisac._seguro(digisac._req, "GET", "/api/v1/users", params={"perPage": "100", "page": str(pagina)})
+        params = {"perPage": "100", "page": str(pagina)}
+        if com_departamentos:
+            params["include[0]"] = "departments"
+        r = digisac._seguro(digisac._req, "GET", "/api/v1/users", params=params)
         paginas.append(r)
         lista = r.get("data") if isinstance(r.get("data"), list) else []
         if r.get("error") or not lista:
@@ -132,6 +136,11 @@ def listar_usuarios_todos() -> list:
             break
         pagina += 1
     return paginas
+
+
+def listar_usuarios_central() -> list:
+    """Usuários com departamentos, para escolher o responsável na transferência (consultor e IA)."""
+    return listar_usuarios_todos(com_departamentos=True)
 
 
 def dados_com_espera(base: dict, av: dict) -> str:
@@ -162,7 +171,7 @@ def processar_decisao(body: dict) -> dict:
         return {"resultado": "CANCELADO"}
 
     usuarios = listar_usuarios_todos()
-    time.sleep(round((5 + random.random()) * 10) / 10)          # Timer envio Template
+    time.sleep(round((1 + random.random()) * 10) / 10)          # Timer envio Template
     resp = digisac.tickets_abertos(p.get("contactId")) if p.get("contactId") else {"error": "sem contactId"}
     av = avaliar_chamado(p.get("contactId"), [resp], mapa_nomes(usuarios))
     base = C.loads(p.get("dadosPedidoFinal") or linhas[0].get("dadosPedido") or "{}", {}) or {}

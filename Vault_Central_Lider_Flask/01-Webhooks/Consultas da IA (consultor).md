@@ -4,7 +4,7 @@ tipo: webhook
 gatilho: "POST /webhook/central-lider-consultor"
 arquivo: app/fluxos/consultor.py
 versao_base: n8n v28
-atualizado: 2026-11-16
+atualizado: 2026-11-19
 tags: [webhook, fluxo2, consultor]
 ---
 # Consultas da IA (consultor)
@@ -21,7 +21,7 @@ Três ações no cartão:
 ## O que o sistema faz
 - **Responder:** a IA reescreve a orientação em tom de WhatsApp (sem inventar nada) e envia ao cliente. Pedido → CONCLUIDO, vigilância de 2 h. Se o envio falhar, a consulta continua aberta e o painel mostra o erro.
 - **Registrar:** login na intranet; se Adiado, altera a data (formulário `altera_data_entrega`); grava a observação de contato (pula se o contato já foi registrado antes); grava CONFIRMADO/MOTIVO/DATA na planilha; pedido → CONCLUIDO com vigilância de 1 h (2 h se veio junto com resposta). Vários pedidos da mensagem única são registrados juntos. Vindo de resposta tardia, marca o SEM_CONFIRMACAO_DIARIO como RESPOSTA_TARDIA_TRATADA.
-- **Transferir:** encontra o responsável entre os usuários do DigiSac; transfere e avisa o cliente → TRANSFERIDO. Sem responsável: e-mail de ação manual e aviso ao cliente → TRANSFERENCIA_MANUAL.
+- **Transferir:** encontra o responsável entre os usuários do DigiSac; transfere e avisa o cliente → TRANSFERIDO. Sem responsável: e-mail de ação manual e aviso ao cliente → TRANSFERENCIA_MANUAL. Na busca do responsável só entram usuários **ativos** (não arquivados) do departamento **CENTRAL DE RELACIONAMENTO LIDER** no DigiSac. Um homônimo de outro departamento (ex.: outro Pedro em Vendas) é ignorado.
 - Validações iguais à v28 (consulta já tratada, data no passado, 1ª confirmação de planejados não pode ser adiada etc.).
 
 ## Como testar

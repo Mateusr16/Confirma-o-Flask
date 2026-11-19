@@ -12,6 +12,9 @@ STATUS_CONHECIDOS = [
     "OUTLET",
 ]
 
+# Reserva: só conclui por silêncio se o evento de fim nunca chegar (ex.: servidor caiu no meio).
+INATIVIDADE_RESERVA_MS = 30 * 60 * 1000
+
 
 def _num(v) -> float:
     try:
@@ -34,22 +37,27 @@ def status_disparo(entrada, req):
     inicio = eventos[0]["ts"]
     erros = sorted((r for r in rows if r["tipo"] == "erro" and r["ts"] >= inicio), key=lambda r: r["ts"])
     erro_row = erros[0] if erros else None
-    ultimo = eventos[-1]
-    pct = max(_num(e["pct"]) for e in eventos)
-    logs = [{"t": e["ts"], "msg": e["msg"], "tipo": e["tipo"]} for e in eventos]
+    # Evento "fim" é gravado pelo disparo quando ele termina de verdade (a tela escreve a linha "Fluxo concluído").
+    fim = next((e for e in eventos if e["tipo"] == "fim"), None)
+    passos = [e for e in eventos if e["tipo"] != "fim"] or eventos
+    ultimo = passos[-1]
+    pct = max(_num(e["pct"]) for e in passos)
+    logs = [{"t": e["ts"], "msg": e["msg"], "tipo": e["tipo"]} for e in passos]
     status, erro, sem_atividade = "executando", None, False
-    # v16: conclui por inatividade (60 s depois de 96 %, senão 7 min)
-    idle_ms = 60000 if pct >= 96 else 420000
+    atualizado = ultimo["ts"]
+    # Divergência da v16/v28: antes concluía por inatividade (60 s depois de 96 %, senão 7 min).
     if erro_row:
         status = "erro"
         erro = {"mensagem": erro_row["msg"], "no": erro_row["no"], "t": erro_row["ts"]}
         logs.append({"t": erro_row["ts"], "msg": f'Erro na etapa "{erro_row["no"]}"', "tipo": "erro"})
-    elif agora - ultimo["ts"] > idle_ms:
+    elif fim:
+        status, pct, atualizado = "concluido", 100, fim["ts"]
+    elif agora - ultimo["ts"] > INATIVIDADE_RESERVA_MS:
         status, pct, sem_atividade = "concluido", 100, True
     if pct == int(pct):
         pct = int(pct)
     return {"encontrado": True, "agora": agora, "status": status, "pct": pct,
-            "etapa": ultimo["msg"], "atualizadoEm": ultimo["ts"], "logs": logs,
+            "etapa": ultimo["msg"], "atualizadoEm": atualizado, "logs": logs,
             "erro": erro, "semAtividade": sem_atividade}, 200
 
 

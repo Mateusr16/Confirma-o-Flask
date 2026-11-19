@@ -16,7 +16,7 @@ from ..integracoes.intranet import Intranet, url_com_query
 from . import f2_logica as L
 from . import gatilho
 from . import prompts as P
-from .f1_revisao import DEPARTAMENTO_CENTRAL, listar_usuarios_todos
+from .f1_revisao import DEPARTAMENTO_CENTRAL, listar_usuarios_central
 
 log = logging.getLogger("central")
 EMAIL_AVISOS = "mateus.oliveira@lider.design"
@@ -433,7 +433,7 @@ def _registrar(proc: dict, montar_resp: dict | None) -> tuple[dict, int]:
 
 
 def _transferir(proc: dict) -> tuple[dict, int]:
-    m = L.mapear_responsavel_transferencia(proc, listar_usuarios_todos())
+    m = L.mapear_responsavel_transferencia(proc, listar_usuarios_central(), DEPARTAMENTO_CENTRAL)
     falhou = True
     if m["statusMapeamento"] == "OK" and m["userIdResponsavel"]:
         t = digisac.transferir_chamado(

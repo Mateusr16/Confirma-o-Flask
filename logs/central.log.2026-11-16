@@ -1,0 +1,154 @@
+2026-11-16 07:15:40,915 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=False | AGENDADOR=False
+2026-11-16 07:15:40,931 INFO [MainThread] Limpeza: 7 mensagens de contatos que o sistema não atende foram apagadas
+2026-11-16 07:15:40,931 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-16 07:15:41,248 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-16 07:15:41,251 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-16 07:59:55,616 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo TEMPLATE (pedido 97680)
+2026-11-16 08:01:43,175 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo IA (pedido 97680)
+2026-11-16 08:04:39,179 INFO [wh-digisac-resposta] Resposta do cliente abb5c8c4-955f-4004-9921-ff4b49bc2b42: fluxo IA (pedido 97680)
+2026-11-16 09:19:33,885 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=False | AGENDADOR=False
+2026-11-16 09:19:33,886 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-16 09:19:34,415 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-16 09:19:34,430 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-16 09:39:44,033 INFO [wh-digisac-resposta] Resposta do cliente a48cd8b9-db5e-453e-bc5b-d9aabbd66824: fluxo TEMPLATE (pedido 210967)
+2026-11-16 09:41:18,586 INFO [wh-digisac-resposta] Resposta do cliente defcb1ee-f312-49f3-b78b-d9f254c5e5d9: fluxo TEMPLATE (pedido 210965)
+2026-11-16 09:41:22,723 INFO [wh-digisac-resposta] Resposta do cliente 161042eb-307b-4007-927a-c34f52fc8264: fluxo TEMPLATE (pedido 211064)
+2026-11-16 09:42:02,528 INFO [wh-digisac-resposta] Resposta do cliente 89a67fc0-2b75-4472-981d-105027d28874: fluxo TEMPLATE (pedido 210869)
+2026-11-16 09:42:07,771 INFO [wh-digisac-resposta] Resposta do cliente 2728a9a2-3478-413f-a006-d916e240d5c5: fluxo TEMPLATE (pedido 211093)
+2026-11-16 09:43:11,127 INFO [wh-digisac-resposta] Resposta do cliente defcb1ee-f312-49f3-b78b-d9f254c5e5d9: fluxo IA (pedido 210965)
+2026-11-16 09:43:12,787 INFO [wh-digisac-resposta] Resposta do cliente e2d65dba-f53a-436b-85a6-175b5c958fde: fluxo TEMPLATE (pedido 210959)
+2026-11-16 09:43:32,703 INFO [wh-digisac-resposta] Resposta do cliente 161042eb-307b-4007-927a-c34f52fc8264: fluxo IA (pedido 211064)
+2026-11-16 09:43:38,857 INFO [wh-digisac-resposta] Resposta do cliente d80704c2-93aa-4351-b17a-eeed353ea276: fluxo TEMPLATE (pedido 210950)
+2026-11-16 09:43:55,287 INFO [wh-digisac-resposta] Resposta do cliente 3e35dbdb-c875-4681-83f6-8e8b57aaad54: fluxo TEMPLATE (pedido 211066)
+2026-11-16 09:45:11,591 INFO [wh-digisac-resposta] Resposta do cliente 14d82af1-9503-485e-9f06-d94686b61fdc: fluxo TEMPLATE (pedido 211095)
+2026-11-16 09:45:52,069 INFO [wh-digisac-resposta] Resposta do cliente 5d73349e-1b09-427b-a175-e55b389b3aaf: fluxo TEMPLATE (pedido 211315)
+2026-11-16 09:46:09,119 INFO [wh-digisac-resposta] Resposta do cliente 65947189-9389-4153-847c-438cab93af1a: fluxo TEMPLATE (pedido 211061)
+2026-11-16 09:46:15,275 INFO [wh-digisac-resposta] Resposta do cliente 7356213e-c81e-4d14-80f4-6bbbd6c1e175: fluxo TEMPLATE (pedido 211083)
+2026-11-16 09:46:28,804 INFO [wh-digisac-resposta] Resposta do cliente defcb1ee-f312-49f3-b78b-d9f254c5e5d9: fluxo VIGILANCIA (pedido 210965)
+2026-11-16 09:47:37,286 INFO [wh-digisac-resposta] Resposta do cliente a5edcb57-85de-4cb1-8329-c5b18bf911c8: fluxo TEMPLATE (pedido 210962)
+2026-11-16 09:48:30,380 INFO [wh-digisac-resposta] Resposta do cliente 65947189-9389-4153-847c-438cab93af1a: fluxo IA (pedido 211061)
+2026-11-16 09:49:01,802 INFO [wh-digisac-resposta] Resposta do cliente 3e35dbdb-c875-4681-83f6-8e8b57aaad54: fluxo IA (pedido 211066)
+2026-11-16 09:49:41,276 INFO [wh-digisac-resposta] Resposta do cliente a5edcb57-85de-4cb1-8329-c5b18bf911c8: fluxo IA (pedido 210962)
+2026-11-16 09:50:51,139 INFO [wh-digisac-resposta] Resposta do cliente 14d82af1-9503-485e-9f06-d94686b61fdc: fluxo IA (pedido 211095)
+2026-11-16 09:50:55,750 INFO [wh-digisac-resposta] Resposta do cliente 263263ec-5241-4dec-82bc-41e598a3b4f7: fluxo TEMPLATE (pedido 211080)
+2026-11-16 09:51:05,007 INFO [wh-digisac-resposta] Resposta do cliente 16daba22-1876-4dbe-8a93-89edf27d6b0b: fluxo TEMPLATE (pedido 210704)
+2026-11-16 09:52:00,571 INFO [wh-digisac-resposta] Resposta do cliente 00bb0d0c-210e-44c0-ac76-906c309dc341: fluxo TEMPLATE (pedido 211099)
+2026-11-16 09:52:29,433 INFO [wh-digisac-resposta] Resposta do cliente 65947189-9389-4153-847c-438cab93af1a: fluxo VIGILANCIA (pedido 211061)
+2026-11-16 09:52:47,014 INFO [wh-digisac-resposta] Resposta do cliente a48cd8b9-db5e-453e-bc5b-d9aabbd66824: fluxo IA (pedido 210967)
+2026-11-16 09:53:51,247 INFO [wh-digisac-resposta] Resposta do cliente d80704c2-93aa-4351-b17a-eeed353ea276: fluxo IA (pedido 210950)
+2026-11-16 09:54:26,347 INFO [wh-digisac-resposta] Resposta do cliente 7356213e-c81e-4d14-80f4-6bbbd6c1e175: fluxo IA (pedido 211083)
+2026-11-16 10:03:43,271 INFO [wh-digisac-resposta] Resposta do cliente 992bf9c7-870c-4cfe-a5fe-76d310178b4a: fluxo TEMPLATE (pedido 211094)
+2026-11-16 10:04:38,406 INFO [wh-digisac-resposta] Resposta do cliente a48cd8b9-db5e-453e-bc5b-d9aabbd66824: fluxo VIGILANCIA (pedido 210967)
+2026-11-16 10:05:31,353 INFO [wh-digisac-resposta] Resposta do cliente 992bf9c7-870c-4cfe-a5fe-76d310178b4a: fluxo IA (pedido 211094)
+2026-11-16 10:08:47,981 INFO [wh-digisac-resposta] Resposta do cliente 00bb0d0c-210e-44c0-ac76-906c309dc341: fluxo IA (pedido 211099)
+2026-11-16 10:09:27,280 INFO [wh-digisac-resposta] Resposta do cliente 992bf9c7-870c-4cfe-a5fe-76d310178b4a: fluxo VIGILANCIA (pedido 211094)
+2026-11-16 10:11:06,507 INFO [MainThread] Central Líder | http://127.0.0.1:6050 | MODO_TESTE=False | AGENDADOR=False
+2026-11-16 10:11:06,517 INFO [MainThread] Limpeza: 6 mensagens de contatos que o sistema não atende foram apagadas
+2026-11-16 10:11:06,527 INFO [MainThread] Agendador DESLIGADO (AGENDADOR_ATIVO=false)
+2026-11-16 10:11:07,009 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://127.0.0.1:6050/webhook/central-lider
+2026-11-16 10:11:07,014 INFO [MainThread] Serving on http://127.0.0.1:6050
+2026-11-16 10:20:06,630 INFO [wh-digisac-resposta] Resposta do cliente 279c7ce4-6347-41d3-8750-7e2b22a089d2: fluxo IA (pedido 211104)
+2026-11-16 10:23:59,432 INFO [wh-digisac-resposta] Resposta do cliente 6de3e314-02cc-4102-9c1b-64ee34d196a4: fluxo TEMPLATE (pedido 211032)
+2026-11-16 10:32:14,871 ERROR [wh-digisac-resposta] Erro em: webhook digisac-resposta
+
+Contexto: {'query': {}, 'body': {'data': {'accountId': '89dcd482-b45f-4a94-b6b8-f80bb09f41af', 'contactId': 'fd2f69b1-0d63-42d0-a440-563c3a600714', 'createdAt': '2026-11-16T13:31:05.989Z', 'data': {'ticketClose': True, 'ticketTransferSnapshot': {'byUserId': '6292eecd-f841-425f-8417-8c1e888597ec', 'comments': None, 'createdAt': '2026-11-16T13:31:05.972Z', 'fromDepartmentId': 'e6d9fa0d-654a-422d-ae7f-e9c4aa2491cc', 'fromDistribution': False, 'fromUserId': '6292eecd-f841-425f-8417-8c1e888597ec', 'toDepartmentId': None, 'toUserId': None}}, 'deletedAt': None, 'fromId': None, 'hsmId': None, 'id': '65eef49e-b609-41e1-8fdc-f3edcd7f35a9', 'isComment': False, 'isFromBot': False, 'isFromMe': False, 'isTranscribing': None, 'obfuscated': False, 'origin': 'ticket', 'quotedMessage': None, 'quotedMessageId': None, 'reactionParentMessageId': None, 'sent': False, 'serviceId': '1211d47b-8ab8-47e8-8055-6b2307a8f466', 'ticketDepartmentId': None, 'ticketId': '58352c6d-0359-4191-b8b4-37c720e3bc63', 'ticketUserId': None, 'timestamp': '2026-11-16T13:31:05.972Z', 'toId': None, 'transcribeError': None, 'type': 'ticket', 'updatedAt': '2026-11-16T13:31:05.989Z', 'userId': None, 'visible': True}, 'event': 'message.created', 'timestamp': '2026-11-16T13:31:07.102308328Z', 'webhookId': 'e17eb8ff-67f4-4f24-bef6-537768078d1f'}}
+
+Traceback (most recent call last):
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\rotas\webhooks.py", line 59, in _rodar
+    db.registrar_execucao(path, "ok", resumo, inicio)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 89, in registrar_execucao
+    return executar(
+        "INSERT INTO execucoes (gatilho, status, inicio, fim, detalhe, erro) VALUES (?,?,?,?,?,?)",
+        (gatilho, status, inicio or agora_iso(), agora_iso(),
+         json.dumps(detalhe or {}, ensure_ascii=False, default=str), erro),
+    )
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 59, in executar
+    with transacao() as con:
+         ~~~~~~~~~^^
+  File "C:\Users\Mateus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 39, in transacao
+    con.execute("BEGIN IMMEDIATE")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+2026-11-16 10:32:14,927 ERROR [wh-digisac-resposta] Erro em: webhook digisac-resposta
+
+Contexto: {'query': {}, 'body': {'data': {'accountId': '89dcd482-b45f-4a94-b6b8-f80bb09f41af', 'contactId': 'a9f65db2-e845-489e-953e-b0b50aa1c0f1', 'createdAt': '2026-11-16T13:25:31.641Z', 'data': {'ack': '3', 'ackHistory': [['0', 'send', '2026-11-16T13:25:32.509779919Z', '2026-11-16T13:25:32.510644796Z'], ['1', 'webhook', '2026-11-16T13:25:32Z', '2026-11-16T13:25:33.932274179Z'], ['2', 'webhook', '2026-11-16T13:25:33Z', '2026-11-16T13:25:34.148491305Z'], ['3', 'webhook', '2026-11-16T13:31:10Z', '2026-11-16T13:31:11.373703159Z']], 'ctwaContext': None, 'dontOpenTicket': False, 'edited': False, 'error': None, 'fileDownload': None, 'hasReaction': False, 'hsmParameters': None, 'interactive': None, 'isFirst': False, 'isFromFirstSync': False, 'isNew': True, 'isSurveyResponse': False, 'location': None, 'mediaId': '', 'mediaUrl': '', 'mentionedList': None, 'order': None, 'product': None, 'softRevoked': False, 'surveyExpired': False, 'ticketClose': False, 'ticketOpen': False, 'ticketTransfer': False, 'vcard': None, 'whatsappMessageId': ''}, 'deletedAt': None, 'fromId': 'a9f65db2-e845-489e-953e-b0b50aa1c0f1', 'hsmId': None, 'id': '28032481-a27b-4351-bcd9-bf7844b9b2b8', 'isComment': False, 'isFromBot': False, 'isFromMe': True, 'isTranscribing': False, 'obfuscated': False, 'origin': 'user', 'quotedMessage': None, 'quotedMessageId': None, 'reactionParentMessageId': None, 'sent': True, 'serviceId': '6518c8e7-72a4-4796-bb09-2ebd252ef2d6', 'text': 'Ficamos muito felizes em saber que tudo ocorreu bem!\n\nAgradecemos pelo carinho e pela confiança na Lider. É uma satisfação fazer parte da sua casa! 🤍\n\nSempre que precisar, estaremos por aqui para ajudar.\n\n*Lider. Uma casa inteira com alma brasileira.*', 'ticketDepartmentId': '8f751533-3693-4eda-831c-893ddec32690', 'ticketId': '559abfb7-506c-49ad-b10f-18e3a549356f', 'ticketUserId': '12359209-2415-44d7-8407-0fb520a3a476', 'timestamp': '2026-11-16T13:25:32.509Z', 'toId': None, 'transcribeError': False, 'type': 'chat', 'updatedAt': '2026-11-16T13:31:11.373Z', 'userId': '12359209-2415-44d7-8407-0fb520a3a476', 'visible': True}, 'event': 'message.updated', 'timestamp': '2026-11-16T13:31:12.448200524Z', 'webhookId': 'e17eb8ff-67f4-4f24-bef6-537768078d1f'}}
+
+Traceback (most recent call last):
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\rotas\webhooks.py", line 59, in _rodar
+    db.registrar_execucao(path, "ok", resumo, inicio)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 89, in registrar_execucao
+    return executar(
+        "INSERT INTO execucoes (gatilho, status, inicio, fim, detalhe, erro) VALUES (?,?,?,?,?,?)",
+        (gatilho, status, inicio or agora_iso(), agora_iso(),
+         json.dumps(detalhe or {}, ensure_ascii=False, default=str), erro),
+    )
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 59, in executar
+    with transacao() as con:
+         ~~~~~~~~~^^
+  File "C:\Users\Mateus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "c:\Users\Mateus\Desktop\Confirmação-flask\app\db.py", line 39, in transacao
+    con.execute("BEGIN IMMEDIATE")
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+2026-11-16 10:35:57,998 INFO [wh-digisac-resposta] Resposta do cliente e2d65dba-f53a-436b-85a6-175b5c958fde: fluxo IA (pedido 210959)
+2026-11-16 10:37:39,859 INFO [wh-digisac-resposta] Resposta do cliente 0eb9d914-946f-4e39-b1ed-dc6f52009e99: fluxo TEMPLATE (pedido 210817)
+2026-11-16 10:41:10,895 INFO [wh-digisac-resposta] Resposta do cliente 0eb9d914-946f-4e39-b1ed-dc6f52009e99: fluxo IA (pedido 210817)
+2026-11-16 10:46:37,201 INFO [wh-digisac-resposta] Resposta do cliente 2c7aa4f1-3c11-4e1b-86a2-4a4cf9ab493c: fluxo TEMPLATE (pedido 210987)
+2026-11-16 10:49:00,846 INFO [wh-digisac-resposta] Resposta do cliente 2c7aa4f1-3c11-4e1b-86a2-4a4cf9ab493c: fluxo IA (pedido 210987)
+2026-11-16 10:50:01,474 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-16 10:50:02,700 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-16 11:00:00-03:00
+2026-11-16 10:50:02,701 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-16 11:20:02.696547-03:00
+2026-11-16 10:50:02,701 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-16 13:00:00-03:00
+2026-11-16 10:50:02,701 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-16 13:20:00-03:00
+2026-11-16 10:50:02,701 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-16 16:20:00-03:00
+2026-11-16 10:50:02,701 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-17 08:05:00-03:00
+2026-11-16 10:50:02,701 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-16 10:50:02,869 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-16 10:50:02,872 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-16 11:00:04,462 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 8, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 11:10:01,856 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 3, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 11:20:15,099 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 2, 'enviados': 0}
+2026-11-16 11:30:00,562 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 11:40:00,810 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 11:46:19,861 INFO [wh-digisac-resposta] Resposta do cliente 16daba22-1876-4dbe-8a93-89edf27d6b0b: fluxo IA (pedido 210704)
+2026-11-16 11:50:00,942 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 2, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 11:50:15,253 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 2, 'enviados': 0}
+2026-11-16 12:02:34,892 INFO [wh-digisac-resposta] Resposta do cliente 5dddc352-956e-448b-b14c-6f81c6b6609d: fluxo TEMPLATE (pedido 210476)
+2026-11-16 12:07:24,431 INFO [wh-digisac-resposta] Resposta do cliente 0032dc34-9e50-4327-abd2-c2085fe63adb: fluxo TEMPLATE (pedido 211092)
+2026-11-16 12:09:24,875 INFO [wh-digisac-resposta] Resposta do cliente 5d73349e-1b09-427b-a175-e55b389b3aaf: fluxo IA (pedido 211315)
+2026-11-16 12:20:16,070 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 2, 'enviados': 0}
+2026-11-16 12:28:17,622 INFO [wh-digisac-resposta] Resposta do cliente 0032dc34-9e50-4327-abd2-c2085fe63adb: fluxo IA (pedido 211092)
+2026-11-16 12:50:14,865 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 2, 'enviados': 0}
+2026-11-16 13:00:06,124 INFO [ThreadPoolExecutor-0_0] Lembrete 13h: {'contatos': 1, 'enviados': 1}
+2026-11-16 13:00:18,621 INFO [wh-digisac-resposta] Resposta do cliente 5dddc352-956e-448b-b14c-6f81c6b6609d: fluxo IA (pedido 210476)
+2026-11-16 13:20:14,962 INFO [ThreadPoolExecutor-0_1] Chamados ocupados: {'verificados': 2, 'enviados': 0}
+2026-11-16 13:21:23,735 INFO [ThreadPoolExecutor-0_0] Reenvio do template: {'contatos': 13, 'reenviados': 13}
+2026-11-16 13:23:31,767 INFO [wh-digisac-resposta] Resposta do cliente 10e21925-0469-4c17-b6ea-54ed31abce07: fluxo TEMPLATE (pedido 210882)
+2026-11-16 13:24:37,412 INFO [wh-digisac-resposta] Resposta do cliente f29118e5-090a-4549-95cd-10cdbb623f28: fluxo TEMPLATE (pedido 210851)
+2026-11-16 13:25:30,780 INFO [wh-digisac-resposta] Resposta do cliente 91612c27-7a13-4c7e-8411-4608b6437b9a: fluxo TEMPLATE (pedido 211037)
+2026-11-16 13:27:25,946 INFO [wh-digisac-resposta] Resposta do cliente f29118e5-090a-4549-95cd-10cdbb623f28: fluxo IA (pedido 210851)
+2026-11-16 13:29:42,711 INFO [wh-digisac-resposta] Resposta do cliente f29118e5-090a-4549-95cd-10cdbb623f28: fluxo IA (pedido 210851)
+2026-11-16 13:30:00,736 INFO [ThreadPoolExecutor-0_1] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 13:31:42,214 INFO [wh-digisac-resposta] Resposta do cliente f29118e5-090a-4549-95cd-10cdbb623f28: fluxo VIGILANCIA (pedido 210851)
+2026-11-16 13:40:00,563 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 13:50:17,468 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 2, 'enviados': 1}
+2026-11-16 14:00:06,784 INFO [ThreadPoolExecutor-0_1] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 14:01:39,817 INFO [wh-digisac-resposta] Resposta do cliente 53a86201-1600-4a7c-adec-d8094ccbb598: fluxo TEMPLATE (pedido 210938)
+2026-11-16 14:08:24,461 INFO [wh-digisac-resposta] Resposta do cliente 6de3e314-02cc-4102-9c1b-64ee34d196a4: fluxo IA (pedido 211032)
+2026-11-16 14:10:01,053 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 14:20:11,131 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-16 14:40:00,575 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 14:50:09,487 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-16 15:10:00,600 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-16 15:20:09,486 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-16 15:50:12,903 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-16 16:02:44,051 INFO [wh-digisac-resposta] Resposta do cliente 53a86201-1600-4a7c-adec-d8094ccbb598: fluxo IA (pedido 210938)
+2026-11-16 16:20:10,714 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 1}
+2026-11-16 16:20:19,020 INFO [ThreadPoolExecutor-0_1] Encerramento sem retorno: {'encerrados': 14, 'chamadosFechados': 14}

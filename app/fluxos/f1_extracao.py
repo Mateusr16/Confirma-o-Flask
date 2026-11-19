@@ -70,7 +70,7 @@ def extrair_dados_pedido(html: str, planilha: dict) -> dict:
         observacao = _limpar_html(m_obs.group(1))
         dias_adic = int(m_obs.group(2))
 
-    m_cli = re.search(r"Sit\.\s*:\s*[A-Z]\s+(.+?)\s+(\d{10,20})(?=\s|$)", texto, re.I)
+    m_cli = re.search(r"Sit\.\s*:\s*[A-Z]\s+([^\d]+?)\s+(\d{10,20})(?=[\s.]|$)", texto, re.I)
     cliente_lider = m_cli.group(1).strip() if m_cli else (cliente_planilha or None)
     cpf = m_cli.group(2) if m_cli else None
 

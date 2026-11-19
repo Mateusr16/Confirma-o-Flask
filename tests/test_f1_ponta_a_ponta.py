@@ -83,6 +83,8 @@ def test_disparo_completo(ambiente):
     ev = [r["msg"] for r in T.get("FLUXO_STATUS", {"disparoId": "teste-1"}, ordem="ts")]
     assert ev[0] == "Coletando dados da planilha" and "Registrando envios" in ev
     assert not T.get("FLUXO_STATUS", {"tipo": "erro"})
+    # 19/11: a tela só mostra 100 % com o evento de fim real
+    assert len(T.get("FLUXO_STATUS", {"disparoId": "teste-1", "tipo": "fim"})) == 1
     simulados = {(r["destino"], r["acao"]) for r in db.consultar("SELECT destino, acao FROM envios_simulados")}
     assert ("planilha", "atualizar") in simulados and ("email", "enviar") in simulados
 
@@ -92,6 +94,7 @@ def test_tela_de_login_para_tudo(ambiente, monkeypatch):
     f1_disparo.rodar_disparo("teste-2")
     erros = T.get("FLUXO_STATUS", {"tipo": "erro"})
     assert erros and "Sessão da intranet inválida" in erros[0]["msg"]
+    assert not T.get("FLUXO_STATUS", {"tipo": "fim"})
     assert all(r["status"] == "EM_PROCESSAMENTO" for r in T.get("AGUARDANDO_ENTREGA"))
 
 

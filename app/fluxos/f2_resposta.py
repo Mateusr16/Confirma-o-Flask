@@ -18,7 +18,7 @@ from ..integracoes.intranet import Intranet
 from . import gatilho
 from . import f2_logica as L
 from . import prompts as P
-from .f1_revisao import DEPARTAMENTO_CENTRAL, listar_usuarios_todos
+from .f1_revisao import DEPARTAMENTO_CENTRAL, listar_usuarios_central
 
 log = logging.getLogger("central")
 ESPERA_AGRUPAR_S = 60
@@ -320,7 +320,7 @@ class Resposta:
         d = j["decisaoResponsavel"]
         if d == "SIM":
             self.no = "Mapear responsável para transferência - Central"
-            m = L.mapear_responsavel_transferencia(j, listar_usuarios_todos())
+            m = L.mapear_responsavel_transferencia(j, listar_usuarios_central(), DEPARTAMENTO_CENTRAL)
             if m["statusMapeamento"] == "OK" and m["userIdResponsavel"]:
                 self.no = "Transferir chamado ao responsável - Central"
                 digisac.transferir_chamado(j["contactId"], DEPARTAMENTO_CENTRAL, m["userIdResponsavel"],

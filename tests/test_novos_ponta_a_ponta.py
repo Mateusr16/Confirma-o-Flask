@@ -41,6 +41,9 @@ def amb(monkeypatch):
     monkeypatch.setattr(K.planilha, "ler_linhas", lambda: [{"row_number": 5, "Pedido": "11-97680"}])
     monkeypatch.setattr(K.gemini, "gerar_texto", lambda p, t=0: {"text": "Olá! A montagem é feita na entrega."})
     monkeypatch.setattr(K, "listar_usuarios_todos", lambda: [{"data": [{"id": "u-joyce", "name": "JOYCE SILVA"}]}])
+    monkeypatch.setattr(K, "listar_usuarios_central", lambda: [{"data": [
+        {"id": "u-joyce", "name": "JOYCE SILVA", "departments": [{"id": K.DEPARTAMENTO_CENTRAL, "name": "CENTRAL DE RELACIONAMENTO LIDER"}]},
+        {"id": "u-joyce-2", "name": "JOYCE SILVA SANTOS", "departments": [{"id": "outro", "name": "VENDAS"}]}]}])
     monkeypatch.setattr(A, "_timer", lambda: None)
     monkeypatch.setattr(A.digisac, "tickets_abertos", lambda c: {"data": []})
     monkeypatch.setattr(R.digisac, "buscar_contatos", lambda n, s: {"data": []})
@@ -98,6 +101,23 @@ def test_consultor_transferir(amb):
     assert resp == {"ok": True, "acao": "TRANSFERIR"}
     assert T.get_um("AGUARDANDO_ENTREGA", {"id": p["id"]})["status"] == "TRANSFERIDO"
     assert ("digisac", "transferir_chamado") in envios()
+
+
+def test_transferir_so_usuario_da_central(amb):
+    """19/11: homônimo fora da Central de Relacionamento é ignorado; sem ninguém da Central, vira manual."""
+    from app.fluxos import f2_logica as L
+    u = lambda i, n, dep, arq=None: {"id": i, "name": n, "archivedAt": arq,  # noqa: E731
+                                     "departments": [{"id": dep, "name": "X"}]}
+    lista = [{"data": [u("p1", "Pedro Leopoldino - Consultor", K.DEPARTAMENTO_CENTRAL),
+                       u("p2", "Pedro Henrique", "vendas")]}]
+    m = L.mapear_responsavel_transferencia({"responsavel": "PEDRO"}, lista, K.DEPARTAMENTO_CENTRAL)
+    assert m["statusMapeamento"] == "OK" and m["userIdResponsavel"] == "p1"
+    pelo_nome = [{"data": [{"id": "p3", "name": "Pedro Leopoldino", "departments": [{"id": "z", "name": "Central de Relacionamento Líder"}]}]}]
+    assert L.mapear_responsavel_transferencia({"responsavel": "PEDRO"}, pelo_nome, K.DEPARTAMENTO_CENTRAL)["userIdResponsavel"] == "p3"
+    arquivado = [{"data": [u("p4", "Pedro Leopoldino", K.DEPARTAMENTO_CENTRAL, "2026-01-01")]}]
+    assert L.mapear_responsavel_transferencia({"responsavel": "PEDRO"}, arquivado, K.DEPARTAMENTO_CENTRAL)["statusMapeamento"] == "NAO_ENCONTRADO"
+    sem_dep = [{"data": [{"id": "p5", "name": "Pedro Leopoldino"}]}]
+    assert L.mapear_responsavel_transferencia({"responsavel": "PEDRO"}, sem_dep, K.DEPARTAMENTO_CENTRAL)["statusMapeamento"] == "NAO_ENCONTRADO"
 
 
 def test_recomecar_novo_numero(amb):

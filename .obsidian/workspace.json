@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Vault_Central_Lider_Flask/01-Webhooks/Revisão de envio.md",
+                "file": "Vault_Central_Lider_Flask/04-Diario/Diario de bordo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Revisão de envio"
+              "title": "Diario de bordo"
             }
           }
         ],
@@ -203,8 +203,12 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "058b5c5827c914a1",
+  "active": "2ee95dd10e86a8a6",
   "lastOpenFiles": [
+    "Vault_Central_Lider_Flask/05-Melhorias/Análise de melhorias 2026-11-19.md",
+    "Vault_Central_Lider_Flask/05-Melhorias",
+    "README.md",
+    "Vault_Central_Lider_Flask/01-Webhooks/Revisão de envio.md",
     "dados/central_lider.db-shm",
     "app/static/confirmacao.svg",
     "app/static/confirmacao.png",
@@ -232,15 +236,12 @@
     "Vault_Central_Lider_Flask/02-Agendamentos/Varredura de respostas tardias.md",
     "Vault_Central_Lider_Flask/02-Agendamentos/Reenvio do template.md",
     "Vault_Central_Lider_Flask/02-Agendamentos/Lembrete de confirmação 13h.md",
-    "Vault_Central_Lider_Flask/02-Agendamentos/Encerramento sem retorno.md",
-    "Vault_Central_Lider_Flask/02-Agendamentos/Chamados ocupados.md",
     "arquivos/LIDER.mp4",
     "app/fluxos/__pycache__/prompts.cpython-313.pyc",
     "app/fluxos/__pycache__/f2_logica.cpython-313.pyc",
     "app/integracoes/__pycache__/gemini.cpython-313.pyc",
     "app/fluxos/__pycache__/f2_resposta.cpython-313.pyc",
     "simular_resposta.py",
-    "arquivos",
-    "tests/paridade/test_f2_paridade.py"
+    "arquivos"
   ]
 }

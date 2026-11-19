@@ -1,0 +1,177 @@
+2026-11-17 06:54:47,930 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 06:54:48,704 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 07:00:00-03:00
+2026-11-17 06:54:48,704 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 07:24:48.699258-03:00
+2026-11-17 06:54:48,705 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-17 08:05:00-03:00
+2026-11-17 06:54:48,705 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-17 13:00:00-03:00
+2026-11-17 06:54:48,705 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-17 13:20:00-03:00
+2026-11-17 06:54:48,705 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 06:54:48,706 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 06:54:48,932 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 06:54:48,934 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 06:56:01,055 INFO [ao-iniciar] Varredura tardia: {'contatos': 14, 'falhas': [], 'cartoes': ['210882 (2 msg)', '211073 (4 msg)'], 'gravadas': 5, 'encerrar': [], 'ignorados': [], 'em': '17/11/2026 06:56'}
+2026-11-17 08:05:09,619 INFO [ThreadPoolExecutor-0_0] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': [], 'em': '17/11/2026 08:05'}
+2026-11-17 08:11:28,436 INFO [disparo] Limpeza diária: 57 arquivados
+2026-11-17 08:54:55,517 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-17 09:01:50,653 INFO [wh-digisac-resposta] Resposta do cliente f818844a-3aff-4a1e-803a-f3873dd15c9b: fluxo TEMPLATE (pedido 211116)
+2026-11-17 09:04:58,991 INFO [wh-digisac-resposta] Resposta do cliente 1fa1a681-5eb1-4603-ab79-3f6fc563663a: fluxo TEMPLATE (pedido 211226)
+2026-11-17 09:09:02,994 INFO [wh-digisac-resposta] Resposta do cliente 19cde40b-1432-43fd-bb4c-a38988c64058: fluxo TEMPLATE (pedido 211190)
+2026-11-17 09:11:46,764 INFO [wh-digisac-resposta] Resposta do cliente d7e0b4fd-f9e7-416a-a501-265b4e5e79ba: fluxo TEMPLATE (pedido 211266)
+2026-11-17 09:16:48,680 INFO [wh-digisac-resposta] Resposta do cliente 24d71046-59a2-4b65-9816-fb50bc020932: fluxo TEMPLATE (pedido 211256)
+2026-11-17 09:18:43,407 INFO [wh-digisac-resposta] Resposta do cliente 19cde40b-1432-43fd-bb4c-a38988c64058: fluxo IA (pedido 211190)
+2026-11-17 09:19:38,940 INFO [wh-digisac-resposta] Resposta do cliente d7e0b4fd-f9e7-416a-a501-265b4e5e79ba: fluxo IA (pedido 211266)
+2026-11-17 09:21:17,465 INFO [wh-digisac-resposta] Resposta do cliente a097040b-5197-4683-913e-aca21579f686: fluxo TEMPLATE (pedido 211151)
+2026-11-17 09:21:34,144 INFO [wh-digisac-resposta] Resposta do cliente 24d71046-59a2-4b65-9816-fb50bc020932: fluxo IA (pedido 211256)
+2026-11-17 09:21:34,686 INFO [wh-digisac-resposta] Resposta do cliente d7e0b4fd-f9e7-416a-a501-265b4e5e79ba: fluxo VIGILANCIA (pedido 211266)
+2026-11-17 09:23:52,296 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 09:23:52,325 INFO [MainThread] Limpeza: 116 mensagens de contatos que o sistema não atende foram apagadas
+2026-11-17 09:23:52,970 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 09:30:00-03:00
+2026-11-17 09:23:52,971 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 09:53:52.964380-03:00
+2026-11-17 09:23:52,972 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-17 13:00:00-03:00
+2026-11-17 09:23:52,973 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-17 13:20:00-03:00
+2026-11-17 09:23:52,973 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 09:23:52,974 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 09:23:52,974 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 09:23:53,307 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 09:23:53,316 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 09:25:02,826 INFO [ao-iniciar] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': [], 'em': '17/11/2026 09:25'}
+2026-11-17 09:25:51,961 INFO [wh-digisac-resposta] Resposta do cliente 24d71046-59a2-4b65-9816-fb50bc020932: fluxo TEMPLATE (pedido 211256)
+2026-11-17 09:26:11,508 INFO [wh-digisac-resposta] Resposta do cliente a097040b-5197-4683-913e-aca21579f686: fluxo TEMPLATE (pedido 211151)
+2026-11-17 09:28:45,570 INFO [wh-digisac-resposta] Resposta do cliente 6f4dd3be-8047-46f9-a6d1-97eb8b3578a4: fluxo IA (pedido 211242)
+2026-11-17 09:28:53,855 INFO [wh-digisac-resposta] Resposta do cliente 1ad140bf-acb8-4f0d-84d0-e316fc3b8fdb: fluxo IA (pedido 211253)
+2026-11-17 09:29:01,533 INFO [wh-digisac-resposta] Resposta do cliente f6c9bbf4-ff90-4311-834c-f3106e0c496a: fluxo IA (pedido 211228)
+2026-11-17 09:29:30,768 INFO [wh-digisac-resposta] Resposta do cliente 4634d725-1205-432f-b74e-dd22a3c524b9: fluxo IA (pedido 211261)
+2026-11-17 09:29:44,719 INFO [wh-digisac-resposta] Resposta do cliente d2426e4e-03c2-4c1d-b71b-8ca06882fca8: fluxo IA (pedido 211263)
+2026-11-17 09:29:54,686 INFO [wh-digisac-resposta] Resposta do cliente d3f37688-5f83-4731-919d-cb96b03f4334: fluxo IA (pedido 211148)
+2026-11-17 09:30:23,178 INFO [wh-digisac-resposta] Resposta do cliente 6f4dd3be-8047-46f9-a6d1-97eb8b3578a4: fluxo VIGILANCIA (pedido 211242)
+2026-11-17 09:31:05,167 INFO [wh-digisac-resposta] Resposta do cliente d3f37688-5f83-4731-919d-cb96b03f4334: fluxo CONSULTOR_MSG (pedido 211148)
+2026-11-17 09:31:13,793 INFO [wh-digisac-resposta] Resposta do cliente fd8433e5-03c7-4896-8883-9c39f19b3013: fluxo TEMPLATE (pedido 211108)
+2026-11-17 09:31:17,048 INFO [wh-digisac-resposta] Resposta do cliente d2426e4e-03c2-4c1d-b71b-8ca06882fca8: fluxo VIGILANCIA (pedido 211263)
+2026-11-17 09:33:29,646 INFO [wh-digisac-resposta] Resposta do cliente d3f37688-5f83-4731-919d-cb96b03f4334: fluxo VIGILANCIA (pedido 211148)
+2026-11-17 09:33:48,831 INFO [wh-digisac-resposta] Resposta do cliente 11175197-3ef1-4ce0-89a7-5424ca5bbbda: fluxo IA (pedido 211073)
+2026-11-17 09:35:40,435 INFO [wh-digisac-resposta] Resposta do cliente 4856b777-20ae-43e8-a4bb-a8122f284066: fluxo IA (pedido 211169)
+2026-11-17 09:37:49,843 INFO [wh-digisac-resposta] Resposta do cliente 30b036ea-287d-44fa-b3f8-9f987036214d: fluxo IA (pedido 211175)
+2026-11-17 09:38:17,844 INFO [wh-digisac-resposta] Resposta do cliente 82d07947-e9ad-4071-8986-baea030be792: fluxo IA (pedido 211179)
+2026-11-17 09:38:34,215 INFO [wh-digisac-resposta] Resposta do cliente 2728a9a2-3478-413f-a006-d916e240d5c5: fluxo IA (pedido 211093)
+2026-11-17 09:40:46,077 INFO [wh-digisac-resposta] Resposta do cliente f6c9bbf4-ff90-4311-834c-f3106e0c496a: fluxo VIGILANCIA (pedido 211228)
+2026-11-17 09:41:34,823 INFO [wh-digisac-resposta] Resposta do cliente 82d07947-e9ad-4071-8986-baea030be792: fluxo VIGILANCIA (pedido 211179)
+2026-11-17 09:43:46,096 INFO [wh-digisac-resposta] Resposta do cliente d3f37688-5f83-4731-919d-cb96b03f4334: fluxo VIGILANCIA (pedido 211148)
+2026-11-17 09:44:12,643 INFO [wh-digisac-resposta] Resposta do cliente 263263ec-5241-4dec-82bc-41e598a3b4f7: fluxo TEMPLATE (pedido 211227)
+2026-11-17 09:45:27,548 INFO [wh-digisac-resposta] Resposta do cliente 11175197-3ef1-4ce0-89a7-5424ca5bbbda: fluxo VIGILANCIA (pedido 211073)
+2026-11-17 09:46:01,741 INFO [wh-digisac-resposta] Resposta do cliente 82d07947-e9ad-4071-8986-baea030be792: fluxo CONSULTOR_MSG (pedido 211179)
+2026-11-17 09:47:15,273 INFO [wh-digisac-resposta] Resposta do cliente 2728a9a2-3478-413f-a006-d916e240d5c5: fluxo VIGILANCIA (pedido 211093)
+2026-11-17 09:51:05,703 INFO [wh-digisac-resposta] Resposta do cliente e36662c8-7bb1-48a2-a265-39dd65e7d205: fluxo TEMPLATE (pedido 211223)
+2026-11-17 09:53:15,631 INFO [wh-digisac-resposta] Resposta do cliente e36662c8-7bb1-48a2-a265-39dd65e7d205: fluxo IA (pedido 211223)
+2026-11-17 09:53:59,648 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-17 09:55:06,118 INFO [wh-digisac-resposta] Resposta do cliente e6cf426e-6b7c-448a-9506-a260fcdf998b: fluxo IA (pedido 211260)
+2026-11-17 09:56:58,247 INFO [wh-digisac-resposta] Resposta do cliente 19cde40b-1432-43fd-bb4c-a38988c64058: fluxo TEMPLATE (pedido 211190)
+2026-11-17 10:00:07,144 INFO [wh-digisac-resposta] Resposta do cliente 93dd2a9f-b695-492b-a1fb-b27b2c809661: fluxo TEMPLATE (pedido 211184)
+2026-11-17 10:02:21,245 INFO [wh-digisac-resposta] Resposta do cliente 93dd2a9f-b695-492b-a1fb-b27b2c809661: fluxo IA (pedido 211184)
+2026-11-17 10:03:56,635 INFO [wh-digisac-resposta] Resposta do cliente df023541-dc4a-48d1-8077-abf7105007e7: fluxo IA (pedido 211237)
+2026-11-17 10:04:22,867 INFO [wh-digisac-resposta] Resposta do cliente 82d07947-e9ad-4071-8986-baea030be792: fluxo VIGILANCIA (pedido 211179)
+2026-11-17 10:17:03,763 INFO [wh-digisac-resposta] Resposta do cliente 4856b777-20ae-43e8-a4bb-a8122f284066: fluxo VIGILANCIA (pedido 211169)
+2026-11-17 10:17:24,620 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 10:17:24,819 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 10:20:00-03:00
+2026-11-17 10:17:24,819 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 10:47:24.815111-03:00
+2026-11-17 10:17:24,819 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-17 13:00:00-03:00
+2026-11-17 10:17:24,819 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-17 13:20:00-03:00
+2026-11-17 10:17:24,819 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 10:17:24,820 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 10:17:24,820 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 10:17:24,957 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 10:17:24,960 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 10:18:35,293 INFO [ao-iniciar] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': [], 'em': '17/11/2026 10:18'}
+2026-11-17 10:30:00,534 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 10:40:02,902 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 4, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 10:47:17,850 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 10:47:18,581 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 10:50:00-03:00
+2026-11-17 10:47:18,581 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 11:17:18.574629-03:00
+2026-11-17 10:47:18,582 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-17 13:00:00-03:00
+2026-11-17 10:47:18,582 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-17 13:20:00-03:00
+2026-11-17 10:47:18,582 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 10:47:18,582 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 10:47:18,583 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 10:47:18,765 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 10:47:18,767 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 10:48:29,968 INFO [ao-iniciar] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': [], 'em': '17/11/2026 10:48'}
+2026-11-17 10:50:01,421 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 3, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 11:00:01,328 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 2, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 11:10:01,447 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 3, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 11:17:25,052 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-17 11:20:00,529 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 11:47:25,221 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-17 12:00:00,560 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 12:17:25,964 INFO [ThreadPoolExecutor-0_0] Chamados ocupados: {'verificados': 1, 'enviados': 0}
+2026-11-17 12:29:13,528 INFO [wh-digisac-resposta] Resposta do cliente fd8433e5-03c7-4896-8883-9c39f19b3013: fluxo IA (pedido 211108)
+2026-11-17 12:29:21,505 INFO [wh-digisac-resposta] Resposta do cliente 1fa1a681-5eb1-4603-ab79-3f6fc563663a: fluxo IA (pedido 211226)
+2026-11-17 13:00:40,564 INFO [ThreadPoolExecutor-0_0] Lembrete 13h: {'contatos': 3, 'enviados': 3}
+2026-11-17 13:02:49,781 INFO [wh-digisac-resposta] Resposta do cliente ad4b00de-5bd5-4445-8b9d-8dbf21cf5f25: fluxo TEMPLATE (pedido 211236)
+2026-11-17 13:06:54,316 INFO [wh-digisac-resposta] Resposta do cliente f818844a-3aff-4a1e-803a-f3873dd15c9b: fluxo IA (pedido 211116)
+2026-11-17 13:10:23,983 INFO [wh-digisac-resposta] Resposta do cliente c24c71e8-84c0-4bf9-97bd-b732fc3b6b0c: fluxo TEMPLATE (pedido 211257)
+2026-11-17 13:19:00,903 INFO [wh-digisac-resposta] Resposta do cliente c24c71e8-84c0-4bf9-97bd-b732fc3b6b0c: fluxo IA (pedido 211257)
+2026-11-17 13:19:46,815 INFO [wh-digisac-resposta] Resposta do cliente 46c56f8d-f05e-429b-9324-656836acee32: fluxo IA (pedido 211124)
+2026-11-17 13:21:36,337 INFO [ThreadPoolExecutor-0_1] Reenvio do template: {'contatos': 14, 'reenviados': 14}
+2026-11-17 13:21:58,919 INFO [wh-digisac-resposta] Resposta do cliente 3825acf0-911c-450a-8018-5be3e2096582: fluxo TEMPLATE (pedido 211265)
+2026-11-17 13:23:05,337 INFO [wh-digisac-resposta] Resposta do cliente 91612c27-7a13-4c7e-8411-4608b6437b9a: fluxo TEMPLATE (pedido 211037)
+2026-11-17 13:23:05,338 INFO [wh-digisac-resposta] [anti-repetição] envio bloqueado contato 91612c27-7a13-4c7e-8411-4608b6437b9a: MENSAGEM_REPETIDA
+2026-11-17 13:30:01,097 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 2, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 13:33:48,878 INFO [wh-digisac-resposta] Resposta do cliente 8ef1ebc3-7eb2-4b16-a3fa-e01ce31d8d5e: fluxo TEMPLATE (pedido 211150)
+2026-11-17 13:35:20,852 INFO [wh-digisac-resposta] Resposta do cliente 8ef1ebc3-7eb2-4b16-a3fa-e01ce31d8d5e: fluxo IA (pedido 211150)
+2026-11-17 13:42:38,167 INFO [wh-digisac-resposta] Resposta do cliente 1af361de-d559-4942-8028-1f672606d5f7: fluxo IA (pedido 211199)
+2026-11-17 13:42:55,625 INFO [wh-digisac-resposta] Resposta do cliente bfd406fe-3a3b-442e-aff5-1ac6497bee90: fluxo IA (pedido 211231)
+2026-11-17 13:42:58,002 INFO [wh-digisac-resposta] Resposta do cliente a4e05b08-0dd7-41f8-8e92-384a84e72f5b: fluxo IA (pedido 211122)
+2026-11-17 13:43:05,361 INFO [wh-digisac-resposta] Resposta do cliente f818844a-3aff-4a1e-803a-f3873dd15c9b: fluxo VIGILANCIA (pedido 211116)
+2026-11-17 13:43:10,578 INFO [wh-digisac-resposta] Resposta do cliente 50419cd0-f08b-458f-92a6-c6d0cecb504c: fluxo IA (pedido 211123)
+2026-11-17 13:43:20,290 INFO [wh-digisac-resposta] Resposta do cliente 46c56f8d-f05e-429b-9324-656836acee32: fluxo VIGILANCIA (pedido 211124)
+2026-11-17 13:43:22,477 INFO [wh-digisac-resposta] Resposta do cliente a097040b-5197-4683-913e-aca21579f686: fluxo IA (pedido 211151)
+2026-11-17 13:56:15,145 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 13:56:15,675 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 14:00:00-03:00
+2026-11-17 13:56:15,675 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 14:26:15.640122-03:00
+2026-11-17 13:56:15,676 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 13:56:15,678 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 13:56:15,679 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-18 13:00:00-03:00
+2026-11-17 13:56:15,679 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-18 13:20:00-03:00
+2026-11-17 13:56:15,679 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 13:56:16,010 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 13:56:16,014 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 13:57:26,212 INFO [ao-iniciar] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': ['211037: pedido já está em AGUARDANDO'], 'em': '17/11/2026 13:57'}
+2026-11-17 14:06:37,779 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 14:06:38,171 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 14:10:00-03:00
+2026-11-17 14:06:38,173 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 14:36:38.140707-03:00
+2026-11-17 14:06:38,173 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 14:06:38,174 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 14:06:38,175 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-18 13:00:00-03:00
+2026-11-17 14:06:38,175 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-18 13:20:00-03:00
+2026-11-17 14:06:38,176 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 14:06:38,592 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 14:06:38,610 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 14:07:46,600 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 14:07:46,982 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 14:10:00-03:00
+2026-11-17 14:07:46,982 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 14:37:46.977545-03:00
+2026-11-17 14:07:46,983 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 14:07:46,983 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 14:07:46,983 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-18 13:00:00-03:00
+2026-11-17 14:07:46,983 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-18 13:20:00-03:00
+2026-11-17 14:07:46,983 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 14:07:47,089 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 14:07:47,091 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 14:08:56,491 INFO [ao-iniciar] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': ['211037: pedido já está em AGUARDANDO'], 'em': '17/11/2026 14:08'}
+2026-11-17 14:09:11,178 INFO [MainThread] Central Líder | http://0.0.0.0:6050 | MODO_TESTE=False | AGENDADOR=True
+2026-11-17 14:09:11,459 INFO [MainThread] Agendado varredura_vigilancia#0       próxima: 2026-11-17 14:10:00-03:00
+2026-11-17 14:09:11,459 INFO [MainThread] Agendado chamados_ocupados#0          próxima: 2026-11-17 14:39:11.455568-03:00
+2026-11-17 14:09:11,459 INFO [MainThread] Agendado encerramento_pendencias#0    próxima: 2026-11-17 16:20:00-03:00
+2026-11-17 14:09:11,459 INFO [MainThread] Agendado varredura_tardia#0           próxima: 2026-11-18 08:05:00-03:00
+2026-11-17 14:09:11,459 INFO [MainThread] Agendado lembrete_13h#0               próxima: 2026-11-18 13:00:00-03:00
+2026-11-17 14:09:11,459 INFO [MainThread] Agendado reenvio_template#0           próxima: 2026-11-18 13:20:00-03:00
+2026-11-17 14:09:11,460 INFO [MainThread] Agendado encerramento_pendencias#1    próxima: 2026-11-20 15:20:00-03:00
+2026-11-17 14:09:11,667 INFO [MainThread] Iniciando servidor... aguarde a linha 'Serving on' e então abra http://0.0.0.0:6050/webhook/central-lider
+2026-11-17 14:09:11,670 INFO [MainThread] Serving on http://0.0.0.0:6050
+2026-11-17 14:10:21,611 INFO [ao-iniciar] Varredura tardia: {'contatos': 12, 'falhas': [], 'cartoes': [], 'gravadas': 0, 'encerrar': [], 'ignorados': ['211037: pedido já está em CONCLUIDO'], 'em': '17/11/2026 14:10'}
+2026-11-17 14:20:00,775 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 14:30:17,862 INFO [wh-digisac-resposta] Resposta do cliente 46c56f8d-f05e-429b-9324-656836acee32: fluxo VIGILANCIA (pedido 211124)
+2026-11-17 14:40:00,554 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 14:50:03,237 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 5, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 15:00:06,777 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 1, 'LEMBRAR': 0}
+2026-11-17 15:00:57,901 INFO [wh-digisac-resposta] Resposta do cliente 4231ec2b-10ca-478e-9796-dd2ac524f3b6: fluxo IA (pedido 211101)
+2026-11-17 15:01:29,633 INFO [wh-digisac-resposta] Resposta do cliente 65947189-9389-4153-847c-438cab93af1a: fluxo IA (pedido 211068)
+2026-11-17 16:10:00,905 INFO [ThreadPoolExecutor-0_0] Varredura de vigilância: {'FECHAR': 1, 'LIMPAR': 0, 'LEMBRAR': 0}
+2026-11-17 16:20:15,934 INFO [ThreadPoolExecutor-0_0] Encerramento sem retorno: {'encerrados': 12, 'chamadosFechados': 12}

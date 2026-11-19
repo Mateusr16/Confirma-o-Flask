@@ -187,7 +187,30 @@ def interpretar_classificacao_vigilancia(linha: dict, resp: dict) -> dict:
     return {**linha, "vigTipo": tipo, "vigResumo": str((r.get("resumo") if isinstance(r, dict) else "") or "")}
 
 
-def mapear_responsavel_transferencia(row: dict, respostas_usuarios: list) -> dict:
+DEPARTAMENTO_CENTRAL_NOME = "CENTRAL DE RELACIONAMENTO LIDER"
+log_dep = __import__("logging").getLogger("central")
+
+
+def _departamentos_do_usuario(u: dict) -> tuple[set, set]:
+    """(ids, nomes normalizados) dos departamentos que o DigiSac devolveu para o usuário."""
+    ids, nomes = set(), set()
+    for d in (u.get("departments") or []):
+        if isinstance(d, dict):
+            if d.get("id"):
+                ids.add(str(d["id"]))
+            if d.get("name"):
+                nomes.add(C.sem_acento(d["name"]).strip().upper())
+        elif d:
+            ids.add(str(d))
+    for d in (u.get("departmentIds") or []):
+        ids.add(str(d))
+    return ids, nomes
+
+
+def mapear_responsavel_transferencia(row: dict, respostas_usuarios: list, departamento_id: str | None = None) -> dict:
+    """Acha o usuário do DigiSac pelo nome do responsável.
+    Com departamento_id, só vale usuário ativo (não arquivado) do departamento CENTRAL DE RELACIONAMENTO LIDER
+    (pelo id do departamento ou pelo nome)."""
     norm = lambda s: C.sem_acento(s).strip().upper()  # noqa: E731
     ignore = ["DE", "DA", "DO", "DAS", "DOS", "E"]
     toks = [x for x in re.split(r"\s+", norm(row.get("responsavel"))) if x and x not in ignore]
@@ -198,6 +221,14 @@ def mapear_responsavel_transferencia(row: dict, respostas_usuarios: list) -> dic
                 continue
             vistos.add(u["id"])
             users.append(u)
+    if departamento_id:
+        if users and not any(u.get("departments") or u.get("departmentIds") for u in users):
+            log_dep.warning("DigiSac não devolveu os departamentos dos usuários: nenhum responsável pode ser escolhido "
+                            "para transferência (filtro %s)", DEPARTAMENTO_CENTRAL_NOME)
+        def da_central(u):
+            ids, nomes = _departamentos_do_usuario(u)
+            return not u.get("archivedAt") and (str(departamento_id) in ids or DEPARTAMENTO_CENTRAL_NOME in nomes)
+        users = [u for u in users if da_central(u)]
     cand = [u for u in users if all(any(x == t or (len(t) >= 4 and x.startswith(t)) for x in re.split(r"\s+", norm(u["name"])))
                                     for t in toks)] if toks else []
     if len(cand) != 1:

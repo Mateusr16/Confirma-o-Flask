@@ -4,7 +4,7 @@ tipo: webhook
 gatilho: "POST /webhook/digisac-resposta"
 arquivo: app/fluxos/f2_resposta.py + f2_logica.py + prompts.py
 versao_base: n8n v28
-atualizado: 2026-11-16
+atualizado: 2026-11-19
 tags: [webhook, fluxo2]
 ---
 # Resposta do cliente (Fluxo 2)
@@ -19,7 +19,7 @@ Recebe as mensagens do WhatsApp (webhook do DigiSac) e responde o cliente automa
 4. Conforme a etapa:
    - **TEMPLATE** (aceitou o botão): envia a mensagem programada (planejados: vídeo `arquivos/LIDER.mp4`) → DATA_ENVIADA;
    - **IA**: Gemini classifica (aceita, adiar, dúvida, não aceita…). Aceite → planilha + observação na intranet; adiamento → altera a data na intranet (próximo dia útil, com aviso de armazenagem); dúvida → base de conhecimento ou consultor;
-   - **DECISAO_RESPONSAVEL**: sim → transfere ao responsável; não → conclui;
+   - **DECISAO_RESPONSAVEL**: sim → transfere ao responsável (só usuário ativo do departamento CENTRAL DE RELACIONAMENTO LIDER); não → conclui;
    - **CONSULTOR_MSG**: anexa a mensagem ao chat da consulta;
    - **VIGILANCIA**: já confirmou e o chamado está aberto → IA classifica e responde pela base ou abre consulta.
 

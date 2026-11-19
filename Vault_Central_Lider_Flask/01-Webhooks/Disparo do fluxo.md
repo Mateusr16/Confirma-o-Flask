@@ -4,7 +4,7 @@ tipo: webhook
 gatilho: "POST /webhook/disparar-fluxo-lider"
 arquivo: app/fluxos/f1_disparo.py (+ f1_extracao.py, f1_mensagens.py)
 versao_base: n8n v28
-atualizado: 2026-11-16
+atualizado: 2026-11-19
 tags: [webhook, fluxo1]
 ---
 # Disparo do fluxo (Fluxo 1)
@@ -26,6 +26,9 @@ Botão de disparo no painel. O webhook responde na hora (`Workflow was started`)
 8. Reincidência sem retorno e resposta tardia.
 9. Busca o contato no DigiSac (2 canais, últimos 8 dígitos) ou cria.
 10. Monta a mensagem (soltos / planejados com vídeo) e junta pedidos do mesmo cliente numa mensagem única → PENDENTE_REVISAO.
+11. Ao terminar sem erro, grava o evento de fim. É ele que faz a tela mostrar 100 %.
+
+Na consulta dos pedidos (passo 3) e na conferência de boletos (passo 5), o andamento vai para a tela como "(n/total)" no máximo a cada 20 s.
 
 ## Status e tabelas
 AGUARDANDO_ENTREGA, FLUXO_STATUS, HISTORICO_PEDIDOS, SEM_CONFIRMACAO_DIARIO.

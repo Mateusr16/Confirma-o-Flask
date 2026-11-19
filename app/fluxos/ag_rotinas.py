@@ -41,7 +41,7 @@ def _up(v) -> str:
 
 
 def _timer():
-    time.sleep(round((5 + random.random()) * 10) / 10)
+    time.sleep(round((1 + random.random()) * 10) / 10)
 
 
 # ===================================================================== VARREDURA DE VIGILÂNCIA (10 min)
